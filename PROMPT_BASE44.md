@@ -1,3 +1,4 @@
+[PROMPT_BASE44.md](https://github.com/user-attachments/files/32214293/PROMPT_BASE44.md)
 # Prompt para o Base44 — Entrega Rota Pro 2.0
 
 Crie um aplicativo completo de logística de entregas chamado "Entrega Rota Pro 2.0", inspirado na experiência de planejadores de rotas como Spoke/Circuit, mas com foco em planilhas de entregas da Shopee e agrupamento inteligente de endereços.
