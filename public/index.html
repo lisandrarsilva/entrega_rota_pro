@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega Rota Pro 9.1</title>
+<title>Entrega Rota Pro 9.2</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -23,10 +23,11 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .file-row{display:flex;gap:8px;align-items:center;margin-top:10px}.file-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .controls{display:flex;gap:8px;flex-wrap:wrap}.controls input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:9px 11px}
 .route-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}.route-head h2{font-size:17px;margin:0}.route-head .count{margin-left:auto;color:var(--muted);font-size:13px}
-.list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:start}.stop-head{display:flex;align-items:center;gap:8px;min-width:0}.stop-title{font-weight:800;font-size:14px;line-height:1.2}.stop-status{margin-left:auto}.stop-info{display:grid;gap:7px;margin-top:9px}.info-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px;align-items:start;font-size:13px;line-height:1.3}.info-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:none}.info-value{min-width:0;overflow-wrap:anywhere;color:#263246}.package-line{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:13px;font-weight:800}.package-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#1759a8;border:1px solid #d5e7ff}.stop-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);margin-top:2px}.order-buttons{display:flex;gap:6px;flex-wrap:wrap}.mini.status-action{font-weight:700}.mini.status-action.active{box-shadow:0 0 0 2px rgba(23,105,224,.18);border-color:#93c5fd}.location-confirm{display:grid;gap:10px}.location-address-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-address-box strong{display:block;margin-bottom:4px}.coords{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0}.stop.pending{background:#fffbeb;border-color:#fde68a}.stop.notdone{background:#fff5f5;border-color:#fecaca}.stop.end{background:#f3f4f6;border-color:#9ca3af}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
-.marker-num.location-edit{cursor:move;outline:3px dashed #f59e0b;outline-offset:2px}.marker-num{width:28px;height:28px;border-radius:50%;background:#1769e0;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:grid;place-items:center;font-weight:800;font-size:12px}.marker-num.selected{outline:3px solid #1769e0;outline-offset:2px}.marker-num.done{background:#16a34a}.marker-num.pending{background:#eab308;color:#172033}.marker-num.notdone{background:#dc2626}.marker-num.end{background:#111827}.num{width:30px;height:30px;border-radius:50%;background:#edf4ff;color:var(--brand);display:grid;place-items:center;font-weight:800}.stop-main{min-width:0}.stop-main b{display:block;line-height:1.25}.address{font-size:13px;color:#303a4c;margin-top:3px}.seq{font-size:11px;color:var(--muted);margin-top:5px}.stop-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.mini{padding:6px 8px;border-radius:8px;background:#f4f6f9;border:1px solid var(--line);font-size:12px}.mini:hover{background:#eaf0f8}.status{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:#64748b}.status.done{background:#dcfce7;color:#15803d}.status.pending{background:#fef3c7;color:#a16207}.status.notdone{background:#fee2e2;color:#b91c1c}.status.end{background:#e5e7eb;color:#111827}
+.list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:start}.stop-head{display:flex;align-items:center;gap:8px;min-width:0}.stop-title{font-weight:800;font-size:14px;line-height:1.2}.stop-status{margin-left:auto}.stop-info{display:grid;gap:7px;margin-top:9px}.info-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px;align-items:start;font-size:13px;line-height:1.3}.info-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:none}.info-value{min-width:0;overflow-wrap:anywhere;color:#263246}.package-line{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:13px;font-weight:800}.package-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#1759a8;border:1px solid #d5e7ff}.stop-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);margin-top:2px}.order-buttons{display:flex;gap:6px;flex-wrap:wrap}.mini.status-action{font-weight:700}.mini.status-action.active{box-shadow:0 0 0 2px rgba(23,105,224,.18);border-color:#93c5fd}.location-confirm{display:grid;gap:10px}.location-address-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-address-box strong{display:block;margin-bottom:4px}.coords{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0;opacity:.52}.stop.pending{background:#eff6ff;border-color:#bfdbfe;opacity:1}.stop.notdone{background:#fff5f5;border-color:#fecaca;opacity:.52}.stop.end{background:#fefce8;border-color:#fde68a;opacity:1}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
+.marker-num.location-edit{cursor:move;outline:3px dashed #f59e0b;outline-offset:2px}.marker-num{width:28px;height:28px;border-radius:50%;background:#1769e0;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:grid;place-items:center;font-weight:800;font-size:12px}.marker-num.selected{outline:3px solid #1769e0;outline-offset:2px}.marker-num.done{background:#16a34a;opacity:.52}.marker-num.pending{background:#2563eb;opacity:1}.marker-num.notdone{background:#dc2626;opacity:.52}.marker-num.end{background:#eab308;color:#172033;opacity:1}.num{width:30px;height:30px;border-radius:50%;background:#edf4ff;color:var(--brand);display:grid;place-items:center;font-weight:800}.stop-main{min-width:0}.stop-main b{display:block;line-height:1.25}.address{font-size:13px;color:#303a4c;margin-top:3px}.seq{font-size:11px;color:var(--muted);margin-top:5px}.stop-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.mini{padding:6px 8px;border-radius:8px;background:#f4f6f9;border:1px solid var(--line);font-size:12px}.mini:hover{background:#eaf0f8}.status{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:#64748b}.status.done{background:#dcfce7;color:#15803d}.status.pending{background:#dbeafe;color:#1d4ed8}.status.notdone{background:#fee2e2;color:#b91c1c}.status.end{background:#fef3c7;color:#a16207}
 .empty{padding:35px 15px;text-align:center;color:var(--muted)}.badge{font-size:11px;padding:4px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:750}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:3000;padding:16px}.modal.open{display:flex}.modal-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.25)}.modal-box h2{margin:0 0 12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{border:1px solid var(--line);padding:9px;border-radius:9px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.location-sheet{position:fixed;left:50%;bottom:16px;transform:translateX(-50%) translateY(calc(100% + 30px));width:min(680px,calc(100vw - 24px));background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(15,23,42,.22);z-index:3500;padding:14px;opacity:0;pointer-events:none;transition:transform .22s ease,opacity .22s ease}.location-sheet.open{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}.location-sheet-head{display:flex;align-items:flex-start;gap:10px}.location-sheet-icon{width:34px;height:34px;border-radius:10px;background:#fff7ed;color:#c2410c;display:grid;place-items:center;flex:none}.location-sheet-title{font-weight:850;font-size:14px}.location-sheet-sub{font-size:12px;color:var(--muted);margin-top:2px}.location-sheet-address{margin-top:10px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-sheet-address strong{display:block;font-size:12px;margin-bottom:4px}.location-sheet-number{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:850;font-size:12px;margin-bottom:6px}.location-sheet input{width:100%;border:1px solid var(--line);padding:9px 10px;border-radius:9px}.location-sheet-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.location-sheet-actions .btn{padding:8px 12px}@media(max-width:600px){.location-sheet{bottom:8px;width:calc(100vw - 16px);padding:12px;border-radius:14px}.location-sheet-actions{display:grid;grid-template-columns:1fr 1fr}.location-sheet-actions .btn{width:100%}}
 .toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:4000}.toast.show{display:block}
 @media(max-width:1050px){.main{grid-template-columns:1fr}.map-card{min-height:500px}#map{height:55vh;min-height:420px}.list{max-height:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}}
 @media(max-width:600px){.top{padding:0 10px}.main{padding:7px}.config-wrap{padding:10px}.config-map-panel{min-height:360px}.config-map-panel #configMapHost{height:42vh;min-height:300px}.top-actions .btn{padding:7px 8px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:1fr;gap:2px}.info-label{font-size:10px}.info-value{font-size:13px}.stop{grid-template-columns:34px 1fr;padding:10px}.stop-actions{grid-column:1/-1;justify-content:flex-start}.stop-actions .order-buttons{width:100%}.stop-actions .mini{padding:6px 8px;font-size:11px}.nav-map-card{height:44vh;min-height:320px}.nav-side{height:54vh}.nav-side .controls{display:grid;grid-template-columns:1fr 100px;gap:6px}.nav-side .controls input{min-width:0}.route-head h2{font-size:15px}.route-head .count{font-size:12px}}
@@ -74,11 +75,14 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   <div id="modalBody"></div>
   <div class="modal-foot"><button class="btn" id="modalClose">Fechar</button></div>
 </div></div>
-<div class="modal" id="locationModal"><div class="modal-box">
-  <h2>📍 Confirmar localização</h2>
-  <div id="locationModalBody"></div>
-  <div class="modal-foot"><button class="btn" id="locationCancel">Cancelar</button><button class="btn primary" id="locationSave">✅ Confirmar localização</button></div>
-</div></div>
+<div class="location-sheet" id="locationSheet">
+  <div class="location-sheet-head">
+    <div class="location-sheet-icon">📍</div>
+    <div><div class="location-sheet-title">Endereço encontrado neste ponto</div><div class="location-sheet-sub">Se não estiver certo, arraste o balão novamente para outro ponto.</div></div>
+  </div>
+  <div id="locationSheetBody"></div>
+  <div class="location-sheet-actions"><button class="btn" id="locationCancel">↩️ Tentar outro ponto</button><button class="btn primary" id="locationSave">✅ Confirmar localização</button></div>
+</div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -209,6 +213,18 @@ function updateStats(){
   const d=document.getElementById('routeCount'); if(d)d.textContent=state.groups.length+' paradas';
 }
 function matches(g){ return true; }
+function reorderByStatus(){
+  const pending=state.groups.filter(g=>g.status==='pending');
+  const end=state.groups.filter(g=>g.status==='end');
+  const completed=state.groups.filter(g=>g.status==='done'||g.status==='notdone');
+  state.groups=[...pending,...end,...completed];
+}
+function setStatusAndReorder(g,status){
+  g.status=status;
+  reorderByStatus();
+  save();
+  render();
+}
 function renderList(){
   const el=document.getElementById('stopList'); if(!el)return; el.innerHTML='';
   if(!state.groups.length){el.innerHTML='<div class="empty">Nenhuma parada disponível.</div>';return}
@@ -227,11 +243,11 @@ function renderList(){
     const bairro=bairroCol?(g[bairroCol]||'—'):'—', city=cityCol?(g[cityCol]||'—'):'—';
     const statusLabel={done:'ENTREGUE',pending:'PENDENTE',notdone:'NÃO ENTREGUE',end:'FIM DA FILA'}[g.status]||'PENDENTE';
     const fields=[['Sequence',seq],['Destination',destination],['Address',address],['Bairro',bairro],['City',city]].map(([k,v])=>`<div class="info-row"><div class="info-label">${k}</div><div class="info-value">${esc(v)}</div></div>`).join('');
-    d.innerHTML=`<div class="num">${idx+1}</div><div class="stop-main"><div class="stop-head"><div class="stop-title">Parada ${idx+1}</div><span class="status ${statusClass} stop-status">${statusLabel}</span></div><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div><div class="stop-info">${fields}</div></div><div class="stop-actions"><button class="mini status-action ${g.status==='done'?'active':''}" data-act="done">✅ Entregue</button><button class="mini status-action ${g.status==='notdone'?'active':''}" data-act="notdone">🔴 Não entregue</button><button class="mini status-action ${g.status==='pending'?'active':''}" data-act="pending">🟡 Pendente</button><button class="mini status-action ${g.status==='end'?'active':''}" data-act="end">🏁 Fim</button><button class="mini" data-act="detail">Detalhes</button></div></div>`;
+    d.innerHTML=`<div class="num">${idx+1}</div><div class="stop-main"><div class="stop-head"><div class="stop-title">Parada ${idx+1}</div><span class="status ${statusClass} stop-status">${statusLabel}</span></div><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div><div class="stop-info">${fields}</div></div><div class="stop-actions"><button class="mini status-action ${g.status==='done'?'active':''}" data-act="done">✅ Entregue</button><button class="mini status-action ${g.status==='notdone'?'active':''}" data-act="notdone">🔴 Não entregue</button><button class="mini status-action ${g.status==='pending'?'active':''}" data-act="pending">🔵 Pendente</button><button class="mini status-action ${g.status==='end'?'active':''}" data-act="end">🏁 Fim</button><button class="mini" data-act="detail">Detalhes</button></div></div>`;
     d.addEventListener('click',e=>{
       const act=e.target.dataset.act;if(!act)return;
-      if(['done','pending','notdone'].includes(act)){g.status=act;save();renderMap();renderList();return}
-      if(act==='end'){const [m]=state.groups.splice(idx,1);m.status='end';state.groups.push(m);save();render();return}
+      if(['done','pending','notdone'].includes(act)){setStatusAndReorder(g,act);return}
+      if(act==='end'){setStatusAndReorder(g,'end');return}
       if(act==='detail')openDetail(g);
     });
     el.appendChild(d);
@@ -406,25 +422,48 @@ async function reverseGeocode(lat,lng){
 }
 function formatReverseAddress(j){
   if(!j)return '';
-  return j.display_name||'';
+  const a=j.address||{};
+  const parts=[];
+  if(a.road)parts.push(a.road);
+  if(a.house_number)parts.push(a.house_number);
+  if(a.neighbourhood)parts.push(a.neighbourhood);
+  else if(a.suburb)parts.push(a.suburb);
+  if(a.city||a.town||a.village)parts.push(a.city||a.town||a.village);
+  if(a.state)parts.push(a.state);
+  return parts.length?parts.join(', '):(j.display_name||'');
+}
+function reverseHouseNumber(j){
+  return String(j?.address?.house_number||'').trim();
+}
+function reverseStreet(j){
+  return String(j?.address?.road||j?.address?.pedestrian||j?.address?.residential||'').trim();
 }
 async function openLocationConfirmation(idx,ll){
   const g=state.groups[idx];
   state.pendingLocation={idx,lat:ll.lat,lng:ll.lng};
-  const body=document.getElementById('locationModalBody');
-  body.innerHTML=`<div class="location-confirm"><div>Buscando o endereço deste ponto no mapa...</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
-  document.getElementById('locationModal').classList.add('open');
+  const sheet=document.getElementById('locationSheet');
+  const body=document.getElementById('locationSheetBody');
+  const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+  body.innerHTML=`<div class="location-sheet-address"><div class="location-sheet-sub">Consultando o ponto exato da rua…</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
+  sheet.classList.add('open');
   try{
     const j=await reverseGeocode(ll.lat,ll.lng);
     const address=formatReverseAddress(j)||'';
-    const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
-    body.innerHTML=`<div class="location-confirm"><div class="location-address-box"><strong>📍 Endereço encontrado</strong><div>${esc(address||'Não foi possível identificar o endereço automaticamente.')}</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div><div class="field"><label>Endereço para esta parada</label><input id="locationAddressInput" value="${esc(address||g.__mapAddress||g[addrCol]||'')}" placeholder="Edite o endereço se necessário"></div><div class="muted">O ponto no mapa será salvo exatamente na posição onde você soltou o balão. O endereço acima pode ser editado antes de confirmar.</div></div>`;
+    const house=reverseHouseNumber(j);
+    const street=reverseStreet(j);
+    const fallback=g.__mapAddress||g[addrCol]||'';
+    const best=address||fallback;
+    body.innerHTML=`<div class="location-sheet-address">${house?`<div class="location-sheet-number">Nº ${esc(house)}</div>`:''}<strong>${esc(street||'Endereço neste ponto')}</strong><input id="locationAddressInput" value="${esc(best)}" placeholder="Edite o endereço se necessário"><div class="coords" style="margin-top:7px">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}${house?' • número da casa encontrado no mapa':''}</div></div>`;
   }catch(e){
-    const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
-    body.innerHTML=`<div class="location-confirm"><div class="location-address-box"><strong>📍 Não foi possível consultar o endereço automaticamente.</strong><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div><div class="field"><label>Endereço para esta parada</label><input id="locationAddressInput" value="${esc(g.__mapAddress||g[addrCol]||'')}" placeholder="Digite ou corrija o endereço"></div></div>`;
+    const fallback=g.__mapAddress||g[addrCol]||'';
+    body.innerHTML=`<div class="location-sheet-address"><strong>Não foi possível consultar o endereço automaticamente.</strong><input id="locationAddressInput" value="${esc(fallback)}" placeholder="Digite ou corrija o endereço"><div class="coords" style="margin-top:7px">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
   }
 }
-function closeLocationConfirmation(){state.pendingLocation=null;document.getElementById('locationModal').classList.remove('open');renderMap();}
+function closeLocationConfirmation(){
+  state.pendingLocation=null;
+  document.getElementById('locationSheet').classList.remove('open');
+  renderMap();
+}
 function saveLocationConfirmation(){
   const p=state.pendingLocation;if(!p)return;
   const g=state.groups[p.idx];
@@ -437,7 +476,11 @@ function saveLocationConfirmation(){
   if(latCol)g[latCol]=p.lat;
   if(lngCol)g[lngCol]=p.lng;
   if(addrCol && value)g[addrCol]=value;
-  state.pendingLocation=null;document.getElementById('locationModal').classList.remove('open');save();render();toast(`📍 Localização da parada ${p.idx+1} confirmada.`);
+  state.pendingLocation=null;
+  document.getElementById('locationSheet').classList.remove('open');
+  save();
+  render();
+  toast(`📍 Localização da parada ${p.idx+1} confirmada. Você pode arrastá-la novamente a qualquer momento.`);
 }
 
 async function geocodeAddress(query){
@@ -522,7 +565,6 @@ document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>
 document.getElementById('modalClose').onclick=()=>document.getElementById('detailModal').classList.remove('open');
 document.getElementById('locationCancel').onclick=closeLocationConfirmation;
 document.getElementById('locationSave').onclick=saveLocationConfirmation;
-document.getElementById('locationModal').onclick=e=>{if(e.target.id==='locationModal')closeLocationConfirmation();};
 document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
 const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
 initMap();
