@@ -47,4 +47,633 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 <header class="top">
   <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">7.0</span></div>
   <div class="top-actions">
-    <button class="btn" id="btnLocate">📍
+    <button class="btn" id="btnLocate">📍 Minha localização</button>
+    <button class="btn primary" id="btnImportTop">📥 Importar</button>
+    <button class="btn ok" id="btnExportTop">📤 Exportar</button>
+  </div>
+</header>
+<main>
+<section class="screen active" id="screenConfig"><div class="config-wrap"><div class="screen-title"><h1>⚙️ Configuração da rota</h1><span class="muted">Prepare a rota antes de iniciar a navegação</span></div><div class="config-grid"><section class="left">
+  <div class="panel">
+    <h3>📦 Importação</h3>
+    <div class="import-zone" id="dropZone"><strong>📦 Importe sua planilha da Shopee</strong><div class="muted">Arraste .xlsx/.xls/.csv aqui ou selecione um arquivo.</div><div style="margin-top:10px"><button class="btn primary" id="btnChoose">Selecionar planilha</button></div><input id="fileInput" type="file" accept=".xlsx,.xls,.xlsm,.csv" hidden><div class="file-row" id="fileInfo" style="display:none"><span class="badge">OK</span><span class="file-name" id="fileName"></span></div></div>
+  </div>
+  <div class="panel"><h3>🔗 Agrupamento</h3><button class="btn primary" id="btnGroup">🔗 Agrupar endereços</button><div class="muted" style="margin-top:7px">Uma parada por endereço elegível. Mantém todos os Sequence, complementos e colunas originais.</div><div class="stats" style="margin-top:10px"><div class="stat"><b id="statPackages">0</b><small>Pacotes</small></div><div class="stat"><b id="statStops">0</b><small>Paradas</small></div></div></div>
+  <div class="panel"><h3>📝 Ajustar paradas</h3><div class="muted" style="margin-bottom:9px">Revise os agrupamentos antes de iniciar. Cada parada pode ser editada ou excluída.</div><div class="config-stop-list" id="configStopList"><div class="empty">Importe e agrupe uma planilha para editar as paradas.</div></div></div>
+  <div class="panel"><h3>📍 Pontos da rota</h3><div class="route-points">
+      <div class="point-box start"><div class="point-head"><strong>🚚 Ponto de partida</strong><span class="point-state" id="startState">Não definido</span></div><div class="point-actions"><button class="mini" id="btnSetStart">📍 Usar minha localização</button><button class="mini" id="btnClearStart">✕ Limpar</button></div><div class="search-point" style="margin-top:7px"><input id="startAddress" placeholder="Pesquisar endereço de partida"><button class="mini" id="btnSetStartAddress">🔎 Definir</button></div></div>
+      <div class="point-box home"><div class="point-head"><strong>🏠 Ponto final — minha casa</strong><span class="point-state" id="homeState">Não definido</span></div><div class="point-actions"><input id="homeAddress" placeholder="Digite o endereço da sua casa"><button class="mini" id="btnSetHome">🏠 Definir casa</button><button class="mini" id="btnHomeCurrent">📍 Usar localização atual</button><button class="mini" id="btnClearHome">✕ Limpar</button></div></div>
+  </div></div>
+  <div class="panel"><h3>🛠️ Preparar a rota</h3><div class="controls config-controls"><button class="btn primary" id="btnOptimize">⚡ Otimizar rota</button><button class="btn" id="btnEditMap">✋ Editar ordem pelos balões</button><button class="btn" id="btnFinishMapEdit" style="display:none">✅ Concluir ordem</button><button class="btn" id="btnEditLocation">📍 Editar localização</button><button class="btn" id="btnFinishLocationEdit" style="display:none">✅ Concluir localização</button><button class="btn" id="btnRoadRoute">🗺️ Calcular trajeto</button><button class="btn" id="btnReset">↩️ Restaurar ordem</button><button class="btn" id="btnFit">🔎 Ver tudo</button></div><div class="map-edit-note" id="mapEditNote">✋ Clique nos balões na ordem desejada. Depois clique em “Concluir ordem”.</div><div class="map-edit-note" id="locationEditNote">📍 Arraste os balões para o local correto. Ao soltar, confirme o endereço encontrado.</div></div>
+  <div class="config-actions"><button class="btn primary" id="btnGoNavigation">🚚 Ir para navegação</button></div>
+  </section>
+  <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div></div></section>
+</div></div></section>
+<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Concluídos</span><b id="navCompletedStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Restante</span><b id="navRemainingStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
+</main>
+</div>
+
+<div class="modal" id="detailModal"><div class="modal-box">
+  <h2 id="modalTitle">Detalhes da parada</h2>
+  <div id="modalBody"></div>
+  <div class="modal-foot"><button class="btn" id="modalClose">Fechar</button></div>
+</div></div>
+<div class="location-sheet" id="locationSheet">
+  <div class="location-sheet-head">
+    <div class="location-sheet-icon">📍</div>
+    <div><div class="location-sheet-title">Endereço encontrado neste ponto</div><div class="location-sheet-sub">Se não estiver certo, arraste o balão novamente para outro ponto.</div></div>
+  </div>
+  <div id="locationSheetBody"></div>
+  <div class="location-sheet-actions"><button class="btn" id="locationCancel">↩️ Tentar outro ponto</button><button class="btn primary" id="locationSave">✅ Confirmar localização</button></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null,userPosition:null,geoWatchId:null};
+
+const STREET_TYPES={
+  r:'rua','r.':'rua','rua':'rua','av':'avenida','av.':'avenida','aven':'avenida','avenida':'avenida',
+  rod:'rodovia','rod.':'rodovia','rodovia':'rodovia','tv':'travessa','tv.':'travessa','trav':'travessa','travessa':'travessa',
+  al:'alameda','al.':'alameda','alameda':'alameda','pç':'praca','pc':'praca','praca':'praca','praça':'praca',
+  est:'estrada','est.':'estrada','estrada':'estrada','vl':'viela','viela':'viela','lgo':'largo','largo':'largo'
+};
+const COMMON_ABBR={q:'quadra',qd:'quadra',bl:'bloco',ap:'apartamento',apto:'apartamento',c:'casa',cs:'casa',sl:'sala',lj:'loja'};
+
+function norm(s){
+  return String(s??'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+}
+function tokens(s){return norm(s).split(' ').filter(Boolean)}
+function expandType(t){return STREET_TYPES[t]||t}
+function streetEquivalent(a,b){
+  let A=tokens(a),B=tokens(b);
+  if(!A.length||!B.length)return false;
+  A[0]=expandType(A[0]); B[0]=expandType(B[0]);
+  if(A[0]!==B[0]) return false;
+  A=A.slice(1); B=B.slice(1);
+  let i=0,j=0;
+  while(i<A.length && j<B.length){
+    const x=A[i],y=B[j];
+    if(x===y){i++;j++;continue}
+    if(x.length===1 && y.startsWith(x)){i++;j++;continue}
+    if(y.length===1 && x.startsWith(y)){i++;j++;continue}
+    return false;
+  }
+  return i===A.length && j===B.length;
+}
+function extractAddress(addr){
+  const raw=String(addr??'').trim();
+  const m=raw.match(/(?:^|\s)(\d+[A-Za-z]?)(?=\s|,|$)/);
+  if(!m)return {street:raw,number:'',complement:'',base:raw};
+  const idx=m.index + (m[0].startsWith(' ')?1:0);
+  const street=raw.slice(0,idx).replace(/[ ,]+$/,'').trim();
+  const number=m[1];
+  let rest=raw.slice(idx+m[0].length).replace(/^\s*,?\s*/,'').trim();
+  const base=(street+', '+number).replace(/\s+/g,' ').trim();
+  return {street,number,complement:rest,base};
+}
+function findCol(headers, names){
+  const hn=headers.map(h=>norm(h));
+  for(const n of names){const i=hn.indexOf(norm(n)); if(i>=0)return headers[i]}
+  return null;
+}
+function uniqueVals(vals){
+  const out=[]; const seen=new Set();
+  for(const v of vals){const s=String(v??'').trim(); if(!s)continue; const k=norm(s); if(!seen.has(k)){seen.add(k);out.push(s)}}
+  return out;
+}
+function seqSort(vals){
+  const u=uniqueVals(vals);
+  u.sort((a,b)=>{
+    const na=parseFloat(String(a).replace(',','.')), nb=parseFloat(String(b).replace(',','.'));
+    if(Number.isFinite(na)&&Number.isFinite(nb))return na-nb;
+    return String(a).localeCompare(String(b),'pt-BR',{numeric:true});
+  });
+  return u.join(', ');
+}
+function makeGroup(rowIndices){
+  const rows=rowIndices.map(i=>state.rows[i]);
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
+  const cityCol=findCol(state.headers,['City','Cidade']);
+  const first=rows[0];
+  const parsed=rows.map(r=>extractAddress(r[addrCol]));
+  let complements=[];
+  parsed.forEach(p=>{if(p.complement)complements.push(p.complement)});
+  const base=parsed.find(p=>p.base)?.base || first[addrCol];
+  const out={...first,__indices:rowIndices,__rows:rows,__packageCount:rows.length,__base:base,__complements:uniqueVals(complements),status:'pending'};
+  for(const h of state.headers){
+    if(h===addrCol){
+      out[h]=base+(out.__complements.length? ', '+out.__complements.join('; '):'');
+    }else if(h===seqCol){
+      out[h]=seqSort(rows.map(r=>r[h]));
+    }else if(h===bairroCol || h===cityCol){
+      out[h]=uniqueVals(rows.map(r=>r[h])).join(' | ');
+    }else if(h.toLowerCase()==='latitude' || h.toLowerCase()==='longitude'){
+      const nums=rows.map(r=>Number(r[h])).filter(Number.isFinite);
+      out[h]=nums.length?nums[0]:first[h];
+    }else{
+      const vals=uniqueVals(rows.map(r=>r[h]));
+      out[h]=vals.join(' | ');
+    }
+  }
+  out.lat=Number(out[findCol(state.headers,['Latitude','lat'])]);
+  out.lng=Number(out[findCol(state.headers,['Longitude','lng','lon'])]);
+  return out;
+}
+function canGroup(g,row){
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
+  const cityCol=findCol(state.headers,['City','Cidade']);
+  const p=extractAddress(row[addrCol]);
+  const gp=extractAddress(g.__rows[0][addrCol]);
+  if(!p.number||!gp.number||norm(p.number)!==norm(gp.number))return false;
+  if(!streetEquivalent(p.street,gp.street))return false;
+  if(bairroCol && norm(row[bairroCol])!==norm(g.__rows[0][bairroCol]))return false;
+  if(cityCol && norm(row[cityCol])!==norm(g.__rows[0][cityCol]))return false;
+  return true;
+}
+function buildGroups(){
+  const groups=[];
+  state.rows.forEach((row,i)=>{
+    let found=null;
+    for(const g of groups){if(canGroup(g,row)){found=g;break}}
+    if(found)found.__indices.push(i),found.__rows.push(row);
+    else groups.push({__indices:[i],__rows:[row],__base:'',__complements:[],status:'pending'});
+  });
+  state.groups=groups.map(g=>makeGroup(g.__indices));
+  state.originalGroups=state.groups.map(g=>({...g,__indices:[...g.__indices],__rows:[...g.__rows]}));
+}
+function render(){
+  updateStats(); renderList(); renderConfigStopList(); renderMap();
+}
+function packageCount(g){const seqCol=findCol(state.headers,['Sequence','Sequência']); if(!seqCol)return g.__rows?.length||1; const n=(g.__rows||[]).filter(r=>String(r[seqCol]??'').trim()!=='').length; return n||((g.__rows||[]).length||1)}
+function updateStats(){
+  const a=document.getElementById('statStops'); if(a)a.textContent=state.groups.length;
+  const b=document.getElementById('statPackages'); if(b)b.textContent=state.rows.length;
+  const c=document.getElementById('statDone'); if(c)c.textContent=state.groups.filter(g=>g.status==='done').length;
+  const d=document.getElementById('routeCount'); if(d)d.textContent=state.groups.length+' paradas';
+  const completedStops=state.groups.filter(g=>g.status==='done'||g.status==='notdone').length;
+  const remainingStops=state.groups.filter(g=>g.status==='pending'||g.status==='end').length;
+  const completedPackages=state.groups.filter(g=>g.status==='done'||g.status==='notdone').reduce((sum,g)=>sum+packageCount(g),0);
+  const remainingPackages=state.groups.filter(g=>g.status==='pending'||g.status==='end').reduce((sum,g)=>sum+packageCount(g),0);
+  const totalPackages=completedPackages+remainingPackages;
+  const pct=totalPackages?(completedPackages/totalPackages)*100:0;
+  const cs=document.getElementById('navCompletedStops'); if(cs)cs.textContent=`${completedStops} parada${completedStops===1?'':'s'} / ${completedPackages} pacote${completedPackages===1?'':'s'}`;
+  const rs=document.getElementById('navRemainingStops'); if(rs)rs.textContent=`${remainingStops} parada${remainingStops===1?'':'s'} / ${remainingPackages} pacote${remainingPackages===1?'':'s'}`;
+  const dp=document.getElementById('navDeliveryProgress'); if(dp)dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`;
+}
+function matches(g){ return true; }
+function reorderByStatus(){
+  const pending=state.groups.filter(g=>g.status==='pending');
+  const end=state.groups.filter(g=>g.status==='end');
+  const completed=state.groups.filter(g=>g.status==='done'||g.status==='notdone');
+  state.groups=[...pending,...end,...completed];
+}
+function setStatusAndReorder(g,status){
+  g.status=status;
+  reorderByStatus();
+  save();
+  render();
+}
+function sequenceValues(g){
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  if(!seqCol)return [];
+  return (g.__rows||[]).map(r=>String(r[seqCol]??'').trim()).filter(Boolean);
+}
+function renderConfigStopList(){
+  const el=document.getElementById('configStopList'); if(!el)return; el.innerHTML='';
+  if(!state.groups.length){el.innerHTML='<div class="empty">Importe e agrupe uma planilha para editar as paradas.</div>';return}
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  state.groups.forEach((g,idx)=>{
+    const d=document.createElement('div'); d.className='config-stop-item';
+    const addr=g.__mapAddress||g[addrCol]||'Endereço não informado';
+    const seqs=sequenceValues(g); const pkg=packageCount(g);
+    d.innerHTML=`<div class="config-stop-row"><div class="config-stop-number">${idx+1}</div><div class="config-stop-summary"><strong>${esc(addr)}</strong><div class="small">Sequence: ${esc(seqs.join(', ')||'—')} • 📦 ${pkg} pacote${pkg===1?'':'s'}</div></div></div><div class="config-stop-actions"><button class="mini" data-config-act="edit">✏️ Editar</button><button class="mini danger" data-config-act="delete">🗑️ Excluir</button></div>`;
+    d.addEventListener('click',e=>{const act=e.target.dataset.configAct;if(act==='edit')openStopEditor(idx);if(act==='delete')deleteStop(idx)});
+    el.appendChild(d);
+  });
+}
+function uniqueNextSequences(existing,n){
+  const used=new Set(existing.map(x=>String(x).trim()).filter(Boolean));
+  state.groups.forEach(g=>sequenceValues(g).forEach(x=>used.add(String(x).trim())));
+  let max=0; used.forEach(x=>{const m=String(x).match(/^\d+$/);if(m)max=Math.max(max,Number(m[0]))});
+  const out=[]; while(out.length<n){max++; if(!used.has(String(max))){out.push(String(max));used.add(String(max))}}
+  return out;
+}
+function openStopEditor(idx){
+  if(state.screen!=='config')return;
+  const g=state.groups[idx]; if(!g)return;
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  const seqs=sequenceValues(g); const addr=g.__mapAddress||g[addrCol]||'';
+  const body=document.getElementById('modalBody');
+  document.getElementById('modalTitle').textContent=`Editar parada ${idx+1}`;
+  body.innerHTML=`<div class="edit-warning">Altere a posição da parada, a quantidade de pacotes e os números de Sequence. Se aumentar a quantidade, novos registros serão criados usando os dados desta parada como base.</div><div class="edit-grid" style="margin-top:12px"><div class="field"><label>Ordem da parada</label><input id="editStopOrder" type="number" min="1" max="${state.groups.length}" value="${idx+1}"></div><div class="field"><label>Quantidade de pacotes</label><input id="editPackageCount" type="number" min="1" value="${seqs.length||packageCount(g)}"></div><div class="field full"><label>Sequences — um por pacote, separados por vírgula</label><textarea id="editSequences" class="field input sequence-input" style="border:1px solid var(--line);padding:9px;border-radius:9px">${esc(seqs.join(', '))}</textarea></div><div class="field full"><label>Endereço da parada</label><input id="editAddress" value="${esc(addr)}"></div></div><div class="modal-foot"><button class="btn" id="editCancel">Cancelar</button><button class="btn danger" id="editDelete">🗑️ Excluir parada</button><button class="btn primary" id="editSave">💾 Salvar alterações</button></div>`;
+  document.getElementById('detailModal').classList.add('open');
+  document.getElementById('editCancel').onclick=()=>document.getElementById('detailModal').classList.remove('open');
+  document.getElementById('editDelete').onclick=()=>{document.getElementById('detailModal').classList.remove('open');deleteStop(idx)};
+  const pkgInput=document.getElementById('editPackageCount'), seqInput=document.getElementById('editSequences');
+  pkgInput.onchange=()=>{let n=Math.max(1,Number(pkgInput.value)||1);let vals=seqInput.value.split(',').map(x=>x.trim()).filter(Boolean);if(n>vals.length)vals=vals.concat(uniqueNextSequences(vals,n-vals.length));if(n<vals.length)vals=vals.slice(0,n);seqInput.value=vals.join(', ')};
+  document.getElementById('editSave').onclick=()=>saveStopEditor(idx);
+}
+function saveStopEditor(idx){
+  const g=state.groups[idx]; if(!g)return;
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  let order=Math.max(1,Math.min(state.groups.length,Number(document.getElementById('editStopOrder').value)||idx+1));
+  let seqs=document.getElementById('editSequences').value.split(',').map(x=>x.trim()).filter(Boolean);
+  const n=Math.max(1,Number(document.getElementById('editPackageCount').value)||seqs.length||1);
+  if(seqs.length<n)seqs=seqs.concat(uniqueNextSequences(seqs,n-seqs.length));
+  if(seqs.length>n)seqs=seqs.slice(0,n);
+  if(!seqs.length)return toast('Informe pelo menos um Sequence.');
+  const oldRows=g.__rows||[]; const base=oldRows[0]?{...oldRows[0]}:{};
+  while(oldRows.length<n)oldRows.push({...base});
+  while(oldRows.length>n)oldRows.pop();
+  if(seqCol)oldRows.forEach((r,i)=>r[seqCol]=seqs[i]||'');
+  g.__rows=oldRows; g.__indices=oldRows.map((_,i)=>i); g.__packageCount=n;
+  if(addrCol){const a=document.getElementById('editAddress').value.trim(); if(a){g[addrCol]=a;g.__mapAddress=a}}
+  state.headers.forEach(h=>{if(h===seqCol)g[h]=seqs.join(', ');else if(h===addrCol){}else{const vals=uniqueVals(oldRows.map(r=>r[h]));if(vals.length)g[h]=vals.join(' | ')}});
+  const moved=state.groups.splice(idx,1)[0]; state.groups.splice(order-1,0,moved);
+  document.getElementById('detailModal').classList.remove('open'); save(); render(); toast(`✅ Parada ajustada: ${n} pacote${n===1?'':'s'} / ${seqs.join(', ')}`);
+}
+function deleteStop(idx){
+  if(!state.groups[idx])return;
+  if(!confirm(`Excluir a parada ${idx+1}? Os pacotes desta parada serão removidos da rota.`))return;
+  state.groups.splice(idx,1); save(); render(); toast('🗑️ Parada excluída.');
+}
+function renderList(){
+  const el=document.getElementById('stopList'); if(!el)return; el.innerHTML='';
+  if(!state.groups.length){el.innerHTML='<div class="empty">Nenhuma parada disponível.</div>';return}
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  const destinationCol=findCol(state.headers,['Destination','Destino']);
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
+  const cityCol=findCol(state.headers,['City','Cidade']);
+  state.groups.forEach((g,idx)=>{
+    const d=document.createElement('div');
+    const statusClass=g.status==='done'?'done':g.status==='notdone'?'notdone':g.status==='end'?'end':'pending';
+    d.className='stop '+statusClass;
+    const pkg=packageCount(g);
+    const seq=g[seqCol]||'—', destination=destinationCol?(g[destinationCol]||'—'):'—';
+    const address=addrCol?(g.__mapAddress||g[addrCol]||'—'):'—';
+    const bairro=bairroCol?(g[bairroCol]||'—'):'—', city=cityCol?(g[cityCol]||'—'):'—';
+    const statusLabel={done:'ENTREGUE',pending:'PENDENTE',notdone:'NÃO ENTREGUE',end:'FIM DA FILA'}[g.status]||'PENDENTE';
+    const fields=[['Sequence',seq],['Destination',destination],['Address',address],['Bairro',bairro],['City',city]].map(([k,v])=>`<div class="info-row"><div class="info-label">${k}</div><div class="info-value">${esc(v)}</div></div>`).join('');
+    d.innerHTML=`<div class="num">${idx+1}</div><div class="stop-main"><div class="stop-head"><div class="stop-title">Parada ${idx+1}</div><span class="status ${statusClass} stop-status">${statusLabel}</span></div><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div><div class="stop-info">${fields}</div></div><div class="stop-actions"><button class="mini status-action ${g.status==='done'?'active':''}" data-act="done">✅ Entregue</button><button class="mini status-action ${g.status==='notdone'?'active':''}" data-act="notdone">🔴 Não entregue</button><button class="mini status-action ${g.status==='pending'?'active':''}" data-act="pending">🔵 Pendente</button><button class="mini status-action ${g.status==='end'?'active':''}" data-act="end">🏁 Fim</button><button class="mini" data-act="detail">Detalhes</button></div></div>`;
+    d.addEventListener('click',e=>{
+      const act=e.target.dataset.act;if(!act)return;
+      if(['done','pending','notdone'].includes(act)){setStatusAndReorder(g,act);return}
+      if(act==='end'){setStatusAndReorder(g,'end');return}
+      if(act==='detail')openDetail(g);
+    });
+    el.appendChild(d);
+  });
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function initMap(){
+  state.map=L.map('map').setView([-19.9,-44.9],11);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(state.map);
+}
+function getNextStop(){
+  return state.groups.find(g=>g.status==='pending'||g.status==='end')||null;
+}
+function focusNavigationMap(){
+  if(state.screen!=='navigation'||!state.map)return;
+  const next=getNextStop();
+  const user=state.userPosition;
+  if(user && next && Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
+    const bounds=L.latLngBounds([[user.lat,user.lng],[next.lat,next.lng]]);
+    state.map.fitBounds(bounds,{paddingTopLeft:[55,55],paddingBottomRight:[55,90],maxZoom:17,animate:true});
+  }else if(user){
+    state.map.setView([user.lat,user.lng],16,{animate:true});
+  }else if(next && Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
+    state.map.setView([next.lat,next.lng],16,{animate:true});
+  }
+}
+function startNavigationTracking(){
+  if(!navigator.geolocation)return;
+  stopNavigationTracking();
+  state.geoWatchId=navigator.geolocation.watchPosition(pos=>{
+    state.userPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
+    renderMap();
+  },()=>{if(state.screen==='navigation')toast('📍 Não foi possível acessar sua localização. Verifique a permissão de localização do navegador.');}, {enableHighAccuracy:true,maximumAge:5000,timeout:15000});
+}
+function stopNavigationTracking(){
+  if(state.geoWatchId!==null){navigator.geolocation.clearWatch(state.geoWatchId);state.geoWatchId=null;}
+  state.userPosition=null;
+}
+function renderMap(){
+  if(!state.map)return;
+  state.markers.forEach(m=>m.remove());state.markers=[];
+  if(state.routeLine){state.routeLine.remove();state.routeLine=null}
+  const pts=[];
+  state.groups.forEach((g,i)=>{
+    if(Number.isFinite(g.lat)&&Number.isFinite(g.lng)){
+      const picked=state.mapPick.indexOf(i);
+      const label=picked>=0?picked+1:i+1;
+      const cls=(picked>=0?' selected':'')+(g.status==='done'?' done':g.status==='notdone'?' notdone':g.status==='end'?' end':' pending')+(state.locationEdit?' location-edit':'');
+      const icon=L.divIcon({className:'',html:`<div class="marker-num${cls}">${label}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-14]});
+      const m=L.marker([g.lat,g.lng],{icon,draggable:!!state.locationEdit,zIndexOffset:picked>=0?1000:0}).addTo(state.map);
+      const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+      const statusLabel={done:'ENTREGUE',pending:'PENDENTE',notdone:'NÃO ENTREGUE',end:'FIM DA FILA'}[g.status]||'PENDENTE';
+      const seqCol=findCol(state.headers,['Sequence','Sequência']);
+      const destinationCol=findCol(state.headers,['Destination','Destino']);
+      const displayAddr=g.__mapAddress || g[addrCol] || 'Endereço não informado';
+      m.bindPopup(`<b>${label}. Parada</b><br>${destinationCol?`Destination: ${esc(g[destinationCol]||'—')}<br>`:''}${destinationCol?'Address':'Endereço'}: ${esc(displayAddr)}<br>Sequence: ${esc(g[seqCol]||'—')}<br>📦 ${packageCount(g)} pacote(s)<br>Status: <b>${statusLabel}</b><br><button onclick="window.appDetail(${i})">Detalhes</button>`);
+      m.on('click',()=>{
+        if(state.locationEdit)return;
+        if(!state.mapEdit)return;
+        const pos=state.mapPick.indexOf(i);
+        if(pos>=0){state.mapPick.splice(pos,1);toast('Parada retirada da ordem de edição.');}
+        else {state.mapPick.push(i);toast(`Parada ${state.mapPick.length} selecionada.`);}
+        render();
+      });
+      m.on('dragstart',()=>{if(!state.locationEdit)return;m.bindTooltip('Arraste até o ponto correto',{permanent:false,sticky:true}).openTooltip();});
+      m.on('drag',()=>{if(!state.locationEdit)return;const ll=m.getLatLng();m.setTooltipContent(`📍 ${ll.lat.toFixed(5)}, ${ll.lng.toFixed(5)}`);});
+      m.on('dragend',async()=>{
+        if(!state.locationEdit)return;
+        const ll=m.getLatLng();
+        m.closeTooltip();
+        await openLocationConfirmation(i,ll);
+      });
+      state.markers.push(m);pts.push([g.lat,g.lng]);
+    }
+  });
+  if(state.userPosition && state.screen==='navigation'){const m=L.circleMarker([state.userPosition.lat,state.userPosition.lng],{radius:8,weight:3,fillOpacity:.95}).addTo(state.map);m.bindPopup('📍 <b>Minha localização</b>');state.markers.push(m);pts.push([state.userPosition.lat,state.userPosition.lng]);}
+  if(state.start && Number.isFinite(state.start.lat)){const m=L.marker([state.start.lat,state.start.lng],{title:'Início'}).addTo(state.map);m.bindPopup('🚚 <b>Ponto de partida</b>');state.markers.push(m);pts.push([state.start.lat,state.start.lng])}
+  if(state.home && Number.isFinite(state.home.lat)){const m=L.marker([state.home.lat,state.home.lng],{title:'Casa'}).addTo(state.map);m.bindPopup('🏠 <b>Ponto final — minha casa</b><br>'+esc(state.home.address||''));state.markers.push(m);pts.push([state.home.lat,state.home.lng])}
+  if(state.screen==='navigation'){focusNavigationMap();}else if(pts.length && !state.mapEdit)state.map.fitBounds(pts,{padding:[30,30]});
+  updatePointUI();
+}
+function updatePointUI(){
+  const ss=document.getElementById('startState'), hs=document.getElementById('homeState');
+  if(ss)ss.textContent=state.start?`${state.start.lat.toFixed(5)}, ${state.start.lng.toFixed(5)}`:'Não definido';
+  if(hs)hs.textContent=state.home?(state.home.address||`${state.home.lat.toFixed(5)}, ${state.home.lng.toFixed(5)}`):'Não definido';
+  const sinp=document.getElementById('startAddress');
+  if(sinp && state.start?.address && !sinp.value)sinp.value=state.start.address;
+  const inp=document.getElementById('homeAddress');
+  if(inp && state.home?.address && !inp.value)inp.value=state.home.address;
+}
+
+window.appDetail=i=>openDetail(state.groups[i]);
+function openDetail(g){
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
+  const cityCol=findCol(state.headers,['City','Cidade']);
+  const pkg=g.__rows.length;
+  document.getElementById('modalTitle').textContent=`Parada • ${g[seqCol]||'—'} • ${pkg} pacote${pkg===1?'':'s'}`;
+  const destinationCol=findCol(state.headers,['Destination','Destino']);
+  const displayAddr=g.__mapAddress||g[addrCol]||'—';
+  const rows=[`<div class=\"info-row\"><div class=\"info-label\">Sequence</div><div class=\"info-value\">${esc(g[seqCol]||'—')}</div></div>`];
+  if(destinationCol)rows.push(`<div class=\"info-row\"><div class=\"info-label\">Destination</div><div class=\"info-value\">${esc(g[destinationCol]||'—')}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">${destinationCol?'Address':'Destination Address'}</div><div class=\"info-value\">${esc(displayAddr)}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">Bairro</div><div class=\"info-value\">${esc(g[bairroCol]||'—')}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">City</div><div class=\"info-value\">${esc(g[cityCol]||'—')}</div></div>`);
+  document.getElementById('modalBody').innerHTML=`<div style=\"display:grid;gap:10px\"><div class=\"package-line\"><span class=\"package-badge\">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div>${rows.join('')}<div class=\"muted\">As demais colunas continuam preservadas internamente para mapa, agrupamento e exportação.</div></div>`;
+  document.getElementById('detailModal').classList.add('open');
+}
+function navigate(g){
+  if(!Number.isFinite(g.lat)||!Number.isFinite(g.lng)){toast('Esta parada não tem coordenadas.');return}
+  const url=`https://www.google.com/maps/dir/?api=1&destination=${g.lat},${g.lng}`;
+  window.open(url,'_blank');
+}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
+function groupNow(){
+  if(!state.rows.length)return toast('Importe uma planilha primeiro.');
+  const before=state.groups.length;
+  buildGroups();
+  state.originalGroups=state.groups.map(g=>({...g,__indices:[...g.__indices],__rows:[...g.__rows]}));
+  state.mapPick=[]; save(); render();
+  const reduced=state.rows.length-state.groups.length;
+  toast(reduced>0?`🔗 Agrupamento concluído: ${state.rows.length} linhas → ${state.groups.length} paradas (${reduced} linhas agrupadas).`:'Nenhum endereço elegível para agrupamento foi encontrado.');
+}
+
+async function importFile(file){
+  try{
+    const data=await file.arrayBuffer(); let wb;
+    if(file.name.toLowerCase().endsWith('.csv'))wb=XLSX.read(new TextDecoder().decode(data),{type:'string'});
+    else wb=XLSX.read(data,{type:'array'});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const arr=XLSX.utils.sheet_to_json(ws,{defval:''});
+    if(!arr.length)throw new Error('A planilha está vazia.');
+    state.rows=arr;state.headers=Object.keys(arr[0]);state.fileName=file.name;
+    buildGroups();
+    document.getElementById('fileInfo').style.display='flex';document.getElementById('fileName').textContent=file.name;
+    render();const grouped=arr.length-state.groups.length;toast(`Importado: ${arr.length} linhas → ${state.groups.length} paradas (${grouped>0?grouped+' linhas agrupadas':'sem agrupamentos'}).`);
+  }catch(e){alert('Não foi possível importar: '+e.message)}
+}
+async function optimize(){
+  if(!state.groups.length)return toast('Importe uma planilha primeiro.');
+  const valid=state.groups.filter(g=>Number.isFinite(g.lat)&&Number.isFinite(g.lng));
+  if(valid.length<2)return toast('São necessárias pelo menos 2 paradas com Latitude/Longitude.');
+  const start=state.start || {lat:valid[0].lat,lng:valid[0].lng};
+  const end=state.home && Number.isFinite(state.home.lat)?state.home:null;
+  let remaining=state.groups.slice(), ordered=[];
+  let cur=start;
+  while(remaining.length){
+    if(end && remaining.length===1){ordered.push(remaining.shift());break}
+    let best=0,bestScore=Infinity;
+    remaining.forEach((g,i)=>{
+      if(!Number.isFinite(g.lat)||!Number.isFinite(g.lng))return;
+      const d=haversine(cur.lat,cur.lng,g.lat,g.lng);
+      const tail=end?haversine(g.lat,g.lng,end.lat,end.lng)*0.25:0;
+      const score=d+tail;
+      if(score<bestScore){bestScore=score;best=i}
+    });
+    const g=remaining.splice(best,1)[0];ordered.push(g);cur={lat:g.lat,lng:g.lng};
+  }
+  state.groups=ordered;save();render();toast(end?'Rota otimizada do início até sua casa.':'Rota otimizada por proximidade.');
+}
+
+async function roadRoute(){
+  if(state.groups.length<1)return toast('Importe uma planilha primeiro.');
+  const pts=[];
+  if(state.start&&Number.isFinite(state.start.lat)&&Number.isFinite(state.start.lng))pts.push([state.start.lat,state.start.lng]);
+  state.groups.forEach(g=>{if(Number.isFinite(g.lat)&&Number.isFinite(g.lng))pts.push([g.lat,g.lng])});
+  if(state.home&&Number.isFinite(state.home.lat)&&Number.isFinite(state.home.lng))pts.push([state.home.lat,state.home.lng]);
+  if(pts.length<2)return toast('Defina pelo menos o início e uma parada, ou duas paradas.');
+  try{
+    const coords=pts.map(p=>`${p[1]},${p[0]}`).join(';');
+    const url=`https://router.project-osrm.org/route/v1/driving/${coords}?overview=full&geometries=geojson`;
+    const r=await fetch(url);const j=await r.json();if(!j.routes?.[0])throw new Error();
+    if(state.routeLine)state.routeLine.remove();
+    state.routeLine=L.geoJSON(j.routes[0].geometry,{style:{weight:5,opacity:.75}}).addTo(state.map);
+    const km=j.routes[0].distance/1000;const sd=document.getElementById('statDistance'); if(sd)sd.textContent=km.toFixed(1)+' km';
+    state.map.fitBounds(state.routeLine.getBounds(),{padding:[25,25]});
+    const suffix=state.home?' até sua casa':'';
+    toast(`Trajeto calculado: ${km.toFixed(1)} km • ${(j.routes[0].duration/3600).toFixed(1)} h estimadas${suffix}.`);
+  }catch(e){toast('Não foi possível calcular o trajeto agora. Tente novamente.')}
+}
+
+function haversine(a,b,c,d){const R=6371,rad=Math.PI/180,x=(c-a)*rad,y=(d-b)*rad;const q=Math.sin(x/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(q))}
+function resetOrder(){state.groups=state.originalGroups.map(g=>({...g,__indices:[...g.__indices],__rows:[...g.__rows]}));save();render();toast('Ordem original restaurada.')}
+function save(){try{localStorage.setItem('erp9',JSON.stringify({groups:state.groups.map(g=>({...g,__rows:undefined,__packageCount:packageCount(g)})),fileName:state.fileName,start:state.start,home:state.home}))}catch(e){}}
+function exportFile(){
+  if(!state.groups.length)return toast('Nada para exportar.');
+  const out=state.groups.map(g=>{const o={};state.headers.forEach(h=>o[h]=g[h]);return o});
+  const ws=XLSX.utils.json_to_sheet(out,{header:state.headers});
+  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,'Rota Agrupada');
+  const name=state.fileName.replace(/\.[^.]+$/,'');XLSX.writeFile(wb,`Grup_${name}.xlsx`);
+  toast('Excel exportado.');
+}
+async function reverseGeocode(lat,lng){
+  const url=`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}&zoom=18&addressdetails=1`;
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}});
+  if(!r.ok)throw new Error('Falha no serviço de endereço');
+  const j=await r.json();
+  return j;
+}
+function formatReverseAddress(j){
+  if(!j)return '';
+  const a=j.address||{};
+  const parts=[];
+  if(a.road)parts.push(a.road);
+  if(a.house_number)parts.push(a.house_number);
+  if(a.neighbourhood)parts.push(a.neighbourhood);
+  else if(a.suburb)parts.push(a.suburb);
+  if(a.city||a.town||a.village)parts.push(a.city||a.town||a.village);
+  if(a.state)parts.push(a.state);
+  return parts.length?parts.join(', '):(j.display_name||'');
+}
+function reverseHouseNumber(j){
+  return String(j?.address?.house_number||'').trim();
+}
+function reverseStreet(j){
+  return String(j?.address?.road||j?.address?.pedestrian||j?.address?.residential||'').trim();
+}
+async function openLocationConfirmation(idx,ll){
+  const g=state.groups[idx];
+  state.pendingLocation={idx,lat:ll.lat,lng:ll.lng};
+  const sheet=document.getElementById('locationSheet');
+  const body=document.getElementById('locationSheetBody');
+  const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+  body.innerHTML=`<div class="location-sheet-address"><div class="location-sheet-sub">Consultando o ponto exato da rua…</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
+  sheet.classList.add('open');
+  try{
+    const j=await reverseGeocode(ll.lat,ll.lng);
+    const address=formatReverseAddress(j)||'';
+    const house=reverseHouseNumber(j);
+    const street=reverseStreet(j);
+    const fallback=g.__mapAddress||g[addrCol]||'';
+    const best=address||fallback;
+    body.innerHTML=`<div class="location-sheet-address">${house?`<div class="location-sheet-number">Nº ${esc(house)}</div>`:''}<strong>${esc(street||'Endereço neste ponto')}</strong><input id="locationAddressInput" value="${esc(best)}" placeholder="Edite o endereço se necessário"><div class="coords" style="margin-top:7px">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}${house?' • número da casa encontrado no mapa':''}</div></div>`;
+  }catch(e){
+    const fallback=g.__mapAddress||g[addrCol]||'';
+    body.innerHTML=`<div class="location-sheet-address"><strong>Não foi possível consultar o endereço automaticamente.</strong><input id="locationAddressInput" value="${esc(fallback)}" placeholder="Digite ou corrija o endereço"><div class="coords" style="margin-top:7px">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
+  }
+}
+function closeLocationConfirmation(){
+  state.pendingLocation=null;
+  document.getElementById('locationSheet').classList.remove('open');
+  renderMap();
+}
+function saveLocationConfirmation(){
+  const p=state.pendingLocation;if(!p)return;
+  const g=state.groups[p.idx];
+  const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+  const input=document.getElementById('locationAddressInput');
+  const value=input?input.value.trim():'';
+  g.lat=p.lat;g.lng=p.lng;g.__mapAddress=value||g.__mapAddress||g[addrCol]||'';
+  const latCol=findCol(state.headers,['Latitude','lat']);
+  const lngCol=findCol(state.headers,['Longitude','lng','lon']);
+  if(latCol)g[latCol]=p.lat;
+  if(lngCol)g[lngCol]=p.lng;
+  if(addrCol && value)g[addrCol]=value;
+  state.pendingLocation=null;
+  document.getElementById('locationSheet').classList.remove('open');
+  save();
+  render();
+  toast(`📍 Localização da parada ${p.idx+1} confirmada. Você pode arrastá-la novamente a qualquer momento.`);
+}
+
+async function geocodeAddress(query){
+  const q=String(query||'').trim(); if(!q)throw new Error('empty');
+  const key=norm(q); if(state.geocodeCache[key]) return {...state.geocodeCache[key],address:q};
+  const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&q='+encodeURIComponent(q);
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}}); if(!r.ok)throw new Error('geocode');
+  const j=await r.json(); if(!j[0])throw new Error('notfound');
+  const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:q,display:j[0].display_name||q}; state.geocodeCache[key]=point; return point;
+}
+async function geocodeStart(){
+  const input=document.getElementById('startAddress'); const q=input?.value.trim();
+  if(!q)return toast('Digite o endereço de partida.');
+  try{const p=await geocodeAddress(q);state.start={...p};save();renderMap();updatePointUI();toast('🚚 Ponto de partida definido pelo endereço.');}
+  catch(e){toast('Endereço de partida não encontrado. Tente incluir cidade e estado.');}
+}
+function showScreen(name){
+  state.screen=name; localStorage.setItem('erp_screen',name);
+  if(name==='navigation')startNavigationTracking(); else stopNavigationTracking();
+  document.querySelector('.top-actions').style.display=name==='config'?'flex':'none';
+  document.getElementById('screenConfig').classList.toggle('active',name==='config');
+  document.getElementById('screenNavigation').classList.toggle('active',name==='navigation');
+  const mapEl=document.getElementById('map');
+  const host=document.getElementById(name==='config'?'configMapHost':'navMapHost');
+  if(mapEl && host)host.appendChild(mapEl);
+  setTimeout(()=>{state.map?.invalidateSize();renderMap();},80);
+}
+function useLocation(onDone){
+  if(!navigator.geolocation)return toast('Seu navegador não oferece geolocalização.');
+  navigator.geolocation.getCurrentPosition(p=>{state.start={lat:p.coords.latitude,lng:p.coords.longitude,address:'Minha localização atual'};save();renderMap();updatePointUI();toast('Ponto de partida definido pela sua localização atual.');if(onDone)onDone(state.start)},()=>toast('Não foi possível obter sua localização. Verifique a permissão do navegador.'));
+}
+async function geocodeHome(){
+  const input=document.getElementById('homeAddress'); const q=input.value.trim();
+  if(!q)return toast('Digite o endereço da sua casa.');
+  try{const p=await geocodeAddress(q);state.home={...p};save();renderMap();updatePointUI();toast('🏠 Casa definida como ponto final.');}
+  catch(e){toast('Endereço da casa não encontrado. Tente incluir cidade e estado.')}
+}
+function setHomeCurrent(){
+  useLocation(pos=>{state.home={...pos,address:'Minha localização atual'};save();renderMap();updatePointUI();toast('🏠 Sua localização atual foi definida como ponto final.');});
+}
+
+document.getElementById('btnChoose').onclick=()=>document.getElementById('fileInput').click();
+document.getElementById('btnImportTop').onclick=()=>document.getElementById('fileInput').click();
+document.getElementById('fileInput').onchange=e=>{if(e.target.files[0])importFile(e.target.files[0])};
+document.getElementById('btnExportTop').onclick=exportFile;
+document.getElementById('btnGroup').onclick=groupNow;
+document.getElementById('btnEditMap').onclick=()=>{
+  if(!state.groups.length)return toast('Importe e agrupe a planilha primeiro.');
+  state.mapEdit=true;state.mapPick=[];state.mapOriginalOrder=state.groups.slice();
+  document.getElementById('btnEditMap').style.display='none';document.getElementById('btnFinishMapEdit').style.display='inline-block';
+  renderMap();toast('Modo edição: clique nos balões na ordem desejada.');
+};
+document.getElementById('btnFinishMapEdit').onclick=()=>{
+  if(!state.mapPick.length)return toast('Clique em pelo menos uma parada no mapa.');
+  const chosen=state.mapPick.map(i=>state.groups[i]);
+  const rest=state.groups.filter((g,i)=>!state.mapPick.includes(i));
+  state.groups=[...chosen,...rest];state.mapEdit=false;state.mapPick=[];state.mapOriginalOrder=null;
+  document.getElementById('btnEditMap').style.display='inline-block';document.getElementById('btnFinishMapEdit').style.display='none';
+  save();render();toast('✅ Nova ordem aplicada.');
+};
+document.getElementById('btnEditLocation').onclick=()=>{
+  if(!state.groups.length)return toast('Importe e agrupe a planilha primeiro.');
+  if(state.mapEdit)return toast('Conclua primeiro a edição da ordem.');
+  state.locationEdit=true;document.getElementById('btnEditLocation').style.display='none';document.getElementById('btnFinishLocationEdit').style.display='inline-block';renderMap();toast('📍 Arraste os balões para corrigir a localização.');
+};
+document.getElementById('btnFinishLocationEdit').onclick=()=>{state.locationEdit=false;document.getElementById('btnEditLocation').style.display='inline-block';document.getElementById('btnFinishLocationEdit').style.display='none';save();renderMap();toast('✅ Edição de localização concluída.');};
+document.getElementById('btnOptimize').onclick=optimize;
+document.getElementById('btnRoadRoute').onclick=roadRoute;
+document.getElementById('btnReset').onclick=resetOrder;
+document.getElementById('btnLocate').onclick=()=>useLocation();
+document.getElementById('btnSetStart').onclick=()=>useLocation();
+document.getElementById('btnSetStartAddress').onclick=geocodeStart;
+document.getElementById('startAddress').addEventListener('keydown',e=>{if(e.key==='Enter')geocodeStart()});
+document.getElementById('btnClearStart').onclick=()=>{state.start=null;document.getElementById('startAddress').value='';save();renderMap();updatePointUI();toast('Ponto de partida removido.')};
+document.getElementById('btnSetHome').onclick=geocodeHome;
+document.getElementById('btnHomeCurrent').onclick=setHomeCurrent;
+document.getElementById('btnClearHome').onclick=()=>{state.home=null;document.getElementById('homeAddress').value='';save();renderMap();updatePointUI();toast('Ponto final removido.')};
+document.getElementById('btnGoNavigation').onclick=()=>{if(!state.groups.length)return toast('Importe e agrupe a planilha antes de navegar.');showScreen('navigation')};
+document.getElementById('btnBackConfig').onclick=()=>showScreen('config');
+
+document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>Number.isFinite(g.lat)&&Number.isFinite(g.lng)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
+document.getElementById('modalClose').onclick=()=>document.getElementById('detailModal').classList.remove('open');
+document.getElementById('locationCancel').onclick=closeLocationConfirmation;
+document.getElementById('locationSave').onclick=saveLocationConfirmation;
+document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
+const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
+initMap();
+showScreen(state.screen);
+showScreen(localStorage.getItem('erp_screen')==='navigation'?'navigation':'config');
+</script>
+</body>
+</html>
