@@ -32,6 +32,8 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 @media(max-width:1050px){.main{grid-template-columns:1fr}.map-card{min-height:500px}#map{height:55vh;min-height:420px}.list{max-height:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}}
 @media(max-width:600px){.top{padding:0 10px}.main{padding:7px}.config-wrap{padding:10px}.config-map-panel{min-height:360px}.config-map-panel #configMapHost{height:42vh;min-height:300px}.top-actions .btn{padding:7px 8px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:1fr;gap:2px}.info-label{font-size:10px}.info-value{font-size:13px}.stop{grid-template-columns:34px 1fr;padding:10px}.stop-actions{grid-column:1/-1;justify-content:flex-start}.stop-actions .order-buttons{width:100%}.stop-actions .mini{padding:6px 8px;font-size:11px}.nav-map-card{height:44vh;min-height:320px}.nav-side{height:54vh}.nav-side .controls{display:grid;grid-template-columns:1fr 100px;gap:6px}.nav-side .controls input{min-width:0}.route-head h2{font-size:15px}.route-head .count{font-size:12px}}
 
+/* Contadores da tela de navegação */
+.nav-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.nav-stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.nav-stat span{font-size:11px;color:var(--muted);font-weight:800}.nav-stat b{font-size:18px;white-space:nowrap}@media(max-width:600px){.nav-stats{grid-template-columns:1fr 1fr}.nav-stat{padding:8px 10px}.nav-stat:last-child{grid-column:1/-1}.nav-stat b{font-size:16px}}
 /* Tela dupla: configuração e navegação */
 .screen{display:none;min-height:calc(100vh - 64px)}.screen.active{display:block}
 .config-wrap{max-width:1100px;margin:0 auto;padding:22px}.config-grid{display:grid;grid-template-columns:410px minmax(0,1fr);gap:14px;align-items:start}.config-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
@@ -66,7 +68,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   </section>
   <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div></div></section>
 </div></div></section>
-<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
+<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Paradas concluídas</span><b id="navCompletedStops">0</b></div><div class="nav-stat"><span>Paradas restantes</span><b id="navRemainingStops">0</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
 </main>
 </div>
 
@@ -86,7 +88,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 <div class="toast" id="toast"></div>
 
 <script>
-const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null};
+const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null,userPosition:null,geoWatchId:null};
 
 const STREET_TYPES={
   r:'rua','r.':'rua','rua':'rua','av':'avenida','av.':'avenida','aven':'avenida','avenida':'avenida',
@@ -158,7 +160,7 @@ function makeGroup(rowIndices){
   let complements=[];
   parsed.forEach(p=>{if(p.complement)complements.push(p.complement)});
   const base=parsed.find(p=>p.base)?.base || first[addrCol];
-  const out={...first,__indices:rowIndices,__rows:rows,__base:base,__complements:uniqueVals(complements),status:'pending'};
+  const out={...first,__indices:rowIndices,__rows:rows,__packageCount:rows.length,__base:base,__complements:uniqueVals(complements),status:'pending'};
   for(const h of state.headers){
     if(h===addrCol){
       out[h]=base+(out.__complements.length? ', '+out.__complements.join('; '):'');
@@ -206,11 +208,20 @@ function buildGroups(){
 function render(){
   updateStats(); renderList(); renderMap();
 }
+function packageCount(g){return Number.isFinite(Number(g.__packageCount))?Number(g.__packageCount):(g.__rows?.length||1)}
 function updateStats(){
   const a=document.getElementById('statStops'); if(a)a.textContent=state.groups.length;
   const b=document.getElementById('statPackages'); if(b)b.textContent=state.rows.length;
   const c=document.getElementById('statDone'); if(c)c.textContent=state.groups.filter(g=>g.status==='done').length;
   const d=document.getElementById('routeCount'); if(d)d.textContent=state.groups.length+' paradas';
+  const completedStops=state.groups.filter(g=>g.status==='done'||g.status==='notdone').length;
+  const remainingStops=state.groups.filter(g=>g.status==='pending'||g.status==='end').length;
+  const completedPackages=state.groups.filter(g=>g.status==='done'||g.status==='notdone').reduce((sum,g)=>sum+packageCount(g),0);
+  const totalPackages=state.rows.length||state.groups.reduce((sum,g)=>sum+packageCount(g),0);
+  const pct=totalPackages?(completedPackages/totalPackages)*100:0;
+  const cs=document.getElementById('navCompletedStops'); if(cs)cs.textContent=completedStops;
+  const rs=document.getElementById('navRemainingStops'); if(rs)rs.textContent=remainingStops;
+  const dp=document.getElementById('navDeliveryProgress'); if(dp)dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`;
 }
 function matches(g){ return true; }
 function reorderByStatus(){
@@ -237,7 +248,7 @@ function renderList(){
     const d=document.createElement('div');
     const statusClass=g.status==='done'?'done':g.status==='notdone'?'notdone':g.status==='end'?'end':'pending';
     d.className='stop '+statusClass;
-    const pkg=g.__rows?.length||1;
+    const pkg=packageCount(g);
     const seq=g[seqCol]||'—', destination=destinationCol?(g[destinationCol]||'—'):'—';
     const address=addrCol?(g.__mapAddress||g[addrCol]||'—'):'—';
     const bairro=bairroCol?(g[bairroCol]||'—'):'—', city=cityCol?(g[cityCol]||'—'):'—';
@@ -258,6 +269,34 @@ function initMap(){
   state.map=L.map('map').setView([-19.9,-44.9],11);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(state.map);
 }
+function getNextStop(){
+  return state.groups.find(g=>g.status==='pending'||g.status==='end')||null;
+}
+function focusNavigationMap(){
+  if(state.screen!=='navigation'||!state.map)return;
+  const next=getNextStop();
+  const user=state.userPosition;
+  if(user && next && Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
+    const bounds=L.latLngBounds([[user.lat,user.lng],[next.lat,next.lng]]);
+    state.map.fitBounds(bounds,{paddingTopLeft:[55,55],paddingBottomRight:[55,90],maxZoom:17,animate:true});
+  }else if(user){
+    state.map.setView([user.lat,user.lng],16,{animate:true});
+  }else if(next && Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
+    state.map.setView([next.lat,next.lng],16,{animate:true});
+  }
+}
+function startNavigationTracking(){
+  if(!navigator.geolocation)return;
+  stopNavigationTracking();
+  state.geoWatchId=navigator.geolocation.watchPosition(pos=>{
+    state.userPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
+    renderMap();
+  },()=>{if(state.screen==='navigation')toast('📍 Não foi possível acessar sua localização. Verifique a permissão de localização do navegador.');}, {enableHighAccuracy:true,maximumAge:5000,timeout:15000});
+}
+function stopNavigationTracking(){
+  if(state.geoWatchId!==null){navigator.geolocation.clearWatch(state.geoWatchId);state.geoWatchId=null;}
+  state.userPosition=null;
+}
 function renderMap(){
   if(!state.map)return;
   state.markers.forEach(m=>m.remove());state.markers=[];
@@ -275,7 +314,7 @@ function renderMap(){
       const seqCol=findCol(state.headers,['Sequence','Sequência']);
       const destinationCol=findCol(state.headers,['Destination','Destino']);
       const displayAddr=g.__mapAddress || g[addrCol] || 'Endereço não informado';
-      m.bindPopup(`<b>${label}. Parada</b><br>${destinationCol?`Destination: ${esc(g[destinationCol]||'—')}<br>`:''}${destinationCol?'Address':'Endereço'}: ${esc(displayAddr)}<br>Sequence: ${esc(g[seqCol]||'—')}<br>📦 ${g.__rows?.length||1} pacote(s)<br>Status: <b>${statusLabel}</b><br><button onclick="window.appDetail(${i})">Detalhes</button>`);
+      m.bindPopup(`<b>${label}. Parada</b><br>${destinationCol?`Destination: ${esc(g[destinationCol]||'—')}<br>`:''}${destinationCol?'Address':'Endereço'}: ${esc(displayAddr)}<br>Sequence: ${esc(g[seqCol]||'—')}<br>📦 ${packageCount(g)} pacote(s)<br>Status: <b>${statusLabel}</b><br><button onclick="window.appDetail(${i})">Detalhes</button>`);
       m.on('click',()=>{
         if(state.locationEdit)return;
         if(!state.mapEdit)return;
@@ -295,9 +334,10 @@ function renderMap(){
       state.markers.push(m);pts.push([g.lat,g.lng]);
     }
   });
+  if(state.userPosition && state.screen==='navigation'){const m=L.circleMarker([state.userPosition.lat,state.userPosition.lng],{radius:8,weight:3,fillOpacity:.95}).addTo(state.map);m.bindPopup('📍 <b>Minha localização</b>');state.markers.push(m);pts.push([state.userPosition.lat,state.userPosition.lng]);}
   if(state.start && Number.isFinite(state.start.lat)){const m=L.marker([state.start.lat,state.start.lng],{title:'Início'}).addTo(state.map);m.bindPopup('🚚 <b>Ponto de partida</b>');state.markers.push(m);pts.push([state.start.lat,state.start.lng])}
   if(state.home && Number.isFinite(state.home.lat)){const m=L.marker([state.home.lat,state.home.lng],{title:'Casa'}).addTo(state.map);m.bindPopup('🏠 <b>Ponto final — minha casa</b><br>'+esc(state.home.address||''));state.markers.push(m);pts.push([state.home.lat,state.home.lng])}
-  if(pts.length && !state.mapEdit)state.map.fitBounds(pts,{padding:[30,30]});
+  if(state.screen==='navigation'){focusNavigationMap();}else if(pts.length && !state.mapEdit)state.map.fitBounds(pts,{padding:[30,30]});
   updatePointUI();
 }
 function updatePointUI(){
@@ -404,7 +444,7 @@ async function roadRoute(){
 
 function haversine(a,b,c,d){const R=6371,rad=Math.PI/180,x=(c-a)*rad,y=(d-b)*rad;const q=Math.sin(x/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(q))}
 function resetOrder(){state.groups=state.originalGroups.map(g=>({...g,__indices:[...g.__indices],__rows:[...g.__rows]}));save();render();toast('Ordem original restaurada.')}
-function save(){try{localStorage.setItem('erp9',JSON.stringify({groups:state.groups.map(g=>({...g,__rows:undefined})),fileName:state.fileName,start:state.start,home:state.home}))}catch(e){}}
+function save(){try{localStorage.setItem('erp9',JSON.stringify({groups:state.groups.map(g=>({...g,__rows:undefined,__packageCount:packageCount(g)})),fileName:state.fileName,start:state.start,home:state.home}))}catch(e){}}
 function exportFile(){
   if(!state.groups.length)return toast('Nada para exportar.');
   const out=state.groups.map(g=>{const o={};state.headers.forEach(h=>o[h]=g[h]);return o});
@@ -500,6 +540,7 @@ async function geocodeStart(){
 }
 function showScreen(name){
   state.screen=name; localStorage.setItem('erp_screen',name);
+  if(name==='navigation')startNavigationTracking(); else stopNavigationTracking();
   document.querySelector('.top-actions').style.display=name==='config'?'flex':'none';
   document.getElementById('screenConfig').classList.toggle('active',name==='config');
   document.getElementById('screenNavigation').classList.toggle('active',name==='navigation');
@@ -568,6 +609,7 @@ document.getElementById('locationSave').onclick=saveLocationConfirmation;
 document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
 const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
 initMap();
+showScreen(state.screen);
 showScreen(localStorage.getItem('erp_screen')==='navigation'?'navigation':'config');
 </script>
 </body>
