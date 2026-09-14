@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega Rota Pro 3.0</title>
+<title>Entrega Rota Pro 6.0</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -23,19 +23,19 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .file-row{display:flex;gap:8px;align-items:center;margin-top:10px}.file-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .controls{display:flex;gap:8px;flex-wrap:wrap}.controls input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:9px 11px}
 .route-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}.route-head h2{font-size:17px;margin:0}.route-head .count{margin-left:auto;color:var(--muted);font-size:13px}
-.list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;display:grid;grid-template-columns:30px 1fr auto;gap:9px;align-items:start}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0}.stop.problem{background:#fff7f7;border-color:#fecaca}.stop.notdone{background:#fffaf0;border-color:#fed7aa}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
+.list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:start}.stop-head{display:flex;align-items:center;gap:8px;min-width:0}.stop-title{font-weight:800;font-size:14px;line-height:1.2}.stop-status{margin-left:auto}.stop-info{display:grid;gap:7px;margin-top:9px}.info-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px;align-items:start;font-size:13px;line-height:1.3}.info-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:none}.info-value{min-width:0;overflow-wrap:anywhere;color:#263246}.package-line{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:13px;font-weight:800}.package-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#1759a8;border:1px solid #d5e7ff}.stop-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);margin-top:2px}.order-buttons{display:flex;gap:6px;flex-wrap:wrap}.mini.status-action{font-weight:700}.mini.status-action.active{box-shadow:0 0 0 2px rgba(23,105,224,.18);border-color:#93c5fd}.location-confirm{display:grid;gap:10px}.location-address-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-address-box strong{display:block;margin-bottom:4px}.coords{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0}.stop.problem{background:#fff7f7;border-color:#fecaca}.stop.notdone{background:#fffaf0;border-color:#fed7aa}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
 .marker-num.location-edit{cursor:move;outline:3px dashed #f59e0b;outline-offset:2px}.marker-num{width:28px;height:28px;border-radius:50%;background:#1769e0;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:grid;place-items:center;font-weight:800;font-size:12px}.marker-num.selected{background:#dc2626}.marker-num.done{background:#16a34a}.marker-num.problem{background:#dc2626}.marker-num.notdone{background:#d97706}.num{width:30px;height:30px;border-radius:50%;background:#edf4ff;color:var(--brand);display:grid;place-items:center;font-weight:800}.stop-main{min-width:0}.stop-main b{display:block;line-height:1.25}.address{font-size:13px;color:#303a4c;margin-top:3px}.seq{font-size:11px;color:var(--muted);margin-top:5px}.stop-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.mini{padding:6px 8px;border-radius:8px;background:#f4f6f9;border:1px solid var(--line);font-size:12px}.mini:hover{background:#eaf0f8}.status{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:#64748b}.status.done{background:#dcfce7;color:#15803d}.status.problem{background:#fee2e2;color:#b91c1c}
 .empty{padding:35px 15px;text-align:center;color:var(--muted)}.badge{font-size:11px;padding:4px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:750}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:3000;padding:16px}.modal.open{display:flex}.modal-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.25)}.modal-box h2{margin:0 0 12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{border:1px solid var(--line);padding:9px;border-radius:9px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:4000}.toast.show{display:block}
 @media(max-width:1050px){.main{grid-template-columns:1fr}.map-card{min-height:500px}#map{height:55vh;min-height:420px}.list{max-height:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}}
-@media(max-width:600px){.top{padding:0 12px}.main{padding:10px}.top-actions .btn{padding:7px 9px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.stop{grid-template-columns:28px 1fr}.stop-actions{grid-column:2;justify-content:flex-start}}
+@media(max-width:600px){.top{padding:0 12px}.main{padding:10px}.top-actions .btn{padding:7px 9px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:92px minmax(0,1fr)}.stop{grid-template-columns:38px 1fr}.stop-actions{grid-column:1/-1;justify-content:flex-start}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="top">
-  <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">3.0</span></div>
+  <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">6.0</span></div>
   <div class="top-actions">
     <button class="btn" id="btnLocate">📍 Minha localização</button>
     <button class="btn primary" id="btnImportTop">📥 Importar</button>
@@ -111,10 +111,15 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   <div id="modalBody"></div>
   <div class="modal-foot"><button class="btn" id="modalClose">Fechar</button></div>
 </div></div>
+<div class="modal" id="locationModal"><div class="modal-box">
+  <h2>📍 Confirmar localização</h2>
+  <div id="locationModalBody"></div>
+  <div class="modal-foot"><button class="btn" id="locationCancel">Cancelar</button><button class="btn primary" id="locationSave">✅ Confirmar localização</button></div>
+</div></div>
 <div class="toast" id="toast"></div>
 
 <script>
-const state={rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,start:null,home:null};
+const state={rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null};
 
 const STREET_TYPES={
   r:'rua','r.':'rua','rua':'rua','av':'avenida','av.':'avenida','aven':'avenida','avenida':'avenida',
@@ -251,17 +256,31 @@ function renderList(){
   const el=document.getElementById('stopList'); el.innerHTML='';
   const visible=state.groups.filter(matches);
   if(!visible.length){el.innerHTML='<div class="empty">Nenhuma parada encontrada.</div>';return}
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  const destinationCol=findCol(state.headers,['Destination','Destino']);
+  const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+  const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
+  const cityCol=findCol(state.headers,['City','Cidade']);
   visible.forEach((g)=>{
     const idx=state.groups.indexOf(g);
     const d=document.createElement('div');
     d.className='stop '+(g.status==='done'?'done ':'')+(g.status==='problem'?'problem ':'')+(g.status==='notdone'?'notdone ':'')+(state.mapPick.includes(idx)?'selected':'');
     d.draggable=true; d.dataset.idx=idx;
-    const seqCol=findCol(state.headers,['Sequence','Sequência']);
-    const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
-    const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
-    const cityCol=findCol(state.headers,['City','Cidade']);
-    const pkg=g.__rows.length;
-    d.innerHTML=`<div class="num" title="Arraste para mudar a ordem"><span class="order-handle">☷</span>${idx+1}</div><div class="stop-main"><b>📦 ${pkg} pacote${pkg===1?'':'s'}</b><div class="seq"><strong>Sequence:</strong> ${esc(g[seqCol]||'—')}</div><div class="address"><strong>Destination Address:</strong> ${esc(g[addrCol]||'')}</div><div class="address"><strong>Bairro:</strong> ${esc(g[bairroCol]||'—')} &nbsp;•&nbsp; <strong>City:</strong> ${esc(g[cityCol]||'—')}</div></div><div class="stop-actions"><div class="order-buttons"><button class="mini" data-act="done">✅ Entregue</button><button class="mini" data-act="pending">🟡 Pendente</button><button class="mini" data-act="notdone">⚪ Não entregue</button><button class="mini" data-act="problem">❌ Problema</button><button class="mini" data-act="end" title="Enviar para o final da rota">🏁 Fim</button><button class="mini" data-act="up" title="Mover para cima">⬆️</button><button class="mini" data-act="down" title="Mover para baixo">⬇️</button><button class="mini" data-act="detail">Detalhes</button><button class="mini" data-act="nav">🗺️</button></div></div>`;
+    const pkg=g.__rows?.length||1;
+    const statusLabel={done:'ENTREGUE',pending:'PENDENTE',problem:'PROBLEMA',notdone:'NÃO ENTREGUE'}[g.status]||'PENDENTE';
+    const statusClass={done:'done',pending:'',problem:'problem',notdone:'notdone'}[g.status]||'';
+    const seq=g[seqCol]||'—';
+    const destination=destinationCol?(g[destinationCol]||'—'):'';
+    const address=addrCol?(g[addrCol]||'—'):'—';
+    const bairro=bairroCol?(g[bairroCol]||'—'):'—';
+    const city=cityCol?(g[cityCol]||'—'):'—';
+    const fields=[];
+    fields.push(`<div class="info-row"><div class="info-label">Sequence</div><div class="info-value">${esc(seq)}</div></div>`);
+    if(destinationCol)fields.push(`<div class="info-row"><div class="info-label">Destination</div><div class="info-value">${esc(destination)}</div></div>`);
+    fields.push(`<div class="info-row"><div class="info-label">${destinationCol?'Address':'Destination Address'}</div><div class="info-value">${esc(address)}</div></div>`);
+    fields.push(`<div class="info-row"><div class="info-label">Bairro</div><div class="info-value">${esc(bairro)}</div></div>`);
+    fields.push(`<div class="info-row"><div class="info-label">City</div><div class="info-value">${esc(city)}</div></div>`);
+    d.innerHTML=`<div class="num" title="Arraste para mudar a ordem">${idx+1}</div><div class="stop-main"><div class="stop-head"><div class="stop-title">Parada ${idx+1}</div><span class="status ${statusClass} stop-status">${statusLabel}</span></div><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div><div class="stop-info">${fields.join('')}</div></div><div class="stop-actions"><div class="order-buttons"><button class="mini status-action ${g.status==='done'?'active':''}" data-act="done">✅ Entregue</button><button class="mini status-action ${g.status==='pending'?'active':''}" data-act="pending">🟡 Pendente</button><button class="mini status-action ${g.status==='notdone'?'active':''}" data-act="notdone">⚪ Não entregue</button><button class="mini status-action ${g.status==='problem'?'active':''}" data-act="problem">❌ Problema</button><button class="mini" data-act="end" title="Enviar para o final da rota">🏁 Fim</button><button class="mini" data-act="up" title="Mover para cima">⬆️</button><button class="mini" data-act="down" title="Mover para baixo">⬇️</button><button class="mini" data-act="detail">Detalhes</button><button class="mini" data-act="nav">🗺️ Navegar</button></div></div>`;
     d.addEventListener('dragstart',e=>{if(e.target.closest('button')){e.preventDefault();return}state.dragId=idx;d.classList.add('dragging')});
     d.addEventListener('dragend',()=>d.classList.remove('dragging'));
     d.addEventListener('dragover',e=>e.preventDefault());
@@ -297,7 +316,10 @@ function renderMap(){
       const m=L.marker([g.lat,g.lng],{icon,draggable:!!state.locationEdit,zIndexOffset:picked>=0?1000:0}).addTo(state.map);
       const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
       const statusLabel={done:'ENTREGUE',pending:'PENDENTE',problem:'PROBLEMA',notdone:'NÃO ENTREGUE'}[g.status]||'PENDENTE';
-      m.bindPopup(`<b>${label}. ${esc(g[addrCol])}</b><br>Sequence: ${esc(g[findCol(state.headers,['Sequence','Sequência'])]||'—')}<br>Status: <b>${statusLabel}</b><br><button onclick="window.appDetail(${i})">Detalhes</button>`);
+      const seqCol=findCol(state.headers,['Sequence','Sequência']);
+      const destinationCol=findCol(state.headers,['Destination','Destino']);
+      const displayAddr=g.__mapAddress || g[addrCol] || 'Endereço não informado';
+      m.bindPopup(`<b>${label}. Parada</b><br>${destinationCol?`Destination: ${esc(g[destinationCol]||'—')}<br>`:''}${destinationCol?'Address':'Endereço'}: ${esc(displayAddr)}<br>Sequence: ${esc(g[seqCol]||'—')}<br>📦 ${g.__rows?.length||1} pacote(s)<br>Status: <b>${statusLabel}</b><br><button onclick="window.appDetail(${i})">Detalhes</button>`);
       m.on('click',()=>{
         if(state.locationEdit)return;
         if(!state.mapEdit)return;
@@ -306,15 +328,13 @@ function renderMap(){
         else {state.mapPick.push(i);toast(`Parada ${state.mapPick.length} selecionada.`);}
         render();
       });
-      m.on('dragend',()=>{
+      m.on('dragstart',()=>{if(!state.locationEdit)return;m.bindTooltip('Arraste até o ponto correto',{permanent:false,sticky:true}).openTooltip();});
+      m.on('drag',()=>{if(!state.locationEdit)return;const ll=m.getLatLng();m.setTooltipContent(`📍 ${ll.lat.toFixed(5)}, ${ll.lng.toFixed(5)}`);});
+      m.on('dragend',async()=>{
         if(!state.locationEdit)return;
-        const ll=m.getLatLng(); g.lat=ll.lat; g.lng=ll.lng;
-        const latCol=findCol(state.headers,['Latitude','lat']);
-        const lngCol=findCol(state.headers,['Longitude','lng','lon']);
-        if(latCol)g[latCol]=ll.lat;
-        if(lngCol)g[lngCol]=ll.lng;
-        toast(`📍 Localização da parada ${i+1} ajustada.`);
-        save(); renderMap();
+        const ll=m.getLatLng();
+        m.closeTooltip();
+        await openLocationConfirmation(i,ll);
       });
       state.markers.push(m);pts.push([g.lat,g.lng]);
     }
@@ -340,7 +360,14 @@ function openDetail(g){
   const cityCol=findCol(state.headers,['City','Cidade']);
   const pkg=g.__rows.length;
   document.getElementById('modalTitle').textContent=`Parada • ${g[seqCol]||'—'} • ${pkg} pacote${pkg===1?'':'s'}`;
-  document.getElementById('modalBody').innerHTML=`<div style="display:grid;gap:10px"><div><b>📦 Pacotes nesta parada:</b> ${pkg}</div><div><b>Sequence:</b><br>${esc(g[seqCol]||'—')}</div><div><b>Destination Address:</b><br>${esc(g[addrCol]||'—')}</div><div><b>Bairro:</b><br>${esc(g[bairroCol]||'—')}</div><div><b>City:</b><br>${esc(g[cityCol]||'—')}</div><div class="muted">Os demais dados da planilha continuam disponíveis internamente para mapa, agrupamento e exportação, mas não são exibidos nos detalhes da parada.</div></div>`;
+  const destinationCol=findCol(state.headers,['Destination','Destino']);
+  const displayAddr=g.__mapAddress||g[addrCol]||'—';
+  const rows=[`<div class=\"info-row\"><div class=\"info-label\">Sequence</div><div class=\"info-value\">${esc(g[seqCol]||'—')}</div></div>`];
+  if(destinationCol)rows.push(`<div class=\"info-row\"><div class=\"info-label\">Destination</div><div class=\"info-value\">${esc(g[destinationCol]||'—')}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">${destinationCol?'Address':'Destination Address'}</div><div class=\"info-value\">${esc(displayAddr)}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">Bairro</div><div class=\"info-value\">${esc(g[bairroCol]||'—')}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">City</div><div class=\"info-value\">${esc(g[cityCol]||'—')}</div></div>`);
+  document.getElementById('modalBody').innerHTML=`<div style=\"display:grid;gap:10px\"><div class=\"package-line\"><span class=\"package-badge\">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div>${rows.join('')}<div class=\"muted\">As demais colunas continuam preservadas internamente para mapa, agrupamento e exportação.</div></div>`;
   document.getElementById('detailModal').classList.add('open');
 }
 function navigate(g){
@@ -428,6 +455,49 @@ function exportFile(){
   const name=state.fileName.replace(/\.[^.]+$/,'');XLSX.writeFile(wb,`Grup_${name}.xlsx`);
   toast('Excel exportado.');
 }
+async function reverseGeocode(lat,lng){
+  const url=`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lng)}&zoom=18&addressdetails=1`;
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}});
+  if(!r.ok)throw new Error('Falha no serviço de endereço');
+  const j=await r.json();
+  return j;
+}
+function formatReverseAddress(j){
+  if(!j)return '';
+  return j.display_name||'';
+}
+async function openLocationConfirmation(idx,ll){
+  const g=state.groups[idx];
+  state.pendingLocation={idx,lat:ll.lat,lng:ll.lng};
+  const body=document.getElementById('locationModalBody');
+  body.innerHTML=`<div class="location-confirm"><div>Buscando o endereço deste ponto no mapa...</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
+  document.getElementById('locationModal').classList.add('open');
+  try{
+    const j=await reverseGeocode(ll.lat,ll.lng);
+    const address=formatReverseAddress(j)||'';
+    const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+    body.innerHTML=`<div class="location-confirm"><div class="location-address-box"><strong>📍 Endereço encontrado</strong><div>${esc(address||'Não foi possível identificar o endereço automaticamente.')}</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div><div class="field"><label>Endereço para esta parada</label><input id="locationAddressInput" value="${esc(address||g.__mapAddress||g[addrCol]||'')}" placeholder="Edite o endereço se necessário"></div><div class="muted">O ponto no mapa será salvo exatamente na posição onde você soltou o balão. O endereço acima pode ser editado antes de confirmar.</div></div>`;
+  }catch(e){
+    const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+    body.innerHTML=`<div class="location-confirm"><div class="location-address-box"><strong>📍 Não foi possível consultar o endereço automaticamente.</strong><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div><div class="field"><label>Endereço para esta parada</label><input id="locationAddressInput" value="${esc(g.__mapAddress||g[addrCol]||'')}" placeholder="Digite ou corrija o endereço"></div></div>`;
+  }
+}
+function closeLocationConfirmation(){state.pendingLocation=null;document.getElementById('locationModal').classList.remove('open');renderMap();}
+function saveLocationConfirmation(){
+  const p=state.pendingLocation;if(!p)return;
+  const g=state.groups[p.idx];
+  const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+  const input=document.getElementById('locationAddressInput');
+  const value=input?input.value.trim():'';
+  g.lat=p.lat;g.lng=p.lng;g.__mapAddress=value||g.__mapAddress||g[addrCol]||'';
+  const latCol=findCol(state.headers,['Latitude','lat']);
+  const lngCol=findCol(state.headers,['Longitude','lng','lon']);
+  if(latCol)g[latCol]=p.lat;
+  if(lngCol)g[lngCol]=p.lng;
+  if(addrCol && value)g[addrCol]=value;
+  state.pendingLocation=null;document.getElementById('locationModal').classList.remove('open');save();render();toast(`📍 Localização da parada ${p.idx+1} confirmada.`);
+}
+
 function useLocation(onDone){
   if(!navigator.geolocation)return toast('Seu navegador não oferece geolocalização.');
   navigator.geolocation.getCurrentPosition(p=>{state.start={lat:p.coords.latitude,lng:p.coords.longitude};save();renderMap();updatePointUI();toast('Ponto de partida definido pela sua localização atual.');if(onDone)onDone(state.start)},()=>toast('Não foi possível obter sua localização. Verifique a permissão do navegador.'));
@@ -495,6 +565,9 @@ document.getElementById('btnClearHome').onclick=()=>{state.home=null;document.ge
 document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>Number.isFinite(g.lat)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
 document.getElementById('search').oninput=renderList;document.getElementById('filter').onchange=renderList;
 document.getElementById('modalClose').onclick=()=>document.getElementById('detailModal').classList.remove('open');
+document.getElementById('locationCancel').onclick=closeLocationConfirmation;
+document.getElementById('locationSave').onclick=saveLocationConfirmation;
+document.getElementById('locationModal').onclick=e=>{if(e.target.id==='locationModal')closeLocationConfirmation();};
 document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
 const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
 initMap();
