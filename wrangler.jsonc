@@ -1,5 +1,7 @@
 {
   "name": "entrega-rota-pro",
   "compatibility_date": "2026-09-14",
-  "assets": { "directory": "./" }
+  "assets": {
+    "directory": "./public"
+  }
 }
