@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega Rota Pro 10</title>
+<title>Entrega Rota Pro 10.1</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -68,7 +68,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   </section>
   <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div></div></section>
 </div></div></section>
-<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Paradas concluídas</span><b id="navCompletedStops">0</b></div><div class="nav-stat"><span>Paradas restantes</span><b id="navRemainingStops">0</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
+<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Concluídos</span><b id="navCompletedStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Restante</span><b id="navRemainingStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
 </main>
 </div>
 
@@ -208,7 +208,7 @@ function buildGroups(){
 function render(){
   updateStats(); renderList(); renderMap();
 }
-function packageCount(g){return Number.isFinite(Number(g.__packageCount))?Number(g.__packageCount):(g.__rows?.length||1)}
+function packageCount(g){const seqCol=findCol(state.headers,['Sequence','Sequência']); if(!seqCol)return g.__rows?.length||1; const n=(g.__rows||[]).filter(r=>String(r[seqCol]??'').trim()!=='').length; return n||((g.__rows||[]).length||1)}
 function updateStats(){
   const a=document.getElementById('statStops'); if(a)a.textContent=state.groups.length;
   const b=document.getElementById('statPackages'); if(b)b.textContent=state.rows.length;
@@ -217,10 +217,11 @@ function updateStats(){
   const completedStops=state.groups.filter(g=>g.status==='done'||g.status==='notdone').length;
   const remainingStops=state.groups.filter(g=>g.status==='pending'||g.status==='end').length;
   const completedPackages=state.groups.filter(g=>g.status==='done'||g.status==='notdone').reduce((sum,g)=>sum+packageCount(g),0);
-  const totalPackages=state.rows.length||state.groups.reduce((sum,g)=>sum+packageCount(g),0);
+  const remainingPackages=state.groups.filter(g=>g.status==='pending'||g.status==='end').reduce((sum,g)=>sum+packageCount(g),0);
+  const totalPackages=completedPackages+remainingPackages;
   const pct=totalPackages?(completedPackages/totalPackages)*100:0;
-  const cs=document.getElementById('navCompletedStops'); if(cs)cs.textContent=completedStops;
-  const rs=document.getElementById('navRemainingStops'); if(rs)rs.textContent=remainingStops;
+  const cs=document.getElementById('navCompletedStops'); if(cs)cs.textContent=`${completedStops} parada${completedStops===1?'':'s'} / ${completedPackages} pacote${completedPackages===1?'':'s'}`;
+  const rs=document.getElementById('navRemainingStops'); if(rs)rs.textContent=`${remainingStops} parada${remainingStops===1?'':'s'} / ${remainingPackages} pacote${remainingPackages===1?'':'s'}`;
   const dp=document.getElementById('navDeliveryProgress'); if(dp)dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`;
 }
 function matches(g){ return true; }
