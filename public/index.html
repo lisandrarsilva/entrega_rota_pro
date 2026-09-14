@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega Rota Pro 6.0</title>
+<title>Entrega Rota Pro 9.0</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -23,86 +23,49 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .file-row{display:flex;gap:8px;align-items:center;margin-top:10px}.file-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .controls{display:flex;gap:8px;flex-wrap:wrap}.controls input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:9px 11px}
 .route-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}.route-head h2{font-size:17px;margin:0}.route-head .count{margin-left:auto;color:var(--muted);font-size:13px}
-.list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:start}.stop-head{display:flex;align-items:center;gap:8px;min-width:0}.stop-title{font-weight:800;font-size:14px;line-height:1.2}.stop-status{margin-left:auto}.stop-info{display:grid;gap:7px;margin-top:9px}.info-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px;align-items:start;font-size:13px;line-height:1.3}.info-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:none}.info-value{min-width:0;overflow-wrap:anywhere;color:#263246}.package-line{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:13px;font-weight:800}.package-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#1759a8;border:1px solid #d5e7ff}.stop-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);margin-top:2px}.order-buttons{display:flex;gap:6px;flex-wrap:wrap}.mini.status-action{font-weight:700}.mini.status-action.active{box-shadow:0 0 0 2px rgba(23,105,224,.18);border-color:#93c5fd}.location-confirm{display:grid;gap:10px}.location-address-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-address-box strong{display:block;margin-bottom:4px}.coords{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0}.stop.problem{background:#fff7f7;border-color:#fecaca}.stop.notdone{background:#fffaf0;border-color:#fed7aa}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
-.marker-num.location-edit{cursor:move;outline:3px dashed #f59e0b;outline-offset:2px}.marker-num{width:28px;height:28px;border-radius:50%;background:#1769e0;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:grid;place-items:center;font-weight:800;font-size:12px}.marker-num.selected{background:#dc2626}.marker-num.done{background:#16a34a}.marker-num.problem{background:#dc2626}.marker-num.notdone{background:#d97706}.num{width:30px;height:30px;border-radius:50%;background:#edf4ff;color:var(--brand);display:grid;place-items:center;font-weight:800}.stop-main{min-width:0}.stop-main b{display:block;line-height:1.25}.address{font-size:13px;color:#303a4c;margin-top:3px}.seq{font-size:11px;color:var(--muted);margin-top:5px}.stop-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.mini{padding:6px 8px;border-radius:8px;background:#f4f6f9;border:1px solid var(--line);font-size:12px}.mini:hover{background:#eaf0f8}.status{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:#64748b}.status.done{background:#dcfce7;color:#15803d}.status.problem{background:#fee2e2;color:#b91c1c}
+.list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:start}.stop-head{display:flex;align-items:center;gap:8px;min-width:0}.stop-title{font-weight:800;font-size:14px;line-height:1.2}.stop-status{margin-left:auto}.stop-info{display:grid;gap:7px;margin-top:9px}.info-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px;align-items:start;font-size:13px;line-height:1.3}.info-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:none}.info-value{min-width:0;overflow-wrap:anywhere;color:#263246}.package-line{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:13px;font-weight:800}.package-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#1759a8;border:1px solid #d5e7ff}.stop-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);margin-top:2px}.order-buttons{display:flex;gap:6px;flex-wrap:wrap}.mini.status-action{font-weight:700}.mini.status-action.active{box-shadow:0 0 0 2px rgba(23,105,224,.18);border-color:#93c5fd}.location-confirm{display:grid;gap:10px}.location-address-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-address-box strong{display:block;margin-bottom:4px}.coords{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0}.stop.pending{background:#fffbeb;border-color:#fde68a}.stop.notdone{background:#fff5f5;border-color:#fecaca}.stop.end{background:#f3f4f6;border-color:#9ca3af}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
+.marker-num.location-edit{cursor:move;outline:3px dashed #f59e0b;outline-offset:2px}.marker-num{width:28px;height:28px;border-radius:50%;background:#1769e0;color:#fff;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:grid;place-items:center;font-weight:800;font-size:12px}.marker-num.selected{outline:3px solid #1769e0;outline-offset:2px}.marker-num.done{background:#16a34a}.marker-num.pending{background:#eab308;color:#172033}.marker-num.notdone{background:#dc2626}.marker-num.end{background:#111827}.num{width:30px;height:30px;border-radius:50%;background:#edf4ff;color:var(--brand);display:grid;place-items:center;font-weight:800}.stop-main{min-width:0}.stop-main b{display:block;line-height:1.25}.address{font-size:13px;color:#303a4c;margin-top:3px}.seq{font-size:11px;color:var(--muted);margin-top:5px}.stop-actions{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.mini{padding:6px 8px;border-radius:8px;background:#f4f6f9;border:1px solid var(--line);font-size:12px}.mini:hover{background:#eaf0f8}.status{font-size:11px;font-weight:800;padding:4px 7px;border-radius:999px;background:#f3f4f6;color:#64748b}.status.done{background:#dcfce7;color:#15803d}.status.pending{background:#fef3c7;color:#a16207}.status.notdone{background:#fee2e2;color:#b91c1c}.status.end{background:#e5e7eb;color:#111827}
 .empty{padding:35px 15px;text-align:center;color:var(--muted)}.badge{font-size:11px;padding:4px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:750}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:3000;padding:16px}.modal.open{display:flex}.modal-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.25)}.modal-box h2{margin:0 0 12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{border:1px solid var(--line);padding:9px;border-radius:9px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:4000}.toast.show{display:block}
 @media(max-width:1050px){.main{grid-template-columns:1fr}.map-card{min-height:500px}#map{height:55vh;min-height:420px}.list{max-height:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}}
-@media(max-width:600px){.top{padding:0 12px}.main{padding:10px}.top-actions .btn{padding:7px 9px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:92px minmax(0,1fr)}.stop{grid-template-columns:38px 1fr}.stop-actions{grid-column:1/-1;justify-content:flex-start}}
+@media(max-width:600px){.top{padding:0 10px}.main{padding:7px}.config-wrap{padding:10px}.config-map-panel{min-height:360px}.config-map-panel #configMapHost{height:42vh;min-height:300px}.top-actions .btn{padding:7px 8px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:1fr;gap:2px}.info-label{font-size:10px}.info-value{font-size:13px}.stop{grid-template-columns:34px 1fr;padding:10px}.stop-actions{grid-column:1/-1;justify-content:flex-start}.stop-actions .order-buttons{width:100%}.stop-actions .mini{padding:6px 8px;font-size:11px}.nav-map-card{height:44vh;min-height:320px}.nav-side{height:54vh}.nav-side .controls{display:grid;grid-template-columns:1fr 100px;gap:6px}.nav-side .controls input{min-width:0}.route-head h2{font-size:15px}.route-head .count{font-size:12px}}
+
+/* Tela dupla: configuração e navegação */
+.screen{display:none;min-height:calc(100vh - 64px)}.screen.active{display:block}
+.config-wrap{max-width:1100px;margin:0 auto;padding:22px}.config-grid{display:grid;grid-template-columns:410px minmax(0,1fr);gap:14px;align-items:start}.config-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.nav-wrap{padding:12px}.nav-grid{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:12px;height:calc(100vh - 88px)}.nav-map-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:0;display:flex;flex-direction:column}.nav-map-toolbar{display:none}#map{height:100%;min-height:0;flex:1}.nav-map-host{flex:1;min-height:0}.nav-side{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;min-height:0}.nav-side .list{max-height:none;flex:1;min-height:0}.nav-back{margin-right:auto}.screen-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}.screen-title h1{font-size:20px;margin:0}.screen-title .muted{margin-left:auto}.config-map-panel{min-height:520px}.config-map-panel #configMapHost{height:calc(100vh - 230px);min-height:500px;border-radius:12px;overflow:hidden}.config-map-panel #map{height:100%;min-height:0}.config-controls{gap:7px}.nav-map-host{height:100%}.nav-config-float{position:absolute;top:10px;left:10px;z-index:1200;width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.95);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.15);font-size:18px}.nav-map-card{position:relative}
+.point-actions{align-items:center}.point-actions input{min-width:220px}.search-point{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;width:100%}.search-point input{width:100%}
+@media(max-width:1050px){.config-grid,.nav-grid{grid-template-columns:1fr}.config-map-panel{min-height:420px}.config-map-panel #configMapHost{height:46vh;min-height:360px}.nav-grid{height:auto;display:flex;flex-direction:column;gap:8px}.nav-map-card{height:48vh;min-height:360px;flex:none}.nav-map-toolbar{padding:8px;gap:6px}.nav-map-toolbar .btn{font-size:12px;padding:8px 9px}.nav-side{height:50vh;min-height:0;overflow:hidden;display:flex;flex-direction:column}.nav-side .list{max-height:none;flex:1;min-height:0;overflow-y:auto}.nav-side .controls{position:sticky;top:0;background:#fff;z-index:2;padding-bottom:7px}.route-head{margin-bottom:7px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="top">
-  <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">6.0</span></div>
+  <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">7.0</span></div>
   <div class="top-actions">
     <button class="btn" id="btnLocate">📍 Minha localização</button>
     <button class="btn primary" id="btnImportTop">📥 Importar</button>
     <button class="btn ok" id="btnExportTop">📤 Exportar</button>
   </div>
 </header>
-<main class="main">
-<section class="left">
-  <div class="stats">
-    <div class="stat"><b id="statStops">0</b><small>paradas</small></div>
-    <div class="stat"><b id="statPackages">0</b><small>pacotes/linhas</small></div>
-    <div class="stat"><b id="statDone">0</b><small>entregues</small></div>
-    <div class="stat"><b id="statDistance">—</b><small>distância estimada</small></div>
-  </div>
-  <div class="map-card">
-    <div class="map-toolbar">
-      <button class="btn primary" id="btnOptimize">⚡ Otimizar rota</button>
-      <button class="btn" id="btnEditMap">✋ Editar ordem no mapa</button>
-      <button class="btn" id="btnEditLocation">📍 Editar localização dos balões</button>
-      <button class="btn" id="btnFinishLocationEdit" style="display:none">✅ Concluir edição de localização</button>
-      <button class="btn" id="btnFinishMapEdit" style="display:none">✅ Concluir ordem</button>
-      <button class="btn" id="btnRoadRoute">🛣️ Calcular trajeto</button>
-      <button class="btn" id="btnReset">↩️ Restaurar ordem</button>
-      <button class="btn" id="btnFit">🔎 Ver tudo</button>
-    </div>
-    <div class="map-edit-note" id="mapEditNote">Modo edição: clique nos balões na ordem desejada. O primeiro clique será a parada 1, o segundo a parada 2, e assim por diante.</div>
-    <div class="map-edit-note" id="locationEditNote">Modo edição de localização: arraste qualquer balão de entrega até o ponto correto. Depois clique em “Concluir edição de localização”.</div>
-    <div id="map"></div>
-  </div>
-</section>
-<section class="right">
+<main>
+<section class="screen active" id="screenConfig"><div class="config-wrap"><div class="screen-title"><h1>⚙️ Configuração da rota</h1><span class="muted">Prepare a rota antes de iniciar a navegação</span></div><div class="config-grid"><section class="left">
   <div class="panel">
-    <div class="import-zone" id="dropZone">
-      <strong>📦 Importe sua planilha da Shopee</strong>
-      <div class="muted">Arraste .xlsx/.xls/.csv aqui ou selecione um arquivo.</div>
-      <div style="margin-top:12px"><button class="btn primary" id="btnChoose">Selecionar planilha</button></div>
-      <input id="fileInput" type="file" accept=".xlsx,.xls,.xlsm,.csv" hidden>
-      <div class="file-row" id="fileInfo" style="display:none"><span class="badge">OK</span><span class="file-name" id="fileName"></span></div>
-    </div>
+    <h3>📦 Importação</h3>
+    <div class="import-zone" id="dropZone"><strong>📦 Importe sua planilha da Shopee</strong><div class="muted">Arraste .xlsx/.xls/.csv aqui ou selecione um arquivo.</div><div style="margin-top:10px"><button class="btn primary" id="btnChoose">Selecionar planilha</button></div><input id="fileInput" type="file" accept=".xlsx,.xls,.xlsm,.csv" hidden><div class="file-row" id="fileInfo" style="display:none"><span class="badge">OK</span><span class="file-name" id="fileName"></span></div></div>
   </div>
-  <div class="panel">
-    <h3>📍 Pontos da rota</h3>
-    <div class="route-points">
-      <div class="point-box start">
-        <div class="point-head"><strong>🚚 Ponto de partida</strong><span class="point-state" id="startState">Não definido</span></div>
-        <div class="point-actions"><button class="mini" id="btnSetStart">📍 Usar minha localização</button><button class="mini" id="btnClearStart">✕ Limpar</button></div>
-      </div>
-      <div class="point-box home">
-        <div class="point-head"><strong>🏠 Ponto final — minha casa</strong><span class="point-state" id="homeState">Não definido</span></div>
-        <div class="point-actions"><input id="homeAddress" placeholder="Digite o endereço da sua casa"><button class="mini" id="btnSetHome">🏠 Definir casa</button><button class="mini" id="btnHomeCurrent">📍 Usar localização atual</button><button class="mini" id="btnClearHome">✕ Limpar</button></div>
-        <div class="muted" style="margin-top:6px">A casa será o último ponto da rota otimizada e do trajeto.</div>
-      </div>
-    </div>
-  </div>
-  <div class="panel">
-    <div class="controls">
-      <button class="btn primary" id="btnGroup">🔗 Agrupar endereços</button>
-      <input id="search" placeholder="🔎 Buscar endereço, Sequence, SPX TN...">
-      <select id="filter"><option value="all">Todas</option><option value="pending">Pendentes</option><option value="done">Entregues</option><option value="problem">Problemas</option><option value="notdone">Não entregues</option></select>
-    </div>
-    <div class="muted" style="margin-top:7px">Agrupa somente mesma rua + mesmo número + mesmo bairro/cidade. Complementos são preservados.</div>
-  </div>
-  <div class="panel">
-    <div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div>
-    <div class="list" id="stopList"><div class="empty">Importe uma planilha para começar.</div></div>
-  </div>
-</section>
+  <div class="panel"><h3>🔗 Agrupamento</h3><button class="btn primary" id="btnGroup">🔗 Agrupar endereços</button><div class="muted" style="margin-top:7px">Uma parada por endereço elegível. Mantém todos os Sequence, complementos e colunas originais.</div><div class="stats" style="margin-top:10px"><div class="stat"><b id="statPackages">0</b><small>Pacotes</small></div><div class="stat"><b id="statStops">0</b><small>Paradas</small></div></div></div>
+  <div class="panel"><h3>📍 Pontos da rota</h3><div class="route-points">
+      <div class="point-box start"><div class="point-head"><strong>🚚 Ponto de partida</strong><span class="point-state" id="startState">Não definido</span></div><div class="point-actions"><button class="mini" id="btnSetStart">📍 Usar minha localização</button><button class="mini" id="btnClearStart">✕ Limpar</button></div><div class="search-point" style="margin-top:7px"><input id="startAddress" placeholder="Pesquisar endereço de partida"><button class="mini" id="btnSetStartAddress">🔎 Definir</button></div></div>
+      <div class="point-box home"><div class="point-head"><strong>🏠 Ponto final — minha casa</strong><span class="point-state" id="homeState">Não definido</span></div><div class="point-actions"><input id="homeAddress" placeholder="Digite o endereço da sua casa"><button class="mini" id="btnSetHome">🏠 Definir casa</button><button class="mini" id="btnHomeCurrent">📍 Usar localização atual</button><button class="mini" id="btnClearHome">✕ Limpar</button></div></div>
+  </div></div>
+  <div class="panel"><h3>🛠️ Preparar a rota</h3><div class="controls config-controls"><button class="btn primary" id="btnOptimize">⚡ Otimizar rota</button><button class="btn" id="btnEditMap">✋ Editar ordem pelos balões</button><button class="btn" id="btnFinishMapEdit" style="display:none">✅ Concluir ordem</button><button class="btn" id="btnEditLocation">📍 Editar localização</button><button class="btn" id="btnFinishLocationEdit" style="display:none">✅ Concluir localização</button><button class="btn" id="btnRoadRoute">🗺️ Calcular trajeto</button><button class="btn" id="btnReset">↩️ Restaurar ordem</button><button class="btn" id="btnFit">🔎 Ver tudo</button></div><div class="map-edit-note" id="mapEditNote">✋ Clique nos balões na ordem desejada. Depois clique em “Concluir ordem”.</div><div class="map-edit-note" id="locationEditNote">📍 Arraste os balões para o local correto. Ao soltar, confirme o endereço encontrado.</div></div>
+  <div class="config-actions"><button class="btn primary" id="btnGoNavigation">🚚 Ir para navegação</button></div>
+  </section>
+  <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div></div></section>
+</div></div></section>
+<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
 </main>
 </div>
 
@@ -119,7 +82,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 <div class="toast" id="toast"></div>
 
 <script>
-const state={rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null};
+const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null};
 
 const STREET_TYPES={
   r:'rua','r.':'rua','rua':'rua','av':'avenida','av.':'avenida','aven':'avenida','avenida':'avenida',
@@ -240,59 +203,36 @@ function render(){
   updateStats(); renderList(); renderMap();
 }
 function updateStats(){
-  document.getElementById('statStops').textContent=state.groups.length;
-  document.getElementById('statPackages').textContent=state.rows.length;
-  document.getElementById('statDone').textContent=state.groups.filter(g=>g.status==='done').length;
-  document.getElementById('routeCount').textContent=state.groups.length+' paradas';
+  const a=document.getElementById('statStops'); if(a)a.textContent=state.groups.length;
+  const b=document.getElementById('statPackages'); if(b)b.textContent=state.rows.length;
+  const c=document.getElementById('statDone'); if(c)c.textContent=state.groups.filter(g=>g.status==='done').length;
+  const d=document.getElementById('routeCount'); if(d)d.textContent=state.groups.length+' paradas';
 }
-function matches(g){
-  const q=norm(document.getElementById('search').value);
-  const f=document.getElementById('filter').value;
-  if(f!=='all' && g.status!==f)return false;
-  if(!q)return true;
-  return state.headers.some(h=>norm(g[h]).includes(q));
-}
+function matches(g){ return true; }
 function renderList(){
-  const el=document.getElementById('stopList'); el.innerHTML='';
-  const visible=state.groups.filter(matches);
-  if(!visible.length){el.innerHTML='<div class="empty">Nenhuma parada encontrada.</div>';return}
+  const el=document.getElementById('stopList'); if(!el)return; el.innerHTML='';
+  if(!state.groups.length){el.innerHTML='<div class="empty">Nenhuma parada disponível.</div>';return}
   const seqCol=findCol(state.headers,['Sequence','Sequência']);
   const destinationCol=findCol(state.headers,['Destination','Destino']);
-  const addrCol=findCol(state.headers,['Address','Endereço','Destination Address','Destination address']);
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
   const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
   const cityCol=findCol(state.headers,['City','Cidade']);
-  visible.forEach((g)=>{
-    const idx=state.groups.indexOf(g);
+  state.groups.forEach((g,idx)=>{
     const d=document.createElement('div');
-    d.className='stop '+(g.status==='done'?'done ':'')+(g.status==='problem'?'problem ':'')+(g.status==='notdone'?'notdone ':'')+(state.mapPick.includes(idx)?'selected':'');
-    d.draggable=true; d.dataset.idx=idx;
+    const statusClass=g.status==='done'?'done':g.status==='notdone'?'notdone':g.status==='end'?'end':'pending';
+    d.className='stop '+statusClass;
     const pkg=g.__rows?.length||1;
-    const statusLabel={done:'ENTREGUE',pending:'PENDENTE',problem:'PROBLEMA',notdone:'NÃO ENTREGUE'}[g.status]||'PENDENTE';
-    const statusClass={done:'done',pending:'',problem:'problem',notdone:'notdone'}[g.status]||'';
-    const seq=g[seqCol]||'—';
-    const destination=destinationCol?(g[destinationCol]||'—'):'';
-    const address=addrCol?(g[addrCol]||'—'):'—';
-    const bairro=bairroCol?(g[bairroCol]||'—'):'—';
-    const city=cityCol?(g[cityCol]||'—'):'—';
-    const fields=[];
-    fields.push(`<div class="info-row"><div class="info-label">Sequence</div><div class="info-value">${esc(seq)}</div></div>`);
-    if(destinationCol)fields.push(`<div class="info-row"><div class="info-label">Destination</div><div class="info-value">${esc(destination)}</div></div>`);
-    fields.push(`<div class="info-row"><div class="info-label">${destinationCol?'Address':'Destination Address'}</div><div class="info-value">${esc(address)}</div></div>`);
-    fields.push(`<div class="info-row"><div class="info-label">Bairro</div><div class="info-value">${esc(bairro)}</div></div>`);
-    fields.push(`<div class="info-row"><div class="info-label">City</div><div class="info-value">${esc(city)}</div></div>`);
-    d.innerHTML=`<div class="num" title="Arraste para mudar a ordem">${idx+1}</div><div class="stop-main"><div class="stop-head"><div class="stop-title">Parada ${idx+1}</div><span class="status ${statusClass} stop-status">${statusLabel}</span></div><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div><div class="stop-info">${fields.join('')}</div></div><div class="stop-actions"><div class="order-buttons"><button class="mini status-action ${g.status==='done'?'active':''}" data-act="done">✅ Entregue</button><button class="mini status-action ${g.status==='pending'?'active':''}" data-act="pending">🟡 Pendente</button><button class="mini status-action ${g.status==='notdone'?'active':''}" data-act="notdone">⚪ Não entregue</button><button class="mini status-action ${g.status==='problem'?'active':''}" data-act="problem">❌ Problema</button><button class="mini" data-act="end" title="Enviar para o final da rota">🏁 Fim</button><button class="mini" data-act="up" title="Mover para cima">⬆️</button><button class="mini" data-act="down" title="Mover para baixo">⬇️</button><button class="mini" data-act="detail">Detalhes</button><button class="mini" data-act="nav">🗺️ Navegar</button></div></div>`;
-    d.addEventListener('dragstart',e=>{if(e.target.closest('button')){e.preventDefault();return}state.dragId=idx;d.classList.add('dragging')});
-    d.addEventListener('dragend',()=>d.classList.remove('dragging'));
-    d.addEventListener('dragover',e=>e.preventDefault());
-    d.addEventListener('drop',e=>{e.preventDefault();const target=idx;const from=state.dragId;if(from===null||from===target)return;const [m]=state.groups.splice(from,1);state.groups.splice(target,0,m);state.dragId=null;save();render();toast('Ordem alterada.')});
+    const seq=g[seqCol]||'—', destination=destinationCol?(g[destinationCol]||'—'):'—';
+    const address=addrCol?(g.__mapAddress||g[addrCol]||'—'):'—';
+    const bairro=bairroCol?(g[bairroCol]||'—'):'—', city=cityCol?(g[cityCol]||'—'):'—';
+    const statusLabel={done:'ENTREGUE',pending:'PENDENTE',notdone:'NÃO ENTREGUE',end:'FIM DA FILA'}[g.status]||'PENDENTE';
+    const fields=[['Sequence',seq],['Destination',destination],['Address',address],['Bairro',bairro],['City',city]].map(([k,v])=>`<div class="info-row"><div class="info-label">${k}</div><div class="info-value">${esc(v)}</div></div>`).join('');
+    d.innerHTML=`<div class="num">${idx+1}</div><div class="stop-main"><div class="stop-head"><div class="stop-title">Parada ${idx+1}</div><span class="status ${statusClass} stop-status">${statusLabel}</span></div><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div><div class="stop-info">${fields}</div></div><div class="stop-actions"><button class="mini status-action ${g.status==='done'?'active':''}" data-act="done">✅ Entregue</button><button class="mini status-action ${g.status==='notdone'?'active':''}" data-act="notdone">🔴 Não entregue</button><button class="mini status-action ${g.status==='pending'?'active':''}" data-act="pending">🟡 Pendente</button><button class="mini status-action ${g.status==='end'?'active':''}" data-act="end">🏁 Fim</button><button class="mini" data-act="detail">Detalhes</button></div></div>`;
     d.addEventListener('click',e=>{
       const act=e.target.dataset.act;if(!act)return;
-      if(['done','pending','problem','notdone'].includes(act)){g.status=act;save();render();toast(act==='done'?'✅ Marcada como entregue.':act==='problem'?'❌ Marcada como problema.':act==='notdone'?'⚪ Marcada como não entregue.':'🟡 Marcada como pendente.');return}
+      if(['done','pending','notdone'].includes(act)){g.status=act;save();renderMap();renderList();return}
+      if(act==='end'){const [m]=state.groups.splice(idx,1);m.status='end';state.groups.push(m);save();render();return}
       if(act==='detail')openDetail(g);
-      if(act==='nav')navigate(g);
-      if(act==='up' && idx>0){const [m]=state.groups.splice(idx,1);state.groups.splice(idx-1,0,m);save();render();toast('Parada movida para cima.');}
-      if(act==='down' && idx<state.groups.length-1){const [m]=state.groups.splice(idx,1);state.groups.splice(idx+1,0,m);save();render();toast('Parada movida para baixo.');}
-      if(act==='end'){const [m]=state.groups.splice(idx,1);state.groups.push(m);save();render();toast('🏁 Parada enviada para o fim da rota.');}
     });
     el.appendChild(d);
   });
@@ -311,11 +251,11 @@ function renderMap(){
     if(Number.isFinite(g.lat)&&Number.isFinite(g.lng)){
       const picked=state.mapPick.indexOf(i);
       const label=picked>=0?picked+1:i+1;
-      const cls=(picked>=0?' selected':'')+(g.status==='done'?' done':g.status==='problem'?' problem':g.status==='notdone'?' notdone':'')+(state.locationEdit?' location-edit':'');
+      const cls=(picked>=0?' selected':'')+(g.status==='done'?' done':g.status==='notdone'?' notdone':g.status==='end'?' end':' pending')+(state.locationEdit?' location-edit':'');
       const icon=L.divIcon({className:'',html:`<div class="marker-num${cls}">${label}</div>`,iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-14]});
       const m=L.marker([g.lat,g.lng],{icon,draggable:!!state.locationEdit,zIndexOffset:picked>=0?1000:0}).addTo(state.map);
       const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
-      const statusLabel={done:'ENTREGUE',pending:'PENDENTE',problem:'PROBLEMA',notdone:'NÃO ENTREGUE'}[g.status]||'PENDENTE';
+      const statusLabel={done:'ENTREGUE',pending:'PENDENTE',notdone:'NÃO ENTREGUE',end:'FIM DA FILA'}[g.status]||'PENDENTE';
       const seqCol=findCol(state.headers,['Sequence','Sequência']);
       const destinationCol=findCol(state.headers,['Destination','Destino']);
       const displayAddr=g.__mapAddress || g[addrCol] || 'Endereço não informado';
@@ -348,6 +288,8 @@ function updatePointUI(){
   const ss=document.getElementById('startState'), hs=document.getElementById('homeState');
   if(ss)ss.textContent=state.start?`${state.start.lat.toFixed(5)}, ${state.start.lng.toFixed(5)}`:'Não definido';
   if(hs)hs.textContent=state.home?(state.home.address||`${state.home.lat.toFixed(5)}, ${state.home.lng.toFixed(5)}`):'Não definido';
+  const sinp=document.getElementById('startAddress');
+  if(sinp && state.start?.address && !sinp.value)sinp.value=state.start.address;
   const inp=document.getElementById('homeAddress');
   if(inp && state.home?.address && !inp.value)inp.value=state.home.address;
 }
@@ -437,7 +379,7 @@ async function roadRoute(){
     const r=await fetch(url);const j=await r.json();if(!j.routes?.[0])throw new Error();
     if(state.routeLine)state.routeLine.remove();
     state.routeLine=L.geoJSON(j.routes[0].geometry,{style:{weight:5,opacity:.75}}).addTo(state.map);
-    const km=j.routes[0].distance/1000;document.getElementById('statDistance').textContent=km.toFixed(1)+' km';
+    const km=j.routes[0].distance/1000;const sd=document.getElementById('statDistance'); if(sd)sd.textContent=km.toFixed(1)+' km';
     state.map.fitBounds(state.routeLine.getBounds(),{padding:[25,25]});
     const suffix=state.home?' até sua casa':'';
     toast(`Trajeto calculado: ${km.toFixed(1)} km • ${(j.routes[0].duration/3600).toFixed(1)} h estimadas${suffix}.`);
@@ -446,7 +388,7 @@ async function roadRoute(){
 
 function haversine(a,b,c,d){const R=6371,rad=Math.PI/180,x=(c-a)*rad,y=(d-b)*rad;const q=Math.sin(x/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(y/2)**2;return 2*R*Math.asin(Math.sqrt(q))}
 function resetOrder(){state.groups=state.originalGroups.map(g=>({...g,__indices:[...g.__indices],__rows:[...g.__rows]}));save();render();toast('Ordem original restaurada.')}
-function save(){try{localStorage.setItem('erp3',JSON.stringify({groups:state.groups.map(g=>({...g,__rows:undefined})),fileName:state.fileName,start:state.start,home:state.home}))}catch(e){}}
+function save(){try{localStorage.setItem('erp9',JSON.stringify({groups:state.groups.map(g=>({...g,__rows:undefined})),fileName:state.fileName,start:state.start,home:state.home}))}catch(e){}}
 function exportFile(){
   if(!state.groups.length)return toast('Nada para exportar.');
   const out=state.groups.map(g=>{const o={};state.headers.forEach(h=>o[h]=g[h]);return o});
@@ -498,20 +440,40 @@ function saveLocationConfirmation(){
   state.pendingLocation=null;document.getElementById('locationModal').classList.remove('open');save();render();toast(`📍 Localização da parada ${p.idx+1} confirmada.`);
 }
 
+async function geocodeAddress(query){
+  const q=String(query||'').trim(); if(!q)throw new Error('empty');
+  const key=norm(q); if(state.geocodeCache[key]) return {...state.geocodeCache[key],address:q};
+  // Consulta disparada somente por ação explícita do usuário (sem autocomplete).
+  const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&q='+encodeURIComponent(q);
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}}); if(!r.ok)throw new Error('geocode');
+  const j=await r.json(); if(!j[0])throw new Error('notfound');
+  const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:q,display:j[0].display_name||q}; state.geocodeCache[key]=point; return point;
+}
+async function geocodeStart(){
+  const input=document.getElementById('startAddress'); const q=input?.value.trim();
+  if(!q)return toast('Digite o endereço de partida.');
+  try{const p=await geocodeAddress(q);state.start={...p};save();renderMap();updatePointUI();toast('🚚 Ponto de partida definido pelo endereço.');}
+  catch(e){toast('Endereço de partida não encontrado. Tente incluir cidade e estado.');}
+}
+function showScreen(name){
+  state.screen=name; localStorage.setItem('erp_screen',name);
+  document.querySelector('.top-actions').style.display=name==='config'?'flex':'none';
+  document.getElementById('screenConfig').classList.toggle('active',name==='config');
+  document.getElementById('screenNavigation').classList.toggle('active',name==='navigation');
+  const mapEl=document.getElementById('map');
+  const host=document.getElementById(name==='config'?'configMapHost':'navMapHost');
+  if(mapEl && host)host.appendChild(mapEl);
+  setTimeout(()=>{state.map?.invalidateSize();renderMap();},80);
+}
 function useLocation(onDone){
   if(!navigator.geolocation)return toast('Seu navegador não oferece geolocalização.');
-  navigator.geolocation.getCurrentPosition(p=>{state.start={lat:p.coords.latitude,lng:p.coords.longitude};save();renderMap();updatePointUI();toast('Ponto de partida definido pela sua localização atual.');if(onDone)onDone(state.start)},()=>toast('Não foi possível obter sua localização. Verifique a permissão do navegador.'));
+  navigator.geolocation.getCurrentPosition(p=>{state.start={lat:p.coords.latitude,lng:p.coords.longitude,address:'Minha localização atual'};save();renderMap();updatePointUI();toast('Ponto de partida definido pela sua localização atual.');if(onDone)onDone(state.start)},()=>toast('Não foi possível obter sua localização. Verifique a permissão do navegador.'));
 }
 async function geocodeHome(){
   const input=document.getElementById('homeAddress'); const q=input.value.trim();
   if(!q)return toast('Digite o endereço da sua casa.');
-  try{
-    const key=norm(q); if(state.geocodeCache[key]){state.home={...state.geocodeCache[key],address:q};save();renderMap();toast('Casa definida.');return}
-    const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&q='+encodeURIComponent(q);
-    const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}});const j=await r.json();
-    if(!j[0])return toast('Endereço não encontrado. Tente incluir cidade e estado.');
-    const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:q};state.geocodeCache[key]=point;state.home=point;save();renderMap();toast('🏠 Casa definida como ponto final.');
-  }catch(e){toast('Não foi possível localizar esse endereço agora.')}
+  try{const p=await geocodeAddress(q);state.home={...p};save();renderMap();updatePointUI();toast('🏠 Casa definida como ponto final.');}
+  catch(e){toast('Endereço da casa não encontrado. Tente incluir cidade e estado.')}
 }
 function setHomeCurrent(){
   useLocation(pos=>{state.home={...pos,address:'Minha localização atual'};save();renderMap();updatePointUI();toast('🏠 Sua localização atual foi definida como ponto final.');});
@@ -523,47 +485,40 @@ document.getElementById('fileInput').onchange=e=>{if(e.target.files[0])importFil
 document.getElementById('btnExportTop').onclick=exportFile;
 document.getElementById('btnGroup').onclick=groupNow;
 document.getElementById('btnEditMap').onclick=()=>{
-  if(!state.groups.length)return toast('Importe uma planilha primeiro.');
+  if(!state.groups.length)return toast('Importe e agrupe a planilha primeiro.');
   state.mapEdit=true;state.mapPick=[];state.mapOriginalOrder=state.groups.slice();
-  document.getElementById('btnEditMap').style.display='none';document.getElementById('btnFinishMapEdit').style.display='inline-block';document.getElementById('mapEditNote').classList.add('show');
-  renderMap();toast('Modo edição ativado: clique nos balões na ordem desejada.');
+  document.getElementById('btnEditMap').style.display='none';document.getElementById('btnFinishMapEdit').style.display='inline-block';
+  renderMap();toast('Modo edição: clique nos balões na ordem desejada.');
 };
 document.getElementById('btnFinishMapEdit').onclick=()=>{
   if(!state.mapPick.length)return toast('Clique em pelo menos uma parada no mapa.');
   const chosen=state.mapPick.map(i=>state.groups[i]);
   const rest=state.groups.filter((g,i)=>!state.mapPick.includes(i));
   state.groups=[...chosen,...rest];state.mapEdit=false;state.mapPick=[];state.mapOriginalOrder=null;
-  document.getElementById('btnEditMap').style.display='inline-block';document.getElementById('btnFinishMapEdit').style.display='none';document.getElementById('mapEditNote').classList.remove('show');
-  save();render();toast(`✅ Nova ordem aplicada: ${chosen.length} paradas selecionadas primeiro.`);
+  document.getElementById('btnEditMap').style.display='inline-block';document.getElementById('btnFinishMapEdit').style.display='none';
+  save();render();toast('✅ Nova ordem aplicada.');
 };
 document.getElementById('btnEditLocation').onclick=()=>{
-  if(!state.groups.length)return toast('Importe uma planilha primeiro.');
-  if(state.mapEdit){toast('Conclua primeiro a edição da ordem.');return}
-  state.locationEdit=true;
-  document.getElementById('btnEditLocation').style.display='none';
-  document.getElementById('btnFinishLocationEdit').style.display='inline-block';
-  document.getElementById('locationEditNote').classList.add('show');
-  renderMap(); toast('📍 Edição de localização ativada. Arraste os balões para o local correto.');
+  if(!state.groups.length)return toast('Importe e agrupe a planilha primeiro.');
+  if(state.mapEdit)return toast('Conclua primeiro a edição da ordem.');
+  state.locationEdit=true;document.getElementById('btnEditLocation').style.display='none';document.getElementById('btnFinishLocationEdit').style.display='inline-block';renderMap();toast('📍 Arraste os balões para corrigir a localização.');
 };
-document.getElementById('btnFinishLocationEdit').onclick=()=>{
-  state.locationEdit=false;
-  document.getElementById('btnEditLocation').style.display='inline-block';
-  document.getElementById('btnFinishLocationEdit').style.display='none';
-  document.getElementById('locationEditNote').classList.remove('show');
-  save(); renderMap(); toast('✅ Edição de localização concluída.');
-};
+document.getElementById('btnFinishLocationEdit').onclick=()=>{state.locationEdit=false;document.getElementById('btnEditLocation').style.display='inline-block';document.getElementById('btnFinishLocationEdit').style.display='none';save();renderMap();toast('✅ Edição de localização concluída.');};
 document.getElementById('btnOptimize').onclick=optimize;
 document.getElementById('btnRoadRoute').onclick=roadRoute;
 document.getElementById('btnReset').onclick=resetOrder;
 document.getElementById('btnLocate').onclick=()=>useLocation();
 document.getElementById('btnSetStart').onclick=()=>useLocation();
-document.getElementById('btnClearStart').onclick=()=>{state.start=null;save();renderMap();updatePointUI();toast('Ponto de partida removido.')};
+document.getElementById('btnSetStartAddress').onclick=geocodeStart;
+document.getElementById('startAddress').addEventListener('keydown',e=>{if(e.key==='Enter')geocodeStart()});
+document.getElementById('btnClearStart').onclick=()=>{state.start=null;document.getElementById('startAddress').value='';save();renderMap();updatePointUI();toast('Ponto de partida removido.')};
 document.getElementById('btnSetHome').onclick=geocodeHome;
 document.getElementById('btnHomeCurrent').onclick=setHomeCurrent;
 document.getElementById('btnClearHome').onclick=()=>{state.home=null;document.getElementById('homeAddress').value='';save();renderMap();updatePointUI();toast('Ponto final removido.')};
+document.getElementById('btnGoNavigation').onclick=()=>{if(!state.groups.length)return toast('Importe e agrupe a planilha antes de navegar.');showScreen('navigation')};
+document.getElementById('btnBackConfig').onclick=()=>showScreen('config');
 
-document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>Number.isFinite(g.lat)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
-document.getElementById('search').oninput=renderList;document.getElementById('filter').onchange=renderList;
+document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>Number.isFinite(g.lat)&&Number.isFinite(g.lng)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
 document.getElementById('modalClose').onclick=()=>document.getElementById('detailModal').classList.remove('open');
 document.getElementById('locationCancel').onclick=closeLocationConfirmation;
 document.getElementById('locationSave').onclick=saveLocationConfirmation;
@@ -571,6 +526,7 @@ document.getElementById('locationModal').onclick=e=>{if(e.target.id==='locationM
 document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
 const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
 initMap();
+showScreen(localStorage.getItem('erp_screen')==='navigation'?'navigation':'config');
 </script>
 </body>
 </html>
