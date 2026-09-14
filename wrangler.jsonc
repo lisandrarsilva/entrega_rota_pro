@@ -1,6 +1,5 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "entrega-rota-pro-2",
+  "name": "entrega-rota-pro",
   "compatibility_date": "2026-09-14",
-  "assets": { "directory": "./public" }
+  "assets": { "directory": "./" }
 }
