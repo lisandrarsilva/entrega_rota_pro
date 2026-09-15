@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega Rota Pro 10.1</title>
+<title>Entrega Rota Pro 10.3</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -39,13 +39,20 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .config-wrap{max-width:1100px;margin:0 auto;padding:22px}.config-grid{display:grid;grid-template-columns:410px minmax(0,1fr);gap:14px;align-items:start}.config-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .nav-wrap{padding:12px}.nav-grid{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:12px;height:calc(100vh - 88px)}.nav-map-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:0;display:flex;flex-direction:column}.nav-map-toolbar{display:none}#map{height:100%;min-height:0;flex:1}.nav-map-host{flex:1;min-height:0}.nav-side{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;min-height:0}.nav-side .list{max-height:none;flex:1;min-height:0}.nav-back{margin-right:auto}.screen-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}.screen-title h1{font-size:20px;margin:0}.screen-title .muted{margin-left:auto}.config-map-panel{min-height:520px}.config-map-panel #configMapHost{height:calc(100vh - 230px);min-height:500px;border-radius:12px;overflow:hidden}.config-map-panel #map{height:100%;min-height:0}.config-controls{gap:7px}.nav-map-host{height:100%}.nav-config-float{position:absolute;top:10px;left:10px;z-index:1200;height:42px;padding:0 14px;border-radius:12px;background:rgba(255,255,255,.96);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.15);font-size:13px;font-weight:800;color:var(--ink)}.nav-config-float:hover{background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}.nav-map-card{position:relative}
 .point-actions{align-items:center}.point-actions input{min-width:220px}.search-point{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;width:100%}.search-point input{width:100%}
+.config-map-panel #configMapHost{position:relative}
+.map-search-panel{position:absolute;top:10px;left:10px;right:10px;z-index:1800;background:rgba(255,255,255,.98);border:1px solid var(--line);border-radius:14px;box-shadow:0 10px 30px rgba(15,23,42,.18);padding:10px;display:none;max-width:620px}
+.map-search-panel.open{display:block}
+.map-search-head{display:flex;align-items:center;gap:8px;margin-bottom:8px}.map-search-head strong{font-size:13px}.map-search-close{margin-left:auto;padding:5px 8px;border-radius:8px;background:#f1f5f9;border:1px solid var(--line)}
+.map-search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.map-search-row input{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px}.map-search-results{display:grid;gap:6px;margin-top:8px;max-height:240px;overflow:auto}.map-search-result{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px;cursor:pointer}.map-search-result:hover{background:#f8fbff;border-color:#bfdbfe}.map-search-result strong{display:block;font-size:12px}.map-search-result span{display:block;font-size:11px;color:var(--muted);margin-top:3px}.map-search-note{font-size:11px;color:var(--muted);margin-top:7px}.approx-badge{display:inline-flex;align-items:center;gap:4px;margin-top:5px;padding:3px 7px;border-radius:999px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;font-size:10px;font-weight:800}
+.location-search-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.location-search-actions .btn{font-size:12px;padding:7px 9px}
+@media(max-width:600px){.map-search-panel{top:7px;left:7px;right:7px;padding:9px}.map-search-results{max-height:210px}.map-search-row{grid-template-columns:1fr}.map-search-row .btn{width:100%}}
 @media(max-width:1050px){.config-grid,.nav-grid{grid-template-columns:1fr}.config-map-panel{min-height:420px}.config-map-panel #configMapHost{height:46vh;min-height:360px}.nav-grid{height:auto;display:flex;flex-direction:column;gap:8px}.nav-map-card{height:48vh;min-height:360px;flex:none}.nav-map-toolbar{padding:8px;gap:6px}.nav-map-toolbar .btn{font-size:12px;padding:8px 9px}.nav-side{height:50vh;min-height:0;overflow:hidden;display:flex;flex-direction:column}.nav-side .list{max-height:none;flex:1;min-height:0;overflow-y:auto}.nav-side .controls{position:sticky;top:0;background:#fff;z-index:2;padding-bottom:7px}.route-head{margin-bottom:7px}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="top">
-  <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">7.0</span></div>
+  <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">10.3</span></div>
   <div class="top-actions">
     <button class="btn" id="btnLocate">📍 Minha localização</button>
     <button class="btn primary" id="btnImportTop">📥 Importar</button>
@@ -67,8 +74,8 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   <div class="panel"><h3>🛠️ Preparar a rota</h3><div class="controls config-controls"><button class="btn primary" id="btnOptimize">⚡ Otimizar rota</button><button class="btn" id="btnEditMap">✋ Editar ordem pelos balões</button><button class="btn" id="btnFinishMapEdit" style="display:none">✅ Concluir ordem</button><button class="btn" id="btnEditLocation">📍 Editar localização</button><button class="btn" id="btnFinishLocationEdit" style="display:none">✅ Concluir localização</button><button class="btn" id="btnRoadRoute">🗺️ Calcular trajeto</button><button class="btn" id="btnReset">↩️ Restaurar ordem</button><button class="btn" id="btnFit">🔎 Ver tudo</button></div><div class="map-edit-note" id="mapEditNote">✋ Clique nos balões na ordem desejada. Depois clique em “Concluir ordem”.</div><div class="map-edit-note" id="locationEditNote">📍 Arraste os balões para o local correto. Ao soltar, confirme o endereço encontrado.</div></div>
   <div class="config-actions"><button class="btn primary" id="btnGoNavigation">🚚 Ir para navegação</button></div>
   </section>
-  <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div></div></section>
-</div></div></section>
+  <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div><div class="map-search-panel" id="mapSearchPanel"><div class="map-search-head"><strong>🔎 Pesquisar endereço para esta parada</strong><button class="map-search-close" id="mapSearchClose">✕</button></div><div class="map-search-row"><input id="mapSearchInput" placeholder="Rua, número, bairro, cidade"><button class="btn primary" id="mapSearchBtn">Pesquisar</button></div><div class="map-search-note">A busca atual usa o geocodificador OpenStreetMap. Quando ativarmos a API do Google, esta mesma tela poderá usar Google Maps/Places.</div><div class="map-search-results" id="mapSearchResults"></div></div></div></section>
+  </div></div></section>
 <section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Concluídos</span><b id="navCompletedStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Restante</span><b id="navRemainingStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-map-mode" id="btnMapMode" title="Alternar visualização do mapa">🗺️</button><div class="map-mode-hint" id="mapModeHint">Rota completa</div><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
 </main>
 </div>
@@ -89,7 +96,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 <div class="toast" id="toast"></div>
 
 <script>
-const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null,userPosition:null,geoWatchId:null,mapMode:0};
+const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,mapSearchIndex:null,start:null,home:null,userPosition:null,geoWatchId:null,mapMode:0,cityCache:{},tileLayer:null};
 
 const STREET_TYPES={
   r:'rua','r.':'rua','rua':'rua','av':'avenida','av.':'avenida','aven':'avenida','avenida':'avenida',
@@ -170,6 +177,8 @@ function makeGroup(rowIndices){
     }else if(h===bairroCol || h===cityCol){
       out[h]=uniqueVals(rows.map(r=>r[h])).join(' | ');
     }else if(h.toLowerCase()==='latitude' || h.toLowerCase()==='longitude'){
+      // Para uma parada agrupada, usa a coordenada da primeira linha válida como referência.
+      // Todas as coordenadas originais continuam preservadas em __rows e podem ser corrigidas no mapa.
       const nums=rows.map(r=>Number(r[h])).filter(Number.isFinite);
       out[h]=nums.length?nums[0]:first[h];
     }else{
@@ -207,39 +216,21 @@ function buildGroups(){
 function render(){
   updateStats(); renderList(); renderConfigStopList(); renderMap();
 }
-function packageCount(g){
-  const seqCol=findCol(state.headers,['Sequence','Sequência']);
-  if(!seqCol)return g.__rows?.length||1;
-  const n=(g.__rows||[]).filter(r=>String(r[seqCol]??'').trim()!=='').length;
-  return n||((g.__rows||[]).length||1)
-}
+function packageCount(g){const seqCol=findCol(state.headers,['Sequence','Sequência']); if(!seqCol)return g.__rows?.length||1; const n=(g.__rows||[]).filter(r=>String(r[seqCol]??'').trim()!=='').length; return n||((g.__rows||[]).length||1)}
 function updateStats(){
   const a=document.getElementById('statStops'); if(a)a.textContent=state.groups.length;
   const b=document.getElementById('statPackages'); if(b)b.textContent=state.rows.length;
   const c=document.getElementById('statDone'); if(c)c.textContent=state.groups.filter(g=>g.status==='done').length;
   const d=document.getElementById('routeCount'); if(d)d.textContent=state.groups.length+' paradas';
-
   const completedStops=state.groups.filter(g=>g.status==='done'||g.status==='notdone').length;
   const remainingStops=state.groups.filter(g=>g.status==='pending'||g.status==='end').length;
-
   const totalPackages=state.groups.reduce((sum,g)=>sum+packageCount(g),0);
   const completedPackages=state.groups.filter(g=>g.status==='done').reduce((sum,g)=>sum+packageCount(g),0);
   const remainingPackages=state.groups.filter(g=>g.status==='pending'||g.status==='end').reduce((sum,g)=>sum+packageCount(g),0);
-
   const pct=totalPackages?(completedPackages/totalPackages)*100:0;
-
-  const cs=document.getElementById('navCompletedStops');
-  if(cs)cs.textContent=`${completedStops} parada${completedStops===1?'':'s'} / ${completedPackages} pacote${completedPackages===1?'':'s'}`;
-
-  const rs=document.getElementById('navRemainingStops');
-  if(rs)rs.textContent=`${remainingStops} parada${remainingStops===1?'':'s'} / ${remainingPackages} pacote${remainingPackages===1?'':'s'}`;
-
-  const dp=document.getElementById('navDeliveryProgress');
-  if(dp){
-    dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`;
-    dp.classList.toggle('delivery-good',pct>=98);
-    dp.classList.toggle('delivery-low',pct<98);
-  }
+  const cs=document.getElementById('navCompletedStops'); if(cs)cs.textContent=`${completedStops} parada${completedStops===1?'':'s'} / ${completedPackages} pacote${completedPackages===1?'':'s'}`;
+  const rs=document.getElementById('navRemainingStops'); if(rs)rs.textContent=`${remainingStops} parada${remainingStops===1?'':'s'} / ${remainingPackages} pacote${remainingPackages===1?'':'s'}`;
+  const dp=document.getElementById('navDeliveryProgress'); if(dp){dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`; dp.classList.toggle('delivery-good',pct>=98); dp.classList.toggle('delivery-low',pct<98);}
 }
 function matches(g){ return true; }
 function reorderByStatus(){
@@ -310,6 +301,7 @@ function saveStopEditor(idx){
   if(seqCol)oldRows.forEach((r,i)=>r[seqCol]=seqs[i]||'');
   g.__rows=oldRows; g.__indices=oldRows.map((_,i)=>i); g.__packageCount=n;
   if(addrCol){const a=document.getElementById('editAddress').value.trim(); if(a){g[addrCol]=a;g.__mapAddress=a}}
+  // Recalcula campos agregados a partir das linhas, preservando valores diferentes com " | ".
   state.headers.forEach(h=>{if(h===seqCol)g[h]=seqs.join(', ');else if(h===addrCol){}else{const vals=uniqueVals(oldRows.map(r=>r[h]));if(vals.length)g[h]=vals.join(' | ')}});
   const moved=state.groups.splice(idx,1)[0]; state.groups.splice(order-1,0,moved);
   document.getElementById('detailModal').classList.remove('open'); save(); render(); toast(`✅ Parada ajustada: ${n} pacote${n===1?'':'s'} / ${seqs.join(', ')}`);
@@ -350,7 +342,10 @@ function renderList(){
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function initMap(){
   state.map=L.map('map').setView([-19.9,-44.9],11);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(state.map);
+  const street=L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,attribution:'Tiles © Esri — Source: Esri, OpenStreetMap'});
+  const osm=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap contributors'});
+  street.addTo(state.map); state.tileLayer=street;
+  L.control.layers({'🗺️ Ruas (Esri)':street,'🗺️ OpenStreetMap':osm},null,{position:'topright',collapsed:true}).addTo(state.map);
 }
 function getNextStop(){
   return state.groups.find(g=>g.status==='pending'||g.status==='end')||null;
@@ -392,12 +387,96 @@ function startNavigationTracking(){
   state.geoWatchId=navigator.geolocation.watchPosition(pos=>{
     state.userPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
     renderMap();
-  },()=>{if(state.screen==='navigation')toast('📍 Não foi possível acessar sua localização. Verifique a permissão de localização do navegador.');},{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
+  },()=>{if(state.screen==='navigation')toast('📍 Não foi possível acessar sua localização. Verifique a permissão de localização do navegador.');}, {enableHighAccuracy:true,maximumAge:5000,timeout:15000});
 }
 function stopNavigationTracking(){
   if(state.geoWatchId!==null){navigator.geolocation.clearWatch(state.geoWatchId);state.geoWatchId=null;}
   state.userPosition=null;
 }
+function isBrazilCoordinate(lat,lng){
+  return Number.isFinite(lat)&&Number.isFinite(lng)&&lat>=-35.5&&lat<=6.5&&lng>=-75.5&&lng<=-28.0;
+}
+function groupCity(g){
+  const cityCol=findCol(state.headers,['City','Cidade']);
+  const bairroCol=findCol(state.headers,['Bairro','Neighborhood']);
+  const city=String(cityCol?g[cityCol]||'':'').trim();
+  const stateCol=findCol(state.headers,['State','Estado','UF']);
+  const uf=String(stateCol?g[stateCol]||'':'').trim();
+  return {city,uf,bairro:String(bairroCol?g[bairroCol]||'':'').trim()};
+}
+async function geocodeCity(city,uf=''){
+  const q=[city,uf,'Brasil'].filter(Boolean).join(', '); const key=norm(q);
+  if(!city)return null;
+  if(state.cityCache[key])return state.cityCache[key];
+  const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&addressdetails=1&q='+encodeURIComponent(q);
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}); if(!r.ok)throw new Error('city-geocode');
+  const j=await r.json(); if(!j[0])return null;
+  const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:j[0].display_name||q,display:j[0].display_name||q};
+  if(isBrazilCoordinate(point.lat,point.lng))state.cityCache[key]=point;
+  return point;
+}
+async function repairGroupLocations(showToast=true){
+  if(!state.groups.length)return;
+  const cityCenters=new Map();
+  let repaired=0;
+  for(const g of state.groups){
+    const {city,uf}=groupCity(g);
+    if(city&&!cityCenters.has(norm(city+' '+uf))){
+      try{cityCenters.set(norm(city+' '+uf),await geocodeCity(city,uf));}catch(e){cityCenters.set(norm(city+' '+uf),null)}
+    }
+  }
+  for(const g of state.groups){
+    const lat=Number(g.lat),lng=Number(g.lng);
+    const {city,uf}=groupCity(g); const center=cityCenters.get(norm(city+' '+uf))||null;
+    let bad=!isBrazilCoordinate(lat,lng);
+    if(!bad&&center){
+      const d=haversine(lat,lng,center.lat,center.lng);
+      // Coordenadas muito distantes da própria cidade são tratadas como suspeitas.
+      if(d>180)bad=true;
+    }
+    if(bad&&center){
+      g.lat=center.lat; g.lng=center.lng; g.__locationApprox=true; g.__locationSource='cidade';
+      const latCol=findCol(state.headers,['Latitude','lat']); const lngCol=findCol(state.headers,['Longitude','lng','lon']);
+      if(latCol)g[latCol]=center.lat; if(lngCol)g[lngCol]=center.lng;
+      repaired++;
+    }
+  }
+  if(repaired){save();renderMap();if(showToast)toast(`⚠️ ${repaired} parada(s) sem localização confiável foram posicionadas aproximadamente dentro da cidade.`)}
+}
+function openMapSearch(idx){
+  if(!state.locationEdit)return;
+  const g=state.groups[idx]; if(!g)return;
+  state.mapSearchIndex=idx;
+  const addrCol=findCol(state.headers,['Destination Address','Destination address','Address','Endereço']);
+  const cityCol=findCol(state.headers,['City','Cidade']);
+  const q=[g.__mapAddress||g[addrCol]||'',g[cityCol]||''].filter(Boolean).join(', ');
+  const panel=document.getElementById('mapSearchPanel'),input=document.getElementById('mapSearchInput'),results=document.getElementById('mapSearchResults');
+  if(!panel||!input||!results)return;
+  input.value=q; results.innerHTML='<div class="map-search-note">Digite o endereço e toque em “Pesquisar”.</div>'; panel.classList.add('open');
+  setTimeout(()=>{input.focus();input.select()},60);
+}
+async function searchMapAddress(){
+  const idx=state.mapSearchIndex; if(idx===null||idx===undefined)return;
+  const input=document.getElementById('mapSearchInput'),results=document.getElementById('mapSearchResults'); const q=String(input?.value||'').trim();
+  if(!q)return toast('Digite o endereço para pesquisar.');
+  results.innerHTML='<div class="map-search-note">🔎 Pesquisando endereço…</div>';
+  try{
+    const url='https://nominatim.openstreetmap.org/search?format=json&limit=6&countrycodes=br&addressdetails=1&dedupe=1&q='+encodeURIComponent(q);
+    const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}); if(!r.ok)throw new Error('search');
+    const data=await r.json();
+    if(!data.length){results.innerHTML='<div class="map-search-note">Nenhum resultado. Tente incluir bairro, cidade e número.</div>';return}
+    results.innerHTML=data.map((x,i)=>`<button class="map-search-result" data-map-result="${i}"><strong>${esc(x.display_name||q)}</strong><span>📍 ${Number(x.lat).toFixed(6)}, ${Number(x.lon).toFixed(6)}</span></button>`).join('');
+    results.querySelectorAll('[data-map-result]').forEach(btn=>btn.onclick=()=>chooseMapSearchResult(data[Number(btn.dataset.mapResult)]));
+  }catch(e){results.innerHTML='<div class="map-search-note">Não foi possível pesquisar agora. Tente novamente.</div>'}
+}
+function chooseMapSearchResult(x){
+  const idx=state.mapSearchIndex; if(idx===null||idx===undefined||!x)return;
+  const lat=Number(x.lat),lng=Number(x.lon); if(!isBrazilCoordinate(lat,lng)){toast('Esse resultado está fora do Brasil e não será usado.');return}
+  const panel=document.getElementById('mapSearchPanel'); if(panel)panel.classList.remove('open');
+  openLocationConfirmation(idx,L.latLng(lat,lng),x);
+}
+function closeMapSearch(){state.mapSearchIndex=null;const panel=document.getElementById('mapSearchPanel');if(panel)panel.classList.remove('open')}
+window.appEditLocationSearch=openMapSearch;
 function renderMap(){
   if(!state.map)return;
   state.markers.forEach(m=>m.remove());state.markers=[];
@@ -415,9 +494,11 @@ function renderMap(){
       const seqCol=findCol(state.headers,['Sequence','Sequência']);
       const destinationCol=findCol(state.headers,['Destination','Destino']);
       const displayAddr=g.__mapAddress || g[addrCol] || 'Endereço não informado';
-      m.bindPopup(`<b>${label}. Parada</b><br>${destinationCol?`Destination: ${esc(g[destinationCol]||'—')}<br>`:''}${destinationCol?'Address':'Endereço'}: ${esc(displayAddr)}<br>Sequence: ${esc(g[seqCol]||'—')}<br>📦 ${packageCount(g)} pacote(s)<br>Status: <b>${statusLabel}</b><br><button onclick="window.appDetail(${i})">Detalhes</button>`);
+      const approx=g.__locationApprox?'<div class="approx-badge">⚠️ localização aproximada</div>':'';
+      const editAction=state.locationEdit?`<div class="location-search-actions"><button class="btn primary" onclick="window.appEditLocationSearch(${i})">🔎 Pesquisar endereço no mapa</button><button class="btn" onclick="window.open('https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(${JSON.stringify(displayAddr)}),'_blank')">🌐 Google Maps</button></div>`:'';
+      m.bindPopup(`<b>${label}. Parada</b><br>${destinationCol?`Destination: ${esc(g[destinationCol]||'—')}<br>`:''}${destinationCol?'Address':'Endereço'}: ${esc(displayAddr)}${approx}<br>Sequence: ${esc(g[seqCol]||'—')}<br>📦 ${packageCount(g)} pacote(s)<br>Status: <b>${statusLabel}</b><br>${editAction}${!state.locationEdit?`<button onclick="window.appDetail(${i})">Detalhes</button>`:''}`);
       m.on('click',()=>{
-        if(state.locationEdit)return;
+        if(state.locationEdit){openMapSearch(i);return;}
         if(!state.mapEdit)return;
         const pos=state.mapPick.indexOf(i);
         if(pos>=0){state.mapPick.splice(pos,1);toast('Parada retirada da ordem de edição.');}
@@ -435,22 +516,9 @@ function renderMap(){
       state.markers.push(m);pts.push([g.lat,g.lng]);
     }
   });
-  if(state.userPosition && state.screen==='navigation'){
-    const m=L.circleMarker([state.userPosition.lat,state.userPosition.lng],{radius:8,weight:3,fillOpacity:.95}).addTo(state.map);
-    m.bindPopup('📍 <b>Minha localização</b>');
-    state.markers.push(m);
-    pts.push([state.userPosition.lat,state.userPosition.lng]);
-  }
-  if(state.start && Number.isFinite(state.start.lat)){
-    const m=L.marker([state.start.lat,state.start.lng],{title:'Início'}).addTo(state.map);
-    m.bindPopup('🚚 <b>Ponto de partida</b>');
-    state.markers.push(m);pts.push([state.start.lat,state.start.lng])
-  }
-  if(state.home && Number.isFinite(state.home.lat)){
-    const m=L.marker([state.home.lat,state.home.lng],{title:'Casa'}).addTo(state.map);
-    m.bindPopup('🏠 <b>Ponto final — minha casa</b><br>'+esc(state.home.address||''));
-    state.markers.push(m);pts.push([state.home.lat,state.home.lng])
-  }
+  if(state.userPosition && state.screen==='navigation'){const m=L.circleMarker([state.userPosition.lat,state.userPosition.lng],{radius:8,weight:3,fillOpacity:.95}).addTo(state.map);m.bindPopup('📍 <b>Minha localização</b>');state.markers.push(m);pts.push([state.userPosition.lat,state.userPosition.lng]);}
+  if(state.start && Number.isFinite(state.start.lat)){const m=L.marker([state.start.lat,state.start.lng],{title:'Início'}).addTo(state.map);m.bindPopup('🚚 <b>Ponto de partida</b>');state.markers.push(m);pts.push([state.start.lat,state.start.lng])}
+  if(state.home && Number.isFinite(state.home.lat)){const m=L.marker([state.home.lat,state.home.lng],{title:'Casa'}).addTo(state.map);m.bindPopup('🏠 <b>Ponto final — minha casa</b><br>'+esc(state.home.address||''));state.markers.push(m);pts.push([state.home.lat,state.home.lng])}
   if(state.screen==='navigation'){focusNavigationMap();}else if(pts.length && !state.mapEdit)state.map.fitBounds(pts,{padding:[30,30]});
   updatePointUI();
 }
@@ -488,14 +556,14 @@ function navigate(g){
   window.open(url,'_blank');
 }
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500)}
-function groupNow(){
+async function groupNow(){
   if(!state.rows.length)return toast('Importe uma planilha primeiro.');
-  const before=state.groups.length;
   buildGroups();
   state.originalGroups=state.groups.map(g=>({...g,__indices:[...g.__indices],__rows:[...g.__rows]}));
   state.mapPick=[]; save(); render();
   const reduced=state.rows.length-state.groups.length;
   toast(reduced>0?`🔗 Agrupamento concluído: ${state.rows.length} linhas → ${state.groups.length} paradas (${reduced} linhas agrupadas).`:'Nenhum endereço elegível para agrupamento foi encontrado.');
+  await repairGroupLocations(true); render();
 }
 
 async function importFile(file){
@@ -510,6 +578,7 @@ async function importFile(file){
     buildGroups();
     document.getElementById('fileInfo').style.display='flex';document.getElementById('fileName').textContent=file.name;
     render();const grouped=arr.length-state.groups.length;toast(`Importado: ${arr.length} linhas → ${state.groups.length} paradas (${grouped>0?grouped+' linhas agrupadas':'sem agrupamentos'}).`);
+    await repairGroupLocations(true); render();
   }catch(e){alert('Não foi possível importar: '+e.message)}
 }
 async function optimize(){
@@ -526,6 +595,7 @@ async function optimize(){
     remaining.forEach((g,i)=>{
       if(!Number.isFinite(g.lat)||!Number.isFinite(g.lng))return;
       const d=haversine(cur.lat,cur.lng,g.lat,g.lng);
+      // Quando há casa definida, favorece uma ordem que não deixe a última parada muito distante dela.
       const tail=end?haversine(g.lat,g.lng,end.lat,end.lng)*0.25:0;
       const score=d+tail;
       if(score<bestScore){bestScore=score;best=i}
@@ -591,7 +661,7 @@ function reverseHouseNumber(j){
 function reverseStreet(j){
   return String(j?.address?.road||j?.address?.pedestrian||j?.address?.residential||'').trim();
 }
-async function openLocationConfirmation(idx,ll){
+async function openLocationConfirmation(idx,ll,searchResult=null){
   const g=state.groups[idx];
   state.pendingLocation={idx,lat:ll.lat,lng:ll.lng};
   const sheet=document.getElementById('locationSheet');
@@ -600,8 +670,8 @@ async function openLocationConfirmation(idx,ll){
   body.innerHTML=`<div class="location-sheet-address"><div class="location-sheet-sub">Consultando o ponto exato da rua…</div><div class="coords">${ll.lat.toFixed(6)}, ${ll.lng.toFixed(6)}</div></div>`;
   sheet.classList.add('open');
   try{
-    const j=await reverseGeocode(ll.lat,ll.lng);
-    const address=formatReverseAddress(j)||'';
+    const j=searchResult||await reverseGeocode(ll.lat,ll.lng);
+    const address=formatReverseAddress(j)||j?.display_name||'';
     const house=reverseHouseNumber(j);
     const street=reverseStreet(j);
     const fallback=g.__mapAddress||g[addrCol]||'';
@@ -613,7 +683,7 @@ async function openLocationConfirmation(idx,ll){
   }
 }
 function closeLocationConfirmation(){
-  state.pendingLocation=null;
+  state.pendingLocation=null;closeMapSearch();
   document.getElementById('locationSheet').classList.remove('open');
   renderMap();
 }
@@ -630,18 +700,31 @@ function saveLocationConfirmation(){
   if(lngCol)g[lngCol]=p.lng;
   if(addrCol && value)g[addrCol]=value;
   state.pendingLocation=null;
+  closeMapSearch();
   document.getElementById('locationSheet').classList.remove('open');
   save();
   render();
   toast(`📍 Localização da parada ${p.idx+1} confirmada. Você pode arrastá-la novamente a qualquer momento.`);
 }
+
 async function geocodeAddress(query){
   const q=String(query||'').trim(); if(!q)throw new Error('empty');
   const key=norm(q); if(state.geocodeCache[key]) return {...state.geocodeCache[key],address:q};
+  // Consulta disparada somente por ação explícita do usuário (sem autocomplete).
   const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&q='+encodeURIComponent(q);
-  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}}); if(!r.ok)throw new Error('geocode');
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}); if(!r.ok)throw new Error('geocode');
   const j=await r.json(); if(!j[0])throw new Error('notfound');
   const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:q,display:j[0].display_name||q}; state.geocodeCache[key]=point; return point;
+}
+async function geocodeAddressCandidates(query,city=''){
+  const q=String(query||'').trim(); if(!q)throw new Error('empty');
+  const attempts=[]; const clean=q.replace(/\s+/g,' ').trim();
+  attempts.push(clean);
+  if(city&&!norm(clean).includes(norm(city)))attempts.push(clean+', '+city+', Brasil');
+  for(const candidate of attempts){
+    try{return await geocodeAddress(candidate)}catch(e){}
+  }
+  throw new Error('notfound');
 }
 async function geocodeStart(){
   const input=document.getElementById('startAddress'); const q=input?.value.trim();
@@ -651,8 +734,7 @@ async function geocodeStart(){
 }
 function showScreen(name){
   if(name==='navigation' && state.screen!=='navigation')state.mapMode=1;
-  state.screen=name;
-  localStorage.setItem('erp_screen',name);
+  state.screen=name; localStorage.setItem('erp_screen',name);
   if(name==='navigation')startNavigationTracking(); else stopNavigationTracking();
   document.querySelector('.top-actions').style.display=name==='config'?'flex':'none';
   document.getElementById('screenConfig').classList.toggle('active',name==='config');
@@ -660,7 +742,7 @@ function showScreen(name){
   const mapEl=document.getElementById('map');
   const host=document.getElementById(name==='config'?'configMapHost':'navMapHost');
   if(mapEl && host)host.appendChild(mapEl);
-  setTimeout(()=>{state.map?.invalidateSize();renderMap();updateMapModeUI();},80);
+  setTimeout(()=>{state.map?.invalidateSize();renderMap();},80);
 }
 function useLocation(onDone){
   if(!navigator.geolocation)return toast('Seu navegador não oferece geolocalização.');
@@ -714,26 +796,20 @@ document.getElementById('btnHomeCurrent').onclick=setHomeCurrent;
 document.getElementById('btnClearHome').onclick=()=>{state.home=null;document.getElementById('homeAddress').value='';save();renderMap();updatePointUI();toast('Ponto final removido.')};
 document.getElementById('btnGoNavigation').onclick=()=>{if(!state.groups.length)return toast('Importe e agrupe a planilha antes de navegar.');showScreen('navigation')};
 document.getElementById('btnBackConfig').onclick=()=>showScreen('config');
-document.getElementById('btnMapMode').onclick=cycleMapMode;
 
-document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>Number.isFinite(g.lat)&&Number.isFinite(g.lng)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
+document.getElementById('btnMapMode').onclick=cycleMapMode;
+document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>isBrazilCoordinate(g.lat,g.lng)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
+document.getElementById('mapSearchClose').onclick=closeMapSearch;
+document.getElementById('mapSearchBtn').onclick=searchMapAddress;
+document.getElementById('mapSearchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchMapAddress()});
 document.getElementById('modalClose').onclick=()=>document.getElementById('detailModal').classList.remove('open');
 document.getElementById('locationCancel').onclick=closeLocationConfirmation;
 document.getElementById('locationSave').onclick=saveLocationConfirmation;
 document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
 const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
-
-function updateMapModeUI(){
-  const btn=document.getElementById('btnMapMode');
-  const hint=document.getElementById('mapModeHint');
-  if(btn){btn.textContent=['🗺️','📍','🔍'][state.mapMode];btn.title='Visualização: '+mapModeLabel();}
-  if(hint)hint.textContent=mapModeLabel();
-}
-
 initMap();
 showScreen(state.screen);
 showScreen(localStorage.getItem('erp_screen')==='navigation'?'navigation':'config');
-updateMapModeUI();
 </script>
 </body>
 </html>
