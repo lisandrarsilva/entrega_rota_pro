@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Entrega Rota Pro 10.4</title>
+<title>Entrega Rota Pro 10.3</title>
 <link rel="preconnect" href="https://unpkg.com">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
@@ -20,7 +20,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .map-card{overflow:hidden;min-height:calc(100vh - 100px);display:flex;flex-direction:column}.map-toolbar{padding:12px;display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid var(--line)}#map{height:calc(100vh - 205px);min-height:520px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-bottom:12px;overflow:hidden}.stat{padding:13px;border-right:1px solid var(--line)}.stat:last-child{border-right:0}.stat b{display:block;font-size:22px}.stat small{color:var(--muted)}
 .panel{padding:14px;margin-bottom:12px}.route-points{display:grid;grid-template-columns:1fr;gap:10px}.point-box{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fbfdff}.point-head{display:flex;align-items:center;gap:8px;margin-bottom:7px}.point-head strong{font-size:13px}.point-head .point-state{margin-left:auto;font-size:11px;color:var(--muted)}.point-actions{display:flex;gap:7px;flex-wrap:wrap}.point-actions input{flex:1;min-width:180px;border:1px solid var(--line);border-radius:9px;padding:8px 10px}.point-actions .mini{white-space:nowrap}.point-box.start{border-left:4px solid var(--brand)}.point-box.home{border-left:4px solid var(--ok)}.panel h3{margin:0 0 10px;font-size:15px}.import-zone{border:2px dashed #cbd5e1;border-radius:14px;padding:22px;text-align:center;background:#f8fbff}.import-zone.drag{border-color:var(--brand);background:#eef6ff}.import-zone strong{display:block;font-size:16px;margin-bottom:6px}.muted{color:var(--muted);font-size:13px}
-.file-row{display:flex;gap:8px;align-items:center;margin-top:10px}.file-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file-input{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}.file-picker-btn{display:inline-flex;align-items:center;justify-content:center}.file-row{display:flex;gap:8px;align-items:center;margin-top:10px}.file-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .controls{display:flex;gap:8px;flex-wrap:wrap}.controls input{flex:1;min-width:160px;border:1px solid var(--line);border-radius:10px;padding:9px 11px}
 .route-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}.route-head h2{font-size:17px;margin:0}.route-head .count{margin-left:auto;color:var(--muted);font-size:13px}
 .list{display:flex;flex-direction:column;gap:7px;max-height:calc(100vh - 310px);overflow:auto;padding-right:3px}.stop{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fff;display:grid;grid-template-columns:42px minmax(0,1fr);gap:10px;align-items:start}.stop-head{display:flex;align-items:center;gap:8px;min-width:0}.stop-title{font-weight:800;font-size:14px;line-height:1.2}.stop-status{margin-left:auto}.stop-info{display:grid;gap:7px;margin-top:9px}.info-row{display:grid;grid-template-columns:112px minmax(0,1fr);gap:8px;align-items:start;font-size:13px;line-height:1.3}.info-label{font-size:11px;color:var(--muted);font-weight:800;text-transform:none}.info-value{min-width:0;overflow-wrap:anywhere;color:#263246}.package-line{display:flex;align-items:center;gap:8px;margin-top:2px;font-size:13px;font-weight:800}.package-badge{display:inline-flex;align-items:center;gap:4px;padding:4px 8px;border-radius:999px;background:#eef6ff;color:#1759a8;border:1px solid #d5e7ff}.stop-actions{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;padding-top:10px;border-top:1px solid var(--line);margin-top:2px}.order-buttons{display:flex;gap:6px;flex-wrap:wrap}.mini.status-action{font-weight:700}.mini.status-action.active{box-shadow:0 0 0 2px rgba(23,105,224,.18);border-color:#93c5fd}.location-confirm{display:grid;gap:10px}.location-address-box{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-address-box strong{display:block;margin-bottom:4px}.coords{font-size:11px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.order-handle{cursor:grab;color:#94a3b8;font-size:14px;margin-top:3px}.order-buttons{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.mini.status-select{min-width:92px;cursor:pointer}.mini.danger{color:#b91c1c}.stop.dragging{opacity:.45}.stop.done{background:#f0fdf4;border-color:#bbf7d0;opacity:.52}.stop.pending{background:#eff6ff;border-color:#bfdbfe;opacity:1}.stop.notdone{background:#fff5f5;border-color:#fecaca;opacity:.52}.stop.end{background:#fefce8;border-color:#fde68a;opacity:1}.stop.selected{outline:2px solid var(--brand);outline-offset:1px}.map-edit-note{display:none;padding:8px 12px;background:#fff7ed;border-bottom:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:700}.map-edit-note.show{display:block}
@@ -32,9 +32,8 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .nav-map-mode{position:absolute;right:10px;top:10px;z-index:1200;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.96);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.15);display:grid;place-items:center;font-size:19px;font-weight:800;color:var(--ink)}.nav-map-mode:hover{background:#fff}.delivery-good{color:#172033}.delivery-low{color:#dc2626}.map-mode-hint{position:absolute;right:58px;top:12px;z-index:1200;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:10px;padding:6px 9px;font-size:11px;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,.12);display:none}.nav-map-card.show-mode-hint .map-mode-hint{display:block}.toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:4000}.toast.show{display:block}
 @media(max-width:1050px){.main{grid-template-columns:1fr}.map-card{min-height:500px}#map{height:55vh;min-height:420px}.list{max-height:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}}
 @media(max-width:600px){.top{padding:0 10px}.main{padding:7px}.config-wrap{padding:10px}.config-map-panel{min-height:360px}.config-map-panel #configMapHost{height:42vh;min-height:300px}.top-actions .btn{padding:7px 8px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:1fr;gap:2px}.info-label{font-size:10px}.info-value{font-size:13px}.stop{grid-template-columns:34px 1fr;padding:10px}.stop-actions{grid-column:1/-1;justify-content:flex-start}.stop-actions .order-buttons{width:100%}.stop-actions .mini{padding:6px 8px;font-size:11px}.nav-map-card{height:44vh;min-height:320px}.nav-side{height:54vh}.nav-side .controls{display:grid;grid-template-columns:1fr 100px;gap:6px}.nav-side .controls input{min-width:0}.route-head h2{font-size:15px}.route-head .count{font-size:12px}}
-/* Contadores da tela de navegação */
+
 .nav-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}.nav-stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}.nav-stat span{font-size:11px;color:var(--muted);font-weight:800}.nav-stat b{font-size:18px;white-space:nowrap}@media(max-width:600px){.nav-stats{grid-template-columns:1fr 1fr}.nav-stat{padding:8px 10px}.nav-stat:last-child{grid-column:1/-1}.nav-stat b{font-size:16px}}
-/* Tela dupla: configuração e navegação */
 .screen{display:none;min-height:calc(100vh - 64px)}.screen.active{display:block}
 .config-wrap{max-width:1100px;margin:0 auto;padding:22px}.config-grid{display:grid;grid-template-columns:410px minmax(0,1fr);gap:14px;align-items:start}.config-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .nav-wrap{padding:12px}.nav-grid{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:12px;height:calc(100vh - 88px)}.nav-map-card{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:0;display:flex;flex-direction:column}.nav-map-toolbar{display:none}#map{height:100%;min-height:0;flex:1}.nav-map-host{flex:1;min-height:0}.nav-side{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;min-height:0}.nav-side .list{max-height:none;flex:1;min-height:0}.nav-back{margin-right:auto}.screen-title{display:flex;align-items:center;gap:10px;margin-bottom:12px}.screen-title h1{font-size:20px;margin:0}.screen-title .muted{margin-left:auto}.config-map-panel{min-height:520px}.config-map-panel #configMapHost{height:calc(100vh - 230px);min-height:500px;border-radius:12px;overflow:hidden}.config-map-panel #map{height:100%;min-height:0}.config-controls{gap:7px}.nav-map-host{height:100%}.nav-config-float{position:absolute;top:10px;left:10px;z-index:1200;height:42px;padding:0 14px;border-radius:12px;background:rgba(255,255,255,.96);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.15);font-size:13px;font-weight:800;color:var(--ink)}.nav-config-float:hover{background:#fff;box-shadow:0 6px 18px rgba(0,0,0,.2)}.nav-map-card{position:relative}
@@ -46,6 +45,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .map-search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px}.map-search-row input{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px}.map-search-results{display:grid;gap:6px;margin-top:8px;max-height:240px;overflow:auto}.map-search-result{width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px;cursor:pointer}.map-search-result:hover{background:#f8fbff;border-color:#bfdbfe}.map-search-result strong{display:block;font-size:12px}.map-search-result span{display:block;font-size:11px;color:var(--muted);margin-top:3px}.map-search-note{font-size:11px;color:var(--muted);margin-top:7px}.approx-badge{display:inline-flex;align-items:center;gap:4px;margin-top:5px;padding:3px 7px;border-radius:999px;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;font-size:10px;font-weight:800}
 .location-search-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}.location-search-actions .btn{font-size:12px;padding:7px 9px}
 @media(max-width:600px){.map-search-panel{top:7px;left:7px;right:7px;padding:9px}.map-search-results{max-height:210px}.map-search-row{grid-template-columns:1fr}.map-search-row .btn{width:100%}}
+
 @media(max-width:1050px){.config-grid,.nav-grid{grid-template-columns:1fr}.config-map-panel{min-height:420px}.config-map-panel #configMapHost{height:46vh;min-height:360px}.nav-grid{height:auto;display:flex;flex-direction:column;gap:8px}.nav-map-card{height:48vh;min-height:360px;flex:none}.nav-map-toolbar{padding:8px;gap:6px}.nav-map-toolbar .btn{font-size:12px;padding:8px 9px}.nav-side{height:50vh;min-height:0;overflow:hidden;display:flex;flex-direction:column}.nav-side .list{max-height:none;flex:1;min-height:0;overflow-y:auto}.nav-side .controls{position:sticky;top:0;background:#fff;z-index:2;padding-bottom:7px}.route-head{margin-bottom:7px}}
 </style>
 </head>
@@ -55,7 +55,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   <div class="logo">Entrega <span>Rota Pro</span> <span style="font-size:11px;color:#94a3b8">10.3</span></div>
   <div class="top-actions">
     <button class="btn" id="btnLocate">📍 Minha localização</button>
-    <button class="btn primary" id="btnImportTop">📥 Importar</button>
+    <label class="btn primary file-picker-btn" for="fileInput">📥 Importar</label>
     <button class="btn ok" id="btnExportTop">📤 Exportar</button>
   </div>
 </header>
@@ -63,7 +63,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 <section class="screen active" id="screenConfig"><div class="config-wrap"><div class="screen-title"><h1>⚙️ Configuração da rota</h1><span class="muted">Prepare a rota antes de iniciar a navegação</span></div><div class="config-grid"><section class="left">
   <div class="panel">
     <h3>📦 Importação</h3>
-    <div class="import-zone" id="dropZone"><strong>📦 Importe sua planilha da Shopee</strong><div class="muted">Arraste .xlsx/.xls/.csv aqui ou selecione um arquivo.</div><div style="margin-top:10px"><button class="btn primary" id="btnChoose">Selecionar planilha</button></div><input id="fileInput" type="file" accept=".xlsx,.xls,.xlsm,.csv" hidden><div class="file-row" id="fileInfo" style="display:none"><span class="badge">OK</span><span class="file-name" id="fileName"></span></div></div>
+    <div class="import-zone" id="dropZone"><strong>📦 Importe sua planilha da Shopee</strong><div class="muted">Arraste .xlsx/.xls/.csv aqui ou selecione um arquivo.</div><div style="margin-top:10px"><label class="btn primary file-picker-btn" for="fileInput">Selecionar planilha</label></div><input id="fileInput" class="file-input" type="file" accept=".xlsx,.xls,.xlsm,.csv"><div class="file-row" id="fileInfo" style="display:none"><span class="badge">OK</span><span class="file-name" id="fileName"></span></div></div>
   </div>
   <div class="panel"><h3>🔗 Agrupamento</h3><button class="btn primary" id="btnGroup">🔗 Agrupar endereços</button><div class="muted" style="margin-top:7px">Uma parada por endereço elegível. Mantém todos os Sequence, complementos e colunas originais.</div><div class="stats" style="margin-top:10px"><div class="stat"><b id="statPackages">0</b><small>Pacotes</small></div><div class="stat"><b id="statStops">0</b><small>Paradas</small></div></div></div>
   <div class="panel"><h3>📝 Ajustar paradas</h3><div class="muted" style="margin-bottom:9px">Revise os agrupamentos antes de iniciar. Cada parada pode ser editada ou excluída.</div><div class="config-stop-list" id="configStopList"><div class="empty">Importe e agrupe uma planilha para editar as paradas.</div></div></div>
@@ -75,7 +75,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   <div class="config-actions"><button class="btn primary" id="btnGoNavigation">🚚 Ir para navegação</button></div>
   </section>
   <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div><div class="map-search-panel" id="mapSearchPanel"><div class="map-search-head"><strong>🔎 Pesquisar endereço para esta parada</strong><button class="map-search-close" id="mapSearchClose">✕</button></div><div class="map-search-row"><input id="mapSearchInput" placeholder="Rua, número, bairro, cidade"><button class="btn primary" id="mapSearchBtn">Pesquisar</button></div><div class="map-search-note">A busca atual usa o geocodificador OpenStreetMap. Quando ativarmos a API do Google, esta mesma tela poderá usar Google Maps/Places.</div><div class="map-search-results" id="mapSearchResults"></div></div></div></section>
-  </div></div></section>
+</div></div></section>
 <section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Concluídos</span><b id="navCompletedStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Restante</span><b id="navRemainingStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-map-mode" id="btnMapMode" title="Alternar visualização do mapa">🗺️</button><div class="map-mode-hint" id="mapModeHint">Rota completa</div><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
 </main>
 </div>
@@ -177,8 +177,6 @@ function makeGroup(rowIndices){
     }else if(h===bairroCol || h===cityCol){
       out[h]=uniqueVals(rows.map(r=>r[h])).join(' | ');
     }else if(h.toLowerCase()==='latitude' || h.toLowerCase()==='longitude'){
-      // Para uma parada agrupada, usa a coordenada da primeira linha válida como referência.
-      // Todas as coordenadas originais continuam preservadas em __rows e podem ser corrigidas no mapa.
       const nums=rows.map(r=>Number(r[h])).filter(Number.isFinite);
       out[h]=nums.length?nums[0]:first[h];
     }else{
@@ -301,7 +299,6 @@ function saveStopEditor(idx){
   if(seqCol)oldRows.forEach((r,i)=>r[seqCol]=seqs[i]||'');
   g.__rows=oldRows; g.__indices=oldRows.map((_,i)=>i); g.__packageCount=n;
   if(addrCol){const a=document.getElementById('editAddress').value.trim(); if(a){g[addrCol]=a;g.__mapAddress=a}}
-  // Recalcula campos agregados a partir das linhas, preservando valores diferentes com " | ".
   state.headers.forEach(h=>{if(h===seqCol)g[h]=seqs.join(', ');else if(h===addrCol){}else{const vals=uniqueVals(oldRows.map(r=>r[h]));if(vals.length)g[h]=vals.join(' | ')}});
   const moved=state.groups.splice(idx,1)[0]; state.groups.splice(order-1,0,moved);
   document.getElementById('detailModal').classList.remove('open'); save(); render(); toast(`✅ Parada ajustada: ${n} pacote${n===1?'':'s'} / ${seqs.join(', ')}`);
@@ -409,7 +406,7 @@ async function geocodeCity(city,uf=''){
   if(!city)return null;
   if(state.cityCache[key])return state.cityCache[key];
   const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&addressdetails=1&q='+encodeURIComponent(q);
-  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}); if(!r.ok)throw new Error('city-geocode');
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}}); if(!r.ok)throw new Error('city-geocode');
   const j=await r.json(); if(!j[0])return null;
   const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:j[0].display_name||q,display:j[0].display_name||q};
   if(isBrazilCoordinate(point.lat,point.lng))state.cityCache[key]=point;
@@ -431,7 +428,6 @@ async function repairGroupLocations(showToast=true){
     let bad=!isBrazilCoordinate(lat,lng);
     if(!bad&&center){
       const d=haversine(lat,lng,center.lat,center.lng);
-      // Coordenadas muito distantes da própria cidade são tratadas como suspeitas.
       if(d>180)bad=true;
     }
     if(bad&&center){
@@ -462,7 +458,7 @@ async function searchMapAddress(){
   results.innerHTML='<div class="map-search-note">🔎 Pesquisando endereço…</div>';
   try{
     const url='https://nominatim.openstreetmap.org/search?format=json&limit=6&countrycodes=br&addressdetails=1&dedupe=1&q='+encodeURIComponent(q);
-    const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}); if(!r.ok)throw new Error('search');
+    const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}}); if(!r.ok)throw new Error('search');
     const data=await r.json();
     if(!data.length){results.innerHTML='<div class="map-search-note">Nenhum resultado. Tente incluir bairro, cidade e número.</div>';return}
     results.innerHTML=data.map((x,i)=>`<button class="map-search-result" data-map-result="${i}"><strong>${esc(x.display_name||q)}</strong><span>📍 ${Number(x.lat).toFixed(6)}, ${Number(x.lon).toFixed(6)}</span></button>`).join('');
@@ -542,12 +538,12 @@ function openDetail(g){
   document.getElementById('modalTitle').textContent=`Parada • ${g[seqCol]||'—'} • ${pkg} pacote${pkg===1?'':'s'}`;
   const destinationCol=findCol(state.headers,['Destination','Destino']);
   const displayAddr=g.__mapAddress||g[addrCol]||'—';
-  const rows=[`<div class="info-row"><div class="info-label">Sequence</div><div class="info-value">${esc(g[seqCol]||'—')}</div></div>`];
-  if(destinationCol)rows.push(`<div class="info-row"><div class="info-label">Destination</div><div class="info-value">${esc(g[destinationCol]||'—')}</div></div>`);
-  rows.push(`<div class="info-row"><div class="info-label">${destinationCol?'Address':'Destination Address'}</div><div class="info-value">${esc(displayAddr)}</div></div>`);
-  rows.push(`<div class="info-row"><div class="info-label">Bairro</div><div class="info-value">${esc(g[bairroCol]||'—')}</div></div>`);
-  rows.push(`<div class="info-row"><div class="info-label">City</div><div class="info-value">${esc(g[cityCol]||'—')}</div></div>`);
-  document.getElementById('modalBody').innerHTML=`<div style="display:grid;gap:10px"><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div>${rows.join('')}<div class="muted">As demais colunas continuam preservadas internamente para mapa, agrupamento e exportação.</div></div>`;
+  const rows=[`<div class=\"info-row\"><div class=\"info-label\">Sequence</div><div class=\"info-value\">${esc(g[seqCol]||'—')}</div></div>`];
+  if(destinationCol)rows.push(`<div class=\"info-row\"><div class=\"info-label\">Destination</div><div class=\"info-value\">${esc(g[destinationCol]||'—')}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">${destinationCol?'Address':'Destination Address'}</div><div class=\"info-value\">${esc(displayAddr)}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">Bairro</div><div class=\"info-value\">${esc(g[bairroCol]||'—')}</div></div>`);
+  rows.push(`<div class=\"info-row\"><div class=\"info-label\">City</div><div class=\"info-value\">${esc(g[cityCol]||'—')}</div></div>`);
+  document.getElementById('modalBody').innerHTML=`<div style=\"display:grid;gap:10px\"><div class=\"package-line\"><span class=\"package-badge\">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div>${rows.join('')}<div class=\"muted\">As demais colunas continuam preservadas internamente para mapa, agrupamento e exportação.</div></div>`;
   document.getElementById('detailModal').classList.add('open');
 }
 function navigate(g){
@@ -595,7 +591,6 @@ async function optimize(){
     remaining.forEach((g,i)=>{
       if(!Number.isFinite(g.lat)||!Number.isFinite(g.lng))return;
       const d=haversine(cur.lat,cur.lng,g.lat,g.lng);
-      // Quando há casa definida, favorece uma ordem que não deixe a última parada muito distante dela.
       const tail=end?haversine(g.lat,g.lng,end.lat,end.lng)*0.25:0;
       const score=d+tail;
       if(score<bestScore){bestScore=score;best=i}
@@ -710,9 +705,8 @@ function saveLocationConfirmation(){
 async function geocodeAddress(query){
   const q=String(query||'').trim(); if(!q)throw new Error('empty');
   const key=norm(q); if(state.geocodeCache[key]) return {...state.geocodeCache[key],address:q};
-  // Consulta disparada somente por ação explícita do usuário (sem autocomplete).
   const url='https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&q='+encodeURIComponent(q);
-  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}); if(!r.ok)throw new Error('geocode');
+  const r=await fetch(url,{headers:{'Accept-Language':'pt-BR'}}); if(!r.ok)throw new Error('geocode');
   const j=await r.json(); if(!j[0])throw new Error('notfound');
   const point={lat:Number(j[0].lat),lng:Number(j[0].lon),address:q,display:j[0].display_name||q}; state.geocodeCache[key]=point; return point;
 }
@@ -758,9 +752,8 @@ function setHomeCurrent(){
   useLocation(pos=>{state.home={...pos,address:'Minha localização atual'};save();renderMap();updatePointUI();toast('🏠 Sua localização atual foi definida como ponto final.');});
 }
 
-document.getElementById('btnChoose').onclick=()=>document.getElementById('fileInput').click();
-document.getElementById('btnImportTop').onclick=()=>document.getElementById('fileInput').click();
-document.getElementById('fileInput').onchange=e=>{if(e.target.files[0])importFile(e.target.files[0])};
+const fileInput=document.getElementById('fileInput');
+fileInput.addEventListener('change',e=>{if(e.target.files && e.target.files[0])importFile(e.target.files[0]);});
 document.getElementById('btnExportTop').onclick=exportFile;
 document.getElementById('btnGroup').onclick=groupNow;
 document.getElementById('btnEditMap').onclick=()=>{
