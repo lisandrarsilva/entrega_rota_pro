@@ -29,7 +29,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 .empty{padding:35px 15px;text-align:center;color:var(--muted)}.badge{font-size:11px;padding:4px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-weight:750}
 .modal{position:fixed;inset:0;background:rgba(15,23,42,.45);display:none;align-items:center;justify-content:center;z-index:3000;padding:16px}.modal.open{display:flex}.modal-box{width:min(760px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;padding:18px;box-shadow:0 30px 80px rgba(0,0,0,.25)}.modal-box h2{margin:0 0 12px}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{display:flex;flex-direction:column;gap:5px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{border:1px solid var(--line);padding:9px;border-radius:9px}.modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
 .location-sheet{position:fixed;left:50%;bottom:16px;transform:translateX(-50%) translateY(calc(100% + 30px));width:min(680px,calc(100vw - 24px));background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(15,23,42,.22);z-index:3500;padding:14px;opacity:0;pointer-events:none;transition:transform .22s ease,opacity .22s ease}.location-sheet.open{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}.location-sheet-head{display:flex;align-items:flex-start;gap:10px}.location-sheet-icon{width:34px;height:34px;border-radius:10px;background:#fff7ed;color:#c2410c;display:grid;place-items:center;flex:none}.location-sheet-title{font-weight:850;font-size:14px}.location-sheet-sub{font-size:12px;color:var(--muted);margin-top:2px}.location-sheet-address{margin-top:10px;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px}.location-sheet-address strong{display:block;font-size:12px;margin-bottom:4px}.location-sheet-number{display:inline-flex;align-items:center;padding:3px 7px;border-radius:999px;background:#dbeafe;color:#1d4ed8;font-weight:850;font-size:12px;margin-bottom:6px}.location-sheet input{width:100%;border:1px solid var(--line);padding:9px 10px;border-radius:9px}.location-sheet-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}.location-sheet-actions .btn{padding:8px 12px}@media(max-width:600px){.nav-config-float{height:38px;padding:0 10px;font-size:12px}.location-sheet{bottom:8px;width:calc(100vw - 16px);padding:12px;border-radius:14px}.location-sheet-actions{display:grid;grid-template-columns:1fr 1fr}.location-sheet-actions .btn{width:100%}}
-.toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:4000}.toast.show{display:block}
+.nav-map-mode{position:absolute;right:10px;top:10px;z-index:1200;width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.96);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.15);display:grid;place-items:center;font-size:19px;font-weight:800;color:var(--ink)}.nav-map-mode:hover{background:#fff}.delivery-good{color:#172033}.delivery-low{color:#dc2626}.map-mode-hint{position:absolute;right:58px;top:12px;z-index:1200;background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:10px;padding:6px 9px;font-size:11px;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,.12);display:none}.nav-map-card.show-mode-hint .map-mode-hint{display:block}.toast{position:fixed;right:18px;bottom:18px;background:#172033;color:#fff;padding:12px 15px;border-radius:10px;box-shadow:var(--shadow);display:none;z-index:4000}.toast.show{display:block}
 @media(max-width:1050px){.main{grid-template-columns:1fr}.map-card{min-height:500px}#map{height:55vh;min-height:420px}.list{max-height:none}.stats{grid-template-columns:repeat(2,1fr)}.stat:nth-child(2){border-right:0}.stat{border-bottom:1px solid var(--line)}}
 @media(max-width:600px){.top{padding:0 10px}.main{padding:7px}.config-wrap{padding:10px}.config-map-panel{min-height:360px}.config-map-panel #configMapHost{height:42vh;min-height:300px}.top-actions .btn{padding:7px 8px}.stats{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.info-row{grid-template-columns:1fr;gap:2px}.info-label{font-size:10px}.info-value{font-size:13px}.stop{grid-template-columns:34px 1fr;padding:10px}.stop-actions{grid-column:1/-1;justify-content:flex-start}.stop-actions .order-buttons{width:100%}.stop-actions .mini{padding:6px 8px;font-size:11px}.nav-map-card{height:44vh;min-height:320px}.nav-side{height:54vh}.nav-side .controls{display:grid;grid-template-columns:1fr 100px;gap:6px}.nav-side .controls input{min-width:0}.route-head h2{font-size:15px}.route-head .count{font-size:12px}}
 /* Contadores da tela de navegação */
@@ -69,7 +69,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
   </section>
   <section class="panel config-map-panel"><h3>🗺️ Mapa para preparação da rota</h3><div class="muted" style="margin-bottom:8px">Use este mapa para ajustar a ordem e corrigir a localização dos balões.</div><div id="configMapHost"><div id="map"></div></div></section>
 </div></div></section>
-<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Concluídos</span><b id="navCompletedStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Restante</span><b id="navRemainingStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
+<section class="screen" id="screenNavigation"><div class="nav-wrap"><div class="nav-stats" id="navStats"><div class="nav-stat"><span>Concluídos</span><b id="navCompletedStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Restante</span><b id="navRemainingStops">0 paradas / 0 pacotes</b></div><div class="nav-stat"><span>Porcentagem de entrega</span><b id="navDeliveryProgress">0 / 0 (0,00%)</b></div></div><div class="nav-grid"><div class="nav-map-card"><button class="nav-map-mode" id="btnMapMode" title="Alternar visualização do mapa">🗺️</button><div class="map-mode-hint" id="mapModeHint">Rota completa</div><button class="nav-config-float" id="btnBackConfig" title="Voltar para configurações">⚙️ Voltar às configurações</button><div id="navMapHost" class="nav-map-host"></div></div><aside class="nav-side"><div class="route-head"><h2>Rota</h2><span class="count" id="routeCount">0 paradas</span></div><div class="list" id="stopList"><div class="empty">Importe e agrupe uma planilha para começar.</div></div></aside></div></div></section>
 </main>
 </div>
 
@@ -89,7 +89,7 @@ button,input,select{font:inherit} button{cursor:pointer;border:0}.app{min-height
 <div class="toast" id="toast"></div>
 
 <script>
-const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null,userPosition:null,geoWatchId:null};
+const state={screen:'config',rows:[],groups:[],originalGroups:[],fileName:'',headers:[],lat:null,lng:null,map:null,markers:[],routeLine:null,dragId:null,geocodeCache:{},mapEdit:false,mapPick:[],mapOriginalOrder:null,locationEdit:false,pendingLocation:null,start:null,home:null,userPosition:null,geoWatchId:null,mapMode:0};
 
 const STREET_TYPES={
   r:'rua','r.':'rua','rua':'rua','av':'avenida','av.':'avenida','aven':'avenida','avenida':'avenida',
@@ -207,21 +207,39 @@ function buildGroups(){
 function render(){
   updateStats(); renderList(); renderConfigStopList(); renderMap();
 }
-function packageCount(g){const seqCol=findCol(state.headers,['Sequence','Sequência']); if(!seqCol)return g.__rows?.length||1; const n=(g.__rows||[]).filter(r=>String(r[seqCol]??'').trim()!=='').length; return n||((g.__rows||[]).length||1)}
+function packageCount(g){
+  const seqCol=findCol(state.headers,['Sequence','Sequência']);
+  if(!seqCol)return g.__rows?.length||1;
+  const n=(g.__rows||[]).filter(r=>String(r[seqCol]??'').trim()!=='').length;
+  return n||((g.__rows||[]).length||1)
+}
 function updateStats(){
   const a=document.getElementById('statStops'); if(a)a.textContent=state.groups.length;
   const b=document.getElementById('statPackages'); if(b)b.textContent=state.rows.length;
   const c=document.getElementById('statDone'); if(c)c.textContent=state.groups.filter(g=>g.status==='done').length;
   const d=document.getElementById('routeCount'); if(d)d.textContent=state.groups.length+' paradas';
+
   const completedStops=state.groups.filter(g=>g.status==='done'||g.status==='notdone').length;
   const remainingStops=state.groups.filter(g=>g.status==='pending'||g.status==='end').length;
-  const completedPackages=state.groups.filter(g=>g.status==='done'||g.status==='notdone').reduce((sum,g)=>sum+packageCount(g),0);
+
+  const totalPackages=state.groups.reduce((sum,g)=>sum+packageCount(g),0);
+  const completedPackages=state.groups.filter(g=>g.status==='done').reduce((sum,g)=>sum+packageCount(g),0);
   const remainingPackages=state.groups.filter(g=>g.status==='pending'||g.status==='end').reduce((sum,g)=>sum+packageCount(g),0);
-  const totalPackages=completedPackages+remainingPackages;
+
   const pct=totalPackages?(completedPackages/totalPackages)*100:0;
-  const cs=document.getElementById('navCompletedStops'); if(cs)cs.textContent=`${completedStops} parada${completedStops===1?'':'s'} / ${completedPackages} pacote${completedPackages===1?'':'s'}`;
-  const rs=document.getElementById('navRemainingStops'); if(rs)rs.textContent=`${remainingStops} parada${remainingStops===1?'':'s'} / ${remainingPackages} pacote${remainingPackages===1?'':'s'}`;
-  const dp=document.getElementById('navDeliveryProgress'); if(dp)dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`;
+
+  const cs=document.getElementById('navCompletedStops');
+  if(cs)cs.textContent=`${completedStops} parada${completedStops===1?'':'s'} / ${completedPackages} pacote${completedPackages===1?'':'s'}`;
+
+  const rs=document.getElementById('navRemainingStops');
+  if(rs)rs.textContent=`${remainingStops} parada${remainingStops===1?'':'s'} / ${remainingPackages} pacote${remainingPackages===1?'':'s'}`;
+
+  const dp=document.getElementById('navDeliveryProgress');
+  if(dp){
+    dp.textContent=`${completedPackages} / ${totalPackages} (${pct.toFixed(2).replace('.',',')}%)`;
+    dp.classList.toggle('delivery-good',pct>=98);
+    dp.classList.toggle('delivery-low',pct<98);
+  }
 }
 function matches(g){ return true; }
 function reorderByStatus(){
@@ -337,18 +355,36 @@ function initMap(){
 function getNextStop(){
   return state.groups.find(g=>g.status==='pending'||g.status==='end')||null;
 }
-function focusNavigationMap(){
+function mapModeLabel(){return ['Rota completa','Minha localização → próxima parada','Zoom manual'][state.mapMode]||'Rota completa'}
+function focusNavigationMap(force){
   if(state.screen!=='navigation'||!state.map)return;
   const next=getNextStop();
   const user=state.userPosition;
-  if(user && next && Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
+  if(state.mapMode===2 && !force)return;
+  if(state.mapMode===0){
+    const pts=state.groups.filter(g=>Number.isFinite(g.lat)&&Number.isFinite(g.lng)).map(g=>[g.lat,g.lng]);
+    if(state.start&&Number.isFinite(state.start.lat)&&Number.isFinite(state.start.lng))pts.push([state.start.lat,state.start.lng]);
+    if(state.home&&Number.isFinite(state.home.lat)&&Number.isFinite(state.home.lng))pts.push([state.home.lat,state.home.lng]);
+    if(pts.length)state.map.fitBounds(pts,{padding:[35,35],animate:true});
+  }else if(user&&next&&Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
     const bounds=L.latLngBounds([[user.lat,user.lng],[next.lat,next.lng]]);
     state.map.fitBounds(bounds,{paddingTopLeft:[55,55],paddingBottomRight:[55,90],maxZoom:17,animate:true});
   }else if(user){
     state.map.setView([user.lat,user.lng],16,{animate:true});
-  }else if(next && Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
+  }else if(next&&Number.isFinite(next.lat)&&Number.isFinite(next.lng)){
     state.map.setView([next.lat,next.lng],16,{animate:true});
   }
+}
+function cycleMapMode(){
+  state.mapMode=(state.mapMode+1)%3;
+  const hint=document.getElementById('mapModeHint');
+  if(hint)hint.textContent=mapModeLabel();
+  const card=document.querySelector('.nav-map-card');
+  if(card){card.classList.add('show-mode-hint');setTimeout(()=>card.classList.remove('show-mode-hint'),1400);}
+  const btn=document.getElementById('btnMapMode');
+  if(btn){btn.textContent=['🗺️','📍','🔍'][state.mapMode];btn.title='Visualização: '+mapModeLabel();}
+  if(state.mapMode!==2)focusNavigationMap(true);
+  else toast('🔍 Zoom manual: o mapa não será reposicionado automaticamente.');
 }
 function startNavigationTracking(){
   if(!navigator.geolocation)return;
@@ -356,7 +392,7 @@ function startNavigationTracking(){
   state.geoWatchId=navigator.geolocation.watchPosition(pos=>{
     state.userPosition={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};
     renderMap();
-  },()=>{if(state.screen==='navigation')toast('📍 Não foi possível acessar sua localização. Verifique a permissão de localização do navegador.');}, {enableHighAccuracy:true,maximumAge:5000,timeout:15000});
+  },()=>{if(state.screen==='navigation')toast('📍 Não foi possível acessar sua localização. Verifique a permissão de localização do navegador.');},{enableHighAccuracy:true,maximumAge:5000,timeout:15000});
 }
 function stopNavigationTracking(){
   if(state.geoWatchId!==null){navigator.geolocation.clearWatch(state.geoWatchId);state.geoWatchId=null;}
@@ -399,9 +435,22 @@ function renderMap(){
       state.markers.push(m);pts.push([g.lat,g.lng]);
     }
   });
-  if(state.userPosition && state.screen==='navigation'){const m=L.circleMarker([state.userPosition.lat,state.userPosition.lng],{radius:8,weight:3,fillOpacity:.95}).addTo(state.map);m.bindPopup('📍 <b>Minha localização</b>');state.markers.push(m);pts.push([state.userPosition.lat,state.userPosition.lng]);}
-  if(state.start && Number.isFinite(state.start.lat)){const m=L.marker([state.start.lat,state.start.lng],{title:'Início'}).addTo(state.map);m.bindPopup('🚚 <b>Ponto de partida</b>');state.markers.push(m);pts.push([state.start.lat,state.start.lng])}
-  if(state.home && Number.isFinite(state.home.lat)){const m=L.marker([state.home.lat,state.home.lng],{title:'Casa'}).addTo(state.map);m.bindPopup('🏠 <b>Ponto final — minha casa</b><br>'+esc(state.home.address||''));state.markers.push(m);pts.push([state.home.lat,state.home.lng])}
+  if(state.userPosition && state.screen==='navigation'){
+    const m=L.circleMarker([state.userPosition.lat,state.userPosition.lng],{radius:8,weight:3,fillOpacity:.95}).addTo(state.map);
+    m.bindPopup('📍 <b>Minha localização</b>');
+    state.markers.push(m);
+    pts.push([state.userPosition.lat,state.userPosition.lng]);
+  }
+  if(state.start && Number.isFinite(state.start.lat)){
+    const m=L.marker([state.start.lat,state.start.lng],{title:'Início'}).addTo(state.map);
+    m.bindPopup('🚚 <b>Ponto de partida</b>');
+    state.markers.push(m);pts.push([state.start.lat,state.start.lng])
+  }
+  if(state.home && Number.isFinite(state.home.lat)){
+    const m=L.marker([state.home.lat,state.home.lng],{title:'Casa'}).addTo(state.map);
+    m.bindPopup('🏠 <b>Ponto final — minha casa</b><br>'+esc(state.home.address||''));
+    state.markers.push(m);pts.push([state.home.lat,state.home.lng])
+  }
   if(state.screen==='navigation'){focusNavigationMap();}else if(pts.length && !state.mapEdit)state.map.fitBounds(pts,{padding:[30,30]});
   updatePointUI();
 }
@@ -425,12 +474,12 @@ function openDetail(g){
   document.getElementById('modalTitle').textContent=`Parada • ${g[seqCol]||'—'} • ${pkg} pacote${pkg===1?'':'s'}`;
   const destinationCol=findCol(state.headers,['Destination','Destino']);
   const displayAddr=g.__mapAddress||g[addrCol]||'—';
-  const rows=[`<div class=\"info-row\"><div class=\"info-label\">Sequence</div><div class=\"info-value\">${esc(g[seqCol]||'—')}</div></div>`];
-  if(destinationCol)rows.push(`<div class=\"info-row\"><div class=\"info-label\">Destination</div><div class=\"info-value\">${esc(g[destinationCol]||'—')}</div></div>`);
-  rows.push(`<div class=\"info-row\"><div class=\"info-label\">${destinationCol?'Address':'Destination Address'}</div><div class=\"info-value\">${esc(displayAddr)}</div></div>`);
-  rows.push(`<div class=\"info-row\"><div class=\"info-label\">Bairro</div><div class=\"info-value\">${esc(g[bairroCol]||'—')}</div></div>`);
-  rows.push(`<div class=\"info-row\"><div class=\"info-label\">City</div><div class=\"info-value\">${esc(g[cityCol]||'—')}</div></div>`);
-  document.getElementById('modalBody').innerHTML=`<div style=\"display:grid;gap:10px\"><div class=\"package-line\"><span class=\"package-badge\">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div>${rows.join('')}<div class=\"muted\">As demais colunas continuam preservadas internamente para mapa, agrupamento e exportação.</div></div>`;
+  const rows=[`<div class="info-row"><div class="info-label">Sequence</div><div class="info-value">${esc(g[seqCol]||'—')}</div></div>`];
+  if(destinationCol)rows.push(`<div class="info-row"><div class="info-label">Destination</div><div class="info-value">${esc(g[destinationCol]||'—')}</div></div>`);
+  rows.push(`<div class="info-row"><div class="info-label">${destinationCol?'Address':'Destination Address'}</div><div class="info-value">${esc(displayAddr)}</div></div>`);
+  rows.push(`<div class="info-row"><div class="info-label">Bairro</div><div class="info-value">${esc(g[bairroCol]||'—')}</div></div>`);
+  rows.push(`<div class="info-row"><div class="info-label">City</div><div class="info-value">${esc(g[cityCol]||'—')}</div></div>`);
+  document.getElementById('modalBody').innerHTML=`<div style="display:grid;gap:10px"><div class="package-line"><span class="package-badge">📦 ${pkg} pacote${pkg===1?'':'s'}</span></div>${rows.join('')}<div class="muted">As demais colunas continuam preservadas internamente para mapa, agrupamento e exportação.</div></div>`;
   document.getElementById('detailModal').classList.add('open');
 }
 function navigate(g){
@@ -586,7 +635,6 @@ function saveLocationConfirmation(){
   render();
   toast(`📍 Localização da parada ${p.idx+1} confirmada. Você pode arrastá-la novamente a qualquer momento.`);
 }
-
 async function geocodeAddress(query){
   const q=String(query||'').trim(); if(!q)throw new Error('empty');
   const key=norm(q); if(state.geocodeCache[key]) return {...state.geocodeCache[key],address:q};
@@ -602,7 +650,9 @@ async function geocodeStart(){
   catch(e){toast('Endereço de partida não encontrado. Tente incluir cidade e estado.');}
 }
 function showScreen(name){
-  state.screen=name; localStorage.setItem('erp_screen',name);
+  if(name==='navigation' && state.screen!=='navigation')state.mapMode=1;
+  state.screen=name;
+  localStorage.setItem('erp_screen',name);
   if(name==='navigation')startNavigationTracking(); else stopNavigationTracking();
   document.querySelector('.top-actions').style.display=name==='config'?'flex':'none';
   document.getElementById('screenConfig').classList.toggle('active',name==='config');
@@ -610,7 +660,7 @@ function showScreen(name){
   const mapEl=document.getElementById('map');
   const host=document.getElementById(name==='config'?'configMapHost':'navMapHost');
   if(mapEl && host)host.appendChild(mapEl);
-  setTimeout(()=>{state.map?.invalidateSize();renderMap();},80);
+  setTimeout(()=>{state.map?.invalidateSize();renderMap();updateMapModeUI();},80);
 }
 function useLocation(onDone){
   if(!navigator.geolocation)return toast('Seu navegador não oferece geolocalização.');
@@ -664,6 +714,7 @@ document.getElementById('btnHomeCurrent').onclick=setHomeCurrent;
 document.getElementById('btnClearHome').onclick=()=>{state.home=null;document.getElementById('homeAddress').value='';save();renderMap();updatePointUI();toast('Ponto final removido.')};
 document.getElementById('btnGoNavigation').onclick=()=>{if(!state.groups.length)return toast('Importe e agrupe a planilha antes de navegar.');showScreen('navigation')};
 document.getElementById('btnBackConfig').onclick=()=>showScreen('config');
+document.getElementById('btnMapMode').onclick=cycleMapMode;
 
 document.getElementById('btnFit').onclick=()=>{const pts=state.groups.filter(g=>Number.isFinite(g.lat)&&Number.isFinite(g.lng)).map(g=>[g.lat,g.lng]);if(pts.length)state.map.fitBounds(pts,{padding:[30,30]})};
 document.getElementById('modalClose').onclick=()=>document.getElementById('detailModal').classList.remove('open');
@@ -671,9 +722,18 @@ document.getElementById('locationCancel').onclick=closeLocationConfirmation;
 document.getElementById('locationSave').onclick=saveLocationConfirmation;
 document.getElementById('detailModal').onclick=e=>{if(e.target.id==='detailModal')e.currentTarget.classList.remove('open')};
 const dz=document.getElementById('dropZone');['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('drag')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('drag')}));dz.addEventListener('drop',e=>{const f=e.dataTransfer.files[0];if(f)importFile(f)});
+
+function updateMapModeUI(){
+  const btn=document.getElementById('btnMapMode');
+  const hint=document.getElementById('mapModeHint');
+  if(btn){btn.textContent=['🗺️','📍','🔍'][state.mapMode];btn.title='Visualização: '+mapModeLabel();}
+  if(hint)hint.textContent=mapModeLabel();
+}
+
 initMap();
 showScreen(state.screen);
 showScreen(localStorage.getItem('erp_screen')==='navigation'?'navigation':'config');
+updateMapModeUI();
 </script>
 </body>
 </html>
